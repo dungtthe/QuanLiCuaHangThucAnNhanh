@@ -60,6 +60,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converter\CusNameConverter.cs" />
+    <Compile Include="Converter\IndexConverter.cs" />
+    <Compile Include="Converter\InputPriceConvert.cs" />
+    <Compile Include="Converter\PriceConverter.cs" />
+    <Compile Include="Converter\SalePriceConvert.cs" />
     <Compile Include="Model\ChiTietHoaDonBan.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
