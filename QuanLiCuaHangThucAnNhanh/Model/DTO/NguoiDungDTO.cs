@@ -106,6 +106,17 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
             {
                 loai = value;
                 OnPropertyChanged(nameof(Loai));
+                if (loai != null)
+                {
+                    if (loai == 0)
+                    {
+                        ChucVu = "Nhân viên";
+                    }
+                    else
+                    {
+                        ChucVu = "Quản lí";
+                    }
+                }
             }
         }
 
@@ -128,6 +139,17 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
             {
                 isDeleted = value;
                 OnPropertyChanged(nameof(IsDeleted));
+            }
+        }
+
+        private string chucVu;
+        public string ChucVu
+        {
+            get => chucVu;
+            set
+            {
+                chucVu = value;
+                OnPropertyChanged(nameof(ChucVu));
             }
         }
 

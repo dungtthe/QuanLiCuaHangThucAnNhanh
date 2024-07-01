@@ -40,8 +40,8 @@ CREATE TABLE NguoiDung (
     SoDienThoai VARCHAR(50) UNIQUE,
     Email VARCHAR(500) UNIQUE,
     DiaChi NVARCHAR(1000),
-    TenTaiKhoan VARCHAR(255),
-	MatKhau VARCHAR(255),
+    TenTaiKhoan VARCHAR(255) NOT NULL UNIQUE,
+	MatKhau VARCHAR(255) NOT NULL,
     Loai INT DEFAULT 0, --0 là nhân viên, 1 là quản lí
 	Image VARBINARY(MAX),
 	IsDeleted BIT DEFAULT 0

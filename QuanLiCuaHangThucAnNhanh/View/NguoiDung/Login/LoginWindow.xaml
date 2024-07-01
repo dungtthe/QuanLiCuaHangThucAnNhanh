@@ -12,6 +12,7 @@
     Width="846"
     Height="494"
     Background="White"
+    DataContext="{StaticResource LoginVM}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     Icon="/Resources/Icon/icon_app.ico"
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
