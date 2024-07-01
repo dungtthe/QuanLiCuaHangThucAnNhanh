@@ -20,8 +20,8 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
             }
         }
 
-        private float heSoBan;
-        public float HeSoBan
+        private Nullable<double> heSoBan;
+        public Nullable<double> HeSoBan
         {
             get => heSoBan;
             set
