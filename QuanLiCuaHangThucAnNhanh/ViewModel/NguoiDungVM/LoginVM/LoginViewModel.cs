@@ -3,6 +3,7 @@ using QuanLiCuaHangThucAnNhanh.Model.DA;
 using QuanLiCuaHangThucAnNhanh.Model.DTO;
 using QuanLiCuaHangThucAnNhanh.Utils;
 using QuanLiCuaHangThucAnNhanh.View.MessageBox;
+using QuanLiCuaHangThucAnNhanh.View.NguoiDung;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace QuanLiCuaHangThucAnNhanh.ViewModel.LoginVM
+namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.LoginVM
 {
     public class LoginViewModel:BaseViewModel
     {
@@ -90,15 +91,11 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.LoginVM
 
                         PasswordBox a = (PasswordBox)p.FindName("passwordBox");
                         a.Password = "";
-                        if (nguoidung.Loai==0)
-                        {
-                            MessageBoxCustom.Show(MessageBoxCustom.Success, "Nhân viên!");
-                        }
-                        else
-                        {
-                            MessageBoxCustom.Show(MessageBoxCustom.Success, "Quản lí!");
-                        }
 
+                        MainNguoiDungVM.nguoiDungDTOCur = nguoidung;
+                        MainNguoiDungView ad = new MainNguoiDungView();
+                        ad.Owner = p;
+                        ad.Show();
                     }
                     else
                     {

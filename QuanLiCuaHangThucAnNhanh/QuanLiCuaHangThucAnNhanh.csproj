@@ -115,8 +115,9 @@
     </Compile>
     <Compile Include="Utils\MotSoPhuongThucBoTro.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
-    <Compile Include="ViewModel\LoginVM\LoginViewModel.cs" />
+    <Compile Include="ViewModel\NguoiDungVM\LoginVM\LoginViewModel.cs" />
     <Compile Include="ViewModel\MessageBoxVM\MessageBoxViewModel.cs" />
+    <Compile Include="ViewModel\NguoiDungVM\MainNguoiDungVM.cs" />
     <Compile Include="View\MessageBox\ConfirmLogout.xaml.cs">
       <DependentUpon>ConfirmLogout.xaml</DependentUpon>
     </Compile>
@@ -135,6 +136,9 @@
     </Compile>
     <Compile Include="View\NguoiDung\Login\LoginWindow.xaml.cs">
       <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NguoiDung\MainNguoiDungView.xaml.cs">
+      <DependentUpon>MainNguoiDungView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -173,6 +177,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NguoiDung\Login\LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NguoiDung\MainNguoiDungView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -385,7 +393,9 @@
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="View\NguoiDung\QuanLi\" />
+  </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
