@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon_app.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -55,6 +58,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Utils\MotSoPhuongThucBoTro.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -93,6 +97,85 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icon\icon_app.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Image\logo_cua_hang_login.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icon\AddBlack_Icon.png" />
+    <Resource Include="Resources\Icon\AddCusBtn.png" />
+    <Resource Include="Resources\Icon\AddGray_Icon.png" />
+    <Resource Include="Resources\Icon\Add_NoBackground.png" />
+    <Resource Include="Resources\Icon\Admin_Icon.png" />
+    <Resource Include="Resources\Icon\BackMenu_Icon.png" />
+    <Resource Include="Resources\Icon\Ban_Brown_Icon.png" />
+    <Resource Include="Resources\Icon\Ban_White_Icon.png" />
+    <Resource Include="Resources\Icon\Caution_Brown_Icon.png" />
+    <Resource Include="Resources\Icon\ChangeBrown_Icon.png" />
+    <Resource Include="Resources\Icon\CircleTick.png" />
+    <Resource Include="Resources\Icon\DeleteBlue_Icon.png" />
+    <Resource Include="Resources\Icon\DeleteGray_Icon.png" />
+    <Resource Include="Resources\Icon\Delete_Caution.png" />
+    <Resource Include="Resources\Icon\Edit.png" />
+    <Resource Include="Resources\Icon\ErrorBrown_Icon.png" />
+    <Resource Include="Resources\Icon\ErrorWhite_Icon.png" />
+    <Resource Include="Resources\Icon\Excel_white_Icon.png" />
+    <Resource Include="Resources\Icon\ExportExelCongNoTonKho.png" />
+    <Resource Include="Resources\Icon\Export_excel_white_icon.png" />
+    <Resource Include="Resources\Icon\Help_Icon.png" />
+    <Resource Include="Resources\Icon\HistoryBrown_Icon.png" />
+    <Resource Include="Resources\Icon\HistoryWhite_Icon.png" />
+    <Resource Include="Resources\Icon\IconImport.png" />
+    <Resource Include="Resources\Icon\Icon_ExportStaff.png" />
+    <Resource Include="Resources\Icon\Icon_ImportStaff.png" />
+    <Resource Include="Resources\Icon\import_products.png" />
+    <Resource Include="Resources\Icon\Info_Icon.png" />
+    <Resource Include="Resources\Icon\ion_cart-brown.png" />
+    <Resource Include="Resources\Icon\ion_cart-white.png" />
+    <Resource Include="Resources\Icon\KhachHang_Brown_Icon.png" />
+    <Resource Include="Resources\Icon\KhachHang_White_Icon.png" />
+    <Resource Include="Resources\Icon\Logout_Icon.png" />
+    <Resource Include="Resources\Icon\Log_Out_Caution.png" />
+    <Resource Include="Resources\Icon\Magnifying_Glass.png" />
+    <Resource Include="Resources\Icon\Menu_Icon.png" />
+    <Resource Include="Resources\Icon\Money_Icon.png" />
+    <Resource Include="Resources\Icon\money_icon_green.png" />
+    <Resource Include="Resources\Icon\NhanVien_Brown_Icon.png" />
+    <Resource Include="Resources\Icon\NhanVien_White_Icon.png" />
+    <Resource Include="Resources\Icon\Oke_Brown_Icon.png" />
+    <Resource Include="Resources\Icon\PenBlack_Icon.png" />
+    <Resource Include="Resources\Icon\plus.png" />
+    <Resource Include="Resources\Icon\plus_orange_icon.png" />
+    <Resource Include="Resources\Icon\PrintIcon.png" />
+    <Resource Include="Resources\Icon\Remove.png" />
+    <Resource Include="Resources\Icon\Remove_NoBackground.png" />
+    <Resource Include="Resources\Icon\SaleTableBrown_Icon.png" />
+    <Resource Include="Resources\Icon\SanPham_Brown_Icon.png" />
+    <Resource Include="Resources\Icon\SanPham_White_Icon.png" />
+    <Resource Include="Resources\Icon\SearchGray_Icon.png" />
+    <Resource Include="Resources\Icon\SearchIconCus.png" />
+    <Resource Include="Resources\Icon\Setting_Icon.png" />
+    <Resource Include="Resources\Icon\SubtractBlack_Icon.png" />
+    <Resource Include="Resources\Icon\SuCoIcon.png" />
+    <Resource Include="Resources\Icon\SuCo_Brown_Icon.png" />
+    <Resource Include="Resources\Icon\SuCo_White_Icon.png" />
+    <Resource Include="Resources\Icon\system_icon_brown.png" />
+    <Resource Include="Resources\Icon\system_icon_white.png" />
+    <Resource Include="Resources\Icon\TaiKhoan_Brown_Icon.png" />
+    <Resource Include="Resources\Icon\ThongKe_Brown_Icon.png" />
+    <Resource Include="Resources\Icon\ThongKe_White_Icon.png" />
+    <Resource Include="Resources\Icon\Upload_Icon.png" />
+    <Resource Include="Resources\Icon\Warning_Icon.png" />
+    <Resource Include="Resources\Icon\WhiteAdd_Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icon\icon_app.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon_app.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
