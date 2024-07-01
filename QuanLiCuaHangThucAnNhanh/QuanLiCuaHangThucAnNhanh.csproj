@@ -59,6 +59,23 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Utils\MotSoPhuongThucBoTro.cs" />
+    <Compile Include="ViewModel\MessageBoxVM\MessageBoxViewModel.cs" />
+    <Compile Include="View\MessageBox\ConfirmLogout.xaml.cs">
+      <DependentUpon>ConfirmLogout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MessageBox\DeleteMessage.xaml.cs">
+      <DependentUpon>DeleteMessage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MessageBox\Error.xaml.cs">
+      <DependentUpon>Error.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MessageBox\MessageBoxCustom.cs" />
+    <Compile Include="View\MessageBox\Success.xaml.cs">
+      <DependentUpon>Success.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MessageBox\Warning.xaml.cs">
+      <DependentUpon>Warning.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -71,6 +88,30 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ResourcesXAML\MainResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MessageBox\ConfirmLogout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MessageBox\DeleteMessage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MessageBox\Error.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MessageBox\Success.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MessageBox\Warning.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -260,5 +301,6 @@
       <Version>1.1.2</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
