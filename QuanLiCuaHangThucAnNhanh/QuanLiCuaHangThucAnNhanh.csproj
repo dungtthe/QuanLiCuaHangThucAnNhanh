@@ -58,6 +58,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\DTO\ChiTietHoaDonBanDTO.cs" />
+    <Compile Include="Model\DTO\ChiTietHoaDonNhapDTO.cs" />
+    <Compile Include="Model\DTO\DanhMucSanPhamDTO.cs" />
+    <Compile Include="Model\DTO\HoaDonBanDTO.cs" />
+    <Compile Include="Model\DTO\HoaDonNhapDTO.cs" />
+    <Compile Include="Model\DTO\KhachHangDTO.cs" />
+    <Compile Include="Model\DTO\NguoiDungDTO.cs" />
+    <Compile Include="Model\DTO\SanPhamDTO.cs" />
+    <Compile Include="Model\DTO\ThamSoDTO.cs" />
     <Compile Include="Utils\MotSoPhuongThucBoTro.cs" />
     <Compile Include="ViewModel\MessageBoxVM\MessageBoxViewModel.cs" />
     <Compile Include="View\MessageBox\ConfirmLogout.xaml.cs">
@@ -310,6 +319,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CreateTable.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\DA\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
