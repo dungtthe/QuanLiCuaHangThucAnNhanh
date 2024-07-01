@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace QuanLiCuaHangThucAnNhanh.Utils
 {
@@ -25,5 +27,74 @@ namespace QuanLiCuaHangThucAnNhanh.Utils
             }
             return strBuilder.ToString();
         }
+
+
+
+        //chuyển Bitmap sang mảng Byte
+        public static byte[] BitmapImageToByteArray(BitmapImage bitmapImage)
+        {
+            byte[] data;
+            PngBitmapEncoder encoder = new PngBitmapEncoder(); // Sử dụng PNG encoder
+            encoder.Frames.Add(BitmapFrame.Create(bitmapImage));
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                encoder.Save(stream);
+                data = stream.ToArray();
+            }
+
+            return data;
+        }
+
+
+        /// Phương thức chuyển đổi mảng byte thành BitmapImage
+        public static BitmapImage ByteArrayToBitmapImage(byte[] byteArray)
+        {
+            using (var stream = new MemoryStream(byteArray))
+            {
+                var bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.StreamSource = stream;
+                bitmapImage.EndInit();
+                bitmapImage.Freeze(); 
+                return bitmapImage;
+            }
+        }
+
+
+        //phương thức tạo tên file ngẫu nhiên
+        public static string RandomFileName(string type)
+        {
+            Random random = new Random();
+            int passwordLength = random.Next(10, 20);
+            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var password = new char[passwordLength];
+
+            for (int i = 0; i < passwordLength; i++)
+            {
+                password[i] = chars[random.Next(chars.Length)];
+            }
+
+            string result = type + "_" + new string(password);
+            return result;
+        }
+
+
+        //random password
+        public static string RandomPassword()
+        {
+            Random random = new Random();
+            int passwordLength = random.Next(10, 20);
+            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var password = new char[passwordLength];
+
+            for (int i = 0; i < passwordLength; i++)
+            {
+                password[i] = chars[random.Next(chars.Length)];
+            }
+            return new string(password);
+        }
+
     }
 }
