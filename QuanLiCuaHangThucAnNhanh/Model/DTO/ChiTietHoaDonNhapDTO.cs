@@ -53,8 +53,8 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
             }
         }
 
-        private bool isDeleted;
-        public bool IsDeleted
+        private Nullable<bool> isDeleted;
+        public Nullable<bool> IsDeleted
         {
             get => isDeleted;
             set

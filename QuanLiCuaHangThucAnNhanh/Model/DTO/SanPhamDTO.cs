@@ -76,8 +76,8 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
             }
         }
 
-        private BitmapImage image;
-        public BitmapImage Image
+        private byte[] image;
+        public byte[] Image
         {
             get => image;
             set
@@ -87,8 +87,8 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
             }
         }
 
-        private bool isDeleted;
-        public bool IsDeleted
+        private Nullable<bool> isDeleted;
+        public Nullable<bool> IsDeleted
         {
             get => isDeleted;
             set

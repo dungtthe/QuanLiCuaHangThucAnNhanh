@@ -34,8 +34,8 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
         }
 
 
-        private DateTime? ngaySinh;
-        public DateTime? NgaySinh
+        private Nullable<System.DateTime> ngaySinh;
+        public Nullable<System.DateTime> NgaySinh
         {
             get => ngaySinh;
             set
@@ -82,8 +82,8 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
         }
 
 
-        private int diemTichLuy;
-        public int DiemTichLuy
+        private Nullable<int> diemTichLuy;
+        public Nullable<int> DiemTichLuy
         {
             get => diemTichLuy;
             set
@@ -94,8 +94,8 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
         }
 
 
-        private bool isDelete;
-        public bool IsDelete
+        private Nullable<bool> isDelete;
+        public Nullable<bool> IsDelete
         {
             get=> isDelete;
             set

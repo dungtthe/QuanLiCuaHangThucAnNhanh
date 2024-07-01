@@ -32,8 +32,8 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
             }
         }
 
-        private DateTime? ngaySinh;
-        public DateTime? NgaySinh
+        private Nullable<System.DateTime> ngaySinh;
+        public Nullable<System.DateTime> NgaySinh
         {
             get => ngaySinh;
             set
@@ -98,8 +98,8 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
             }
         }
 
-        private int loai;
-        public int Loai
+        private Nullable<int> loai;
+        public Nullable<int> Loai
         {
             get => loai;
             set
@@ -109,8 +109,8 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
             }
         }
 
-        private BitmapImage image;
-        public BitmapImage Image
+        private byte[] image;
+        public byte[] Image
         {
             get => image;
             set
@@ -120,8 +120,8 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
             }
         }
 
-        private bool isDeleted;
-        public bool IsDeleted
+        private Nullable<bool> isDeleted;
+        public Nullable<bool> IsDeleted
         {
             get => isDeleted;
             set
