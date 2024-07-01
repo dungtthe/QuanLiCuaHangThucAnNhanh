@@ -119,8 +119,15 @@ CREATE TABLE ChiTietHoaDonBan (
 
 
 
+
 --insert dữ liệu
 INSERT INTO THAMSO DEFAULT VALUES;
+
+--id 1 là khách vãng lai
+INSERT INTO KhachHang (HoTen, NgaySinh, SoDienThoai, Email, DiaChi, DiemTichLuy)
+VALUES 
+(N'Khách vãng lai', '1980-01-01', 'unknown', 'unknown', 'unknown', 0);
+
 
 -- mật khẩu là admin
 INSERT INTO NguoiDung (HoTen, NgaySinh, SoDienThoai, Email, DiaChi, TenTaiKhoan, MatKhau, Loai) 
@@ -136,3 +143,4 @@ VALUES
 GO
 
 GO
+
