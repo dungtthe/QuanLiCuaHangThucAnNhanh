@@ -1,5 +1,6 @@
 ﻿using QuanLiCuaHangThucAnNhanh.Model.DTO;
 using QuanLiCuaHangThucAnNhanh.View.MessageBox;
+using QuanLiCuaHangThucAnNhanh.View.NguoiDung.ThongKe;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,8 +26,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM
 
         public MainNguoiDungVM()
         {
-
-            MessageBoxCustom.Show(MessageBoxCustom.Success,nguoiDungDTOCur.HoTen);
+            LoadThongKePage = new RelayCommand<Frame>((p) => { return true; }, (p) => { p.Content = new ThongKeMainPage(); });
           
         }
     }

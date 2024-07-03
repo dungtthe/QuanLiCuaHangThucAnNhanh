@@ -28,6 +28,10 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
             get => hoTen;
             set
             {
+                if (string.IsNullOrEmpty(value))
+                {
+                    value = "unkown";
+                }
                 hoTen = value;
                 OnPropertyChanged(nameof(HoTen));
             }

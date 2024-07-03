@@ -11,9 +11,9 @@ namespace QuanLiCuaHangThucAnNhanh.Converter
     {
         public object Convert(object value, Type TargetType, object parameter, CultureInfo culture)
         {
-            if (string.IsNullOrEmpty((string)value))
+            if (value == null || string.IsNullOrWhiteSpace(value.ToString()))
             {
-                value = "unknown";
+                return "unknown";
             }
             return value;
         }
