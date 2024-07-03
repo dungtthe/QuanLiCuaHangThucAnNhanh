@@ -148,6 +148,9 @@
     <Compile Include="View\MessageBox\Warning.xaml.cs">
       <DependentUpon>Warning.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\NguoiDung\CustomerMangament\CustomerAddingView.xaml.cs">
+      <DependentUpon>CustomerAddingView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\NguoiDung\CustomerMangament\CustomerManagementView.xaml.cs">
       <DependentUpon>CustomerManagementView.xaml</DependentUpon>
     </Compile>
@@ -196,6 +199,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MessageBox\Warning.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NguoiDung\CustomerMangament\CustomerAddingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
