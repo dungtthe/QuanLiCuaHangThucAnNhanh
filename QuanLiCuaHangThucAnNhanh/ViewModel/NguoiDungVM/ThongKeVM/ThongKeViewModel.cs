@@ -44,6 +44,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
 
         #region các Icommand 
         public ICommand LichSuBanCM { get; set; }
+        public ICommand LichSuNhapCM { get; set; }
 
 
         #endregion
@@ -54,7 +55,6 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
 
             #region Lịch sử bán
 
-            //lịch sử bán
             LichSuBanCM = new RelayCommand<Frame>((p) => { return true; }, async (p) =>
             {
                 if (p == null) return;
@@ -64,6 +64,19 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
 
             });
             #endregion
+
+
+            #region Lịch sử nhập
+
+            LichSuNhapCM = new RelayCommand<Frame>((p) => { return true; }, async (p) =>
+            {
+                if (p == null) return;
+
+                p.Content = new View.NguoiDung.ThongKe.LichSuNhap.LichSuTable();
+
+            });
+            #endregion
+
 
         }
         private async Task loadDataForDateChange()
