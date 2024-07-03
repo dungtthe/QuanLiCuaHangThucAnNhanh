@@ -24,7 +24,7 @@
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LichSuThuTienCM}" CommandParameter="{Binding ElementName=TableFrame}" />
+            <i:InvokeCommandAction Command="{Binding LichSuBanCM}" CommandParameter="{Binding ElementName=TableFrame}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
 

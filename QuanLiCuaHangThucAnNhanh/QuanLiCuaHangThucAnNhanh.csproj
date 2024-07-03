@@ -132,6 +132,8 @@
     <Compile Include="ViewModel\NguoiDungVM\LoginVM\LoginViewModel.cs" />
     <Compile Include="ViewModel\MessageBoxVM\MessageBoxViewModel.cs" />
     <Compile Include="ViewModel\NguoiDungVM\MainNguoiDungVM.cs" />
+    <Compile Include="ViewModel\NguoiDungVM\ThongKeVM\LichSuBan.cs" />
+    <Compile Include="ViewModel\NguoiDungVM\ThongKeVM\StyleButton.cs" />
     <Compile Include="ViewModel\NguoiDungVM\ThongKeVM\ThongKeViewModel.cs" />
     <Compile Include="View\MessageBox\ConfirmLogout.xaml.cs">
       <DependentUpon>ConfirmLogout.xaml</DependentUpon>

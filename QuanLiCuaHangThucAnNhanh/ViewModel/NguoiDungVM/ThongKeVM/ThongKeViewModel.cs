@@ -11,8 +11,9 @@ using System.Windows.Input;
 
 namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
 {
-    public class ThongKeViewModel:BaseViewModel
+    public partial class ThongKeViewModel:BaseViewModel
     {
+
 
         #region chọn ngày
         private DateTime _selectedDateFrom = DateTime.Now.AddDays(-2);
@@ -45,6 +46,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
 
 
         #region các Icommand 
+        bool checkThaoTac = false;
         public ICommand LichSuBanCM { get; set; }
         public ICommand LichSuNhapCM { get; set; }
         public ICommand RevenueCM { get; set; }
@@ -53,6 +55,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
         #endregion
 
 
+        bool checkLanDau = false;
         public ThongKeViewModel()
         {
 
@@ -61,9 +64,20 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
             LichSuBanCM = new RelayCommand<Frame>((p) => { return true; }, async (p) =>
             {
                 if (p == null) return;
+                if (!checkThaoTac && checkLanDau)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Thao tác quá nhanh!");
+                    return;
+                }
+                checkThaoTac = false;
+
+
+
 
                 p.Content = new View.NguoiDung.ThongKe.LichSuBan.LichSuTable();
-
+                checkThaoTac = true;
+                checkLanDau = true;
+                CaseNav = 0;
 
             });
             #endregion
@@ -74,8 +88,18 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
             LichSuNhapCM = new RelayCommand<Frame>((p) => { return true; }, async (p) =>
             {
                 if (p == null) return;
+                if (!checkThaoTac)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Thao tác quá nhanh!");
+                    return;
+                }
+                checkThaoTac = false;
+
+
 
                 p.Content = new View.NguoiDung.ThongKe.LichSuNhap.LichSuTable();
+                checkThaoTac = true;
+                CaseNav = 1;
 
             });
             #endregion
@@ -84,8 +108,17 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
             RevenueCM = new RelayCommand<Frame>((p) => { return true; }, async (p) =>
             {
                 if (p == null) return;
+                if (!checkThaoTac)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Thao tác quá nhanh!");
+                    return;
+                }
+                checkThaoTac = false;
+
 
                 await LoadRevenueData(p);
+                checkThaoTac = true;
+                CaseNav = 2;
                 await loadDataForDateChange();
             });
             #endregion
