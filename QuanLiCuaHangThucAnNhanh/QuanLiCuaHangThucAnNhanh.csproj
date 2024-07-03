@@ -157,6 +157,9 @@
     <Compile Include="View\NguoiDung\MainNguoiDungView.xaml.cs">
       <DependentUpon>MainNguoiDungView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\NguoiDung\PersonalInformation.xaml.cs">
+      <DependentUpon>PersonalInformation.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -202,6 +205,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NguoiDung\MainNguoiDungView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NguoiDung\PersonalInformation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -415,6 +422,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="View\NguoiDung\NhanVien\" />
     <Folder Include="View\NguoiDung\QuanLi\" />
   </ItemGroup>
   <ItemGroup>
