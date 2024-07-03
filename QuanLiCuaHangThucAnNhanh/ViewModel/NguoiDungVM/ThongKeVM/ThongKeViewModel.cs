@@ -136,6 +136,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
             RevenueCM = new RelayCommand<Frame>((p) => { return true; }, async (p) =>
             {
                 if (p == null) return;
+
                 if (!checkThaoTac)
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Thao tác quá nhanh!");
@@ -143,14 +144,13 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
                 }
                 checkThaoTac = false;
 
-
                 await LoadRevenueData(p);
+
                 checkThaoTac = true;
                 CaseNav = 2;
                 await loadDataForDateChange();
             });
             #endregion
-
 
         }
         private async Task loadDataForDateChange()
@@ -187,13 +187,16 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
                 }
                 return;
             }
+
+
+            if(CaseNav == 2)
+            {
+                await LoadRevenueData();
+                return;
+            }
         }
 
 
-        private async Task LoadRevenueData(Frame p = null)
-        {
-            if (p == null) return;
-            p.Content = new DoanhThuTable();
-        }
+      
     }
 }

@@ -1,5 +1,6 @@
 ﻿using QuanLiCuaHangThucAnNhanh.Model.DTO;
 using QuanLiCuaHangThucAnNhanh.Model.Mapper;
+using QuanLiCuaHangThucAnNhanh.View.MessageBox;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -65,6 +66,28 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
             }
         }
 
+        //trả về tổng tiền thu được trong 1 ngày
+        public async Task<int> GetDoanhThuByDate(DateTime date)
+        {
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    var billTotalPaid = await context.HoaDonBans
+                        .Where(p => p.NgayTao.HasValue
+                                    && p.NgayTao.Value.Day == date.Day
+                                    && p.NgayTao.Value.Month == date.Month
+                                    && p.NgayTao.Value.Year == date.Year
+                                    && p.IsDeleted == false)
+                        .SumAsync(bill => (int?)bill.TongTienBan);
 
+                    return billTotalPaid ?? 0;
+                }
+            }
+            catch
+            {
+                return -1;
+            }
+        }
     }
 }
