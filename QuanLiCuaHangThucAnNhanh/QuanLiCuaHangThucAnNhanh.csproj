@@ -154,6 +154,9 @@
     <Compile Include="View\NguoiDung\MainNguoiDungView.xaml.cs">
       <DependentUpon>MainNguoiDungView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\NguoiDung\ThongKe\ThongKeMainPage.xaml.cs">
+      <DependentUpon>ThongKeMainPage.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -195,6 +198,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NguoiDung\MainNguoiDungView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NguoiDung\ThongKe\ThongKeMainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -409,6 +416,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\NguoiDung\QuanLi\" />
+    <Folder Include="View\NguoiDung\ThongKe\DoanhThu\" />
+    <Folder Include="View\NguoiDung\ThongKe\LichSuBan\" />
+    <Folder Include="View\NguoiDung\ThongKe\LichSuNhap\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
