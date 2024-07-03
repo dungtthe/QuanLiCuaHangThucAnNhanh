@@ -145,7 +145,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
             if (CaseNav == -1) return;
 
             //lịch sử bán
-            if (CaseNav == 1)
+            if (CaseNav == 0)
             {
 
                 DanhSachHoaDon = new ObservableCollection<HoaDonBanDTO>(await Task.Run(() => HoaDonBanDA.gI().GetAllHoaDonBan()));
