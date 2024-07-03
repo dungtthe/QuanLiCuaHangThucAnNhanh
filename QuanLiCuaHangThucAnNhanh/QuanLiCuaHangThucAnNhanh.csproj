@@ -134,6 +134,7 @@
     <Compile Include="ViewModel\NguoiDungVM\LoginVM\LoginViewModel.cs" />
     <Compile Include="ViewModel\MessageBoxVM\MessageBoxViewModel.cs" />
     <Compile Include="ViewModel\NguoiDungVM\MainNguoiDungVM.cs" />
+    <Compile Include="ViewModel\NguoiDungVM\SaleVM\SaleViewModel.cs" />
     <Compile Include="ViewModel\NguoiDungVM\ThongKeVM\DoanhThu.cs" />
     <Compile Include="ViewModel\NguoiDungVM\ThongKeVM\LichSuBan.cs" />
     <Compile Include="ViewModel\NguoiDungVM\ThongKeVM\LichSuNhap.cs" />
@@ -154,6 +155,9 @@
     </Compile>
     <Compile Include="View\MessageBox\Warning.xaml.cs">
       <DependentUpon>Warning.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NguoiDung\BanHang\SalePage.xaml.cs">
+      <DependentUpon>SalePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\NguoiDung\CustomerMangament\CustomerAddingView.xaml.cs">
       <DependentUpon>CustomerAddingView.xaml</DependentUpon>
@@ -221,6 +225,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MessageBox\Warning.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NguoiDung\BanHang\SalePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
