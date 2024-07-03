@@ -1,4 +1,6 @@
-﻿using System;
+﻿using QuanLiCuaHangThucAnNhanh.View.MessageBox;
+using QuanLiCuaHangThucAnNhanh.View.NguoiDung.ThongKe.DoanhThu;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,6 +47,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
         #region các Icommand 
         public ICommand LichSuBanCM { get; set; }
         public ICommand LichSuNhapCM { get; set; }
+        public ICommand RevenueCM { get; set; }
 
 
         #endregion
@@ -77,11 +80,28 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
             });
             #endregion
 
+            #region DoanhThu
+            RevenueCM = new RelayCommand<Frame>((p) => { return true; }, async (p) =>
+            {
+                if (p == null) return;
+
+                await LoadRevenueData(p);
+                await loadDataForDateChange();
+            });
+            #endregion
+
 
         }
         private async Task loadDataForDateChange()
         {
 
+        }
+
+
+        private async Task LoadRevenueData(Frame p = null)
+        {
+            if (p == null) return;
+            p.Content = new DoanhThuTable();
         }
     }
 }
