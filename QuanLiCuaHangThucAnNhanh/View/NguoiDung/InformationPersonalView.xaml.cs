@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace QuanLiCuaHangThucAnNhanh.View.NguoiDung
 {
     /// <summary>
-    /// Interaction logic for PersonalInformation.xaml
+    /// Interaction logic for InformationPersonalView.xaml
     /// </summary>
-    public partial class PersonalInformation : Window
+    public partial class InformationPersonalView : Window
     {
-        public PersonalInformation()
+        public InformationPersonalView()
         {
             InitializeComponent();
         }

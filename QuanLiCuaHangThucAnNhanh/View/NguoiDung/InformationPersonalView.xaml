@@ -1,4 +1,4 @@
-﻿<Window x:Class="QuanLiCuaHangThucAnNhanh.View.NguoiDung.PersonalInformation"
+﻿<Window x:Class="QuanLiCuaHangThucAnNhanh.View.NguoiDung.InformationPersonalView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -428,7 +428,6 @@
                         Content="Lưu"
                         FontSize="15.36"
                         FontWeight="Bold" />
-
                     <Button
                         Width="98.304"
                         Height="37.888"
