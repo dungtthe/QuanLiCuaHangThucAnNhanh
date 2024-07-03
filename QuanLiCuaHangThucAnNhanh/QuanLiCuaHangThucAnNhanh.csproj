@@ -132,6 +132,7 @@
     <Compile Include="ViewModel\NguoiDungVM\LoginVM\LoginViewModel.cs" />
     <Compile Include="ViewModel\MessageBoxVM\MessageBoxViewModel.cs" />
     <Compile Include="ViewModel\NguoiDungVM\MainNguoiDungVM.cs" />
+    <Compile Include="ViewModel\NguoiDungVM\ThongKeVM\ThongKeViewModel.cs" />
     <Compile Include="View\MessageBox\ConfirmLogout.xaml.cs">
       <DependentUpon>ConfirmLogout.xaml</DependentUpon>
     </Compile>
@@ -153,6 +154,9 @@
     </Compile>
     <Compile Include="View\NguoiDung\MainNguoiDungView.xaml.cs">
       <DependentUpon>MainNguoiDungView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NguoiDung\ThongKe\LichSuBan\LichSuTable.xaml.cs">
+      <DependentUpon>LichSuTable.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\NguoiDung\ThongKe\ThongKeMainPage.xaml.cs">
       <DependentUpon>ThongKeMainPage.xaml</DependentUpon>
@@ -198,6 +202,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NguoiDung\MainNguoiDungView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NguoiDung\ThongKe\LichSuBan\LichSuTable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -417,7 +425,6 @@
   <ItemGroup>
     <Folder Include="View\NguoiDung\QuanLi\" />
     <Folder Include="View\NguoiDung\ThongKe\DoanhThu\" />
-    <Folder Include="View\NguoiDung\ThongKe\LichSuBan\" />
     <Folder Include="View\NguoiDung\ThongKe\LichSuNhap\" />
   </ItemGroup>
   <ItemGroup>

@@ -12,6 +12,7 @@
     d:DesignHeight="800"
     d:DesignWidth="1536"
     Background="{DynamicResource MaterialDesignPaper}"
+    DataContext="{StaticResource ThongKeVM}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     ShowsNavigationUI="False"
     TextElement.FontSize="13"
