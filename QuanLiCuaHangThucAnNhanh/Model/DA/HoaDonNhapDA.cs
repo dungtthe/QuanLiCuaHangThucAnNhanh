@@ -9,48 +9,45 @@ using System.Threading.Tasks;
 
 namespace QuanLiCuaHangThucAnNhanh.Model.DA
 {
-    public class HoaDonBanDA
+    public class HoaDonNhapDA
     {
-        private static HoaDonBanDA instance;
+        private static HoaDonNhapDA instance;
 
-        public static HoaDonBanDA gI()
+        public static HoaDonNhapDA gI()
         {
             if (instance == null)
             {
-                instance = new HoaDonBanDA();
+                instance = new HoaDonNhapDA();
             }
             return instance;
         }
 
-
-        public async Task<List<HoaDonBanDTO>> GetAllHoaDonBan()
+        public async Task<List<HoaDonNhapDTO>> GetAllHoaDonNhap()
         {
             try
             {
                 using (var context = new QuanLiCuaHangThucAnNhanhEntities())
                 {
-                    var billEntities = await (from c in context.HoaDonBans
+                    var billEntities = await (from c in context.HoaDonNhaps
                                               where c.IsDeleted == false
                                               select c).OrderByDescending(m => m.NgayTao).ToListAsync();
 
-                    var billList = billEntities.Select(c => new HoaDonBanDTO
+                    var billList = billEntities.Select(c => new HoaDonNhapDTO
                     {
                         ID = c.ID,
-                        KhachHangID = c.KhachHangID,
                         NguoiDungID = c.NguoiDungID,
                         NgayTao = c.NgayTao,
-                        TongTienBan = c.TongTienBan,
-                        KhachHangDTO = KhachHangMapper.MapToDTO(c.KhachHang),
+                        TongTienNhap = c.TongTienNhap,
                         NguoiDungDTO = NguoiDungMapper.MapToDTO(c.NguoiDung),
-                        ListChiTietHoaDonBanDTO = c.ChiTietHoaDonBans
+                        ListChiTietHoaDonNhapDTO = c.ChiTietHoaDonNhaps
                                                   .Where(x => x.IsDeleted == false)
-                                                  .Select(x => new ChiTietHoaDonBanDTO
+                                                  .Select(x => new ChiTietHoaDonNhapDTO
                                                   {
-                                                      HoaDonBanID = x.HoaDonBanID,
+                                                      HoaDonNhapID = x.HoaDonNhapID,
                                                       DonGia = x.DonGia,
                                                       SanPhamID = x.SanPhamID,
                                                       SoLuong = x.SoLuong,
-                                                      HoaDonBanDTO = HoaDonBanMapper.MapToDTO(x.HoaDonBan),
+                                                      HoaDonNhapDTO = HoaDonNhapMapper.MapToDTO(x.HoaDonNhap),
                                                       SanPhamDTO = SanPhamMapper.MapToDTO(x.SanPham),
                                                   }).ToList(),
                         IsDeleted = c.IsDeleted
@@ -64,7 +61,6 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
                 return null;
             }
         }
-
 
     }
 }

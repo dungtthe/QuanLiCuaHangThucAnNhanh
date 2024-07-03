@@ -78,14 +78,13 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
             }
         }
 
-        private ObservableCollection<ChiTietHoaDonNhapDTO> listChiTietHoaDonNhapDTO;
-        public ObservableCollection<ChiTietHoaDonNhapDTO> ListChiTietHoaDonNhapDTO
+        private List<ChiTietHoaDonNhapDTO> listChiTietHoaDonNhapDTO;
+        public List<ChiTietHoaDonNhapDTO> ListChiTietHoaDonNhapDTO
         {
             get => listChiTietHoaDonNhapDTO;
             set
             {
                 listChiTietHoaDonNhapDTO= value;
-                OnPropertyChanged(nameof(ListChiTietHoaDonNhapDTO));
             }
         }
 

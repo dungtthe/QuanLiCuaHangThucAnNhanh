@@ -76,6 +76,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\DA\HoaDonBanDA.cs" />
+    <Compile Include="Model\DA\HoaDonNhapDA.cs" />
     <Compile Include="Model\DA\NguoiDungDA.cs" />
     <Compile Include="Model\DTO\ChiTietHoaDonBanDTO.cs" />
     <Compile Include="Model\DTO\ChiTietHoaDonNhapDTO.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="ViewModel\MessageBoxVM\MessageBoxViewModel.cs" />
     <Compile Include="ViewModel\NguoiDungVM\MainNguoiDungVM.cs" />
     <Compile Include="ViewModel\NguoiDungVM\ThongKeVM\LichSuBan.cs" />
+    <Compile Include="ViewModel\NguoiDungVM\ThongKeVM\LichSuNhap.cs" />
     <Compile Include="ViewModel\NguoiDungVM\ThongKeVM\StyleButton.cs" />
     <Compile Include="ViewModel\NguoiDungVM\ThongKeVM\ThongKeViewModel.cs" />
     <Compile Include="View\MessageBox\ConfirmLogout.xaml.cs">
