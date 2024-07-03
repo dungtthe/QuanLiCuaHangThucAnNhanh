@@ -4,11 +4,14 @@
     xmlns:viewmodel1="clr-namespace:QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM"
     xmlns:viewmodel2="clr-namespace:QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.LoginVM"
     xmlns:viewmodel3="clr-namespace:QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM"
-    xmlns:viewmodel4="clr-namespace:QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM">
+    xmlns:viewmodel4="clr-namespace:QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM"
+    xmlns:viewmodel5="clr-namespace:QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.KhachHangVM">
+
     <viewmodel1:MainNguoiDungVM x:Key="MainNguoiDungVM" />
     <viewmodel2:LoginViewModel x:Key="LoginVM" />
     <viewmodel3:ThongKeViewModel x:Key="ThongKeVM" />
     <viewmodel4:SaleViewModel x:Key="SaleVM" />
+    <viewmodel5:CustomerManagementViewModel x:Key="CustomerPageVM" />
 
 
 </ResourceDictionary>

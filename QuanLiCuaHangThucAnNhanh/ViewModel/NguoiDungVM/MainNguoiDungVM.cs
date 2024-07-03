@@ -1,6 +1,7 @@
 ﻿using QuanLiCuaHangThucAnNhanh.Model.DTO;
 using QuanLiCuaHangThucAnNhanh.View.MessageBox;
 using QuanLiCuaHangThucAnNhanh.View.NguoiDung.BanHang;
+using QuanLiCuaHangThucAnNhanh.View.NguoiDung.CustomerMangament;
 using QuanLiCuaHangThucAnNhanh.View.NguoiDung.ThongKe;
 using QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM;
 using System;
@@ -37,6 +38,8 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM
             {
                 p.Content = new SalePage();
             });
+            LoadKhachHangPage = new RelayCommand<Frame>((p) => { return true; }, (p) => { p.Content = new CustomerManagementView(); });
+
         }
     }
 }
