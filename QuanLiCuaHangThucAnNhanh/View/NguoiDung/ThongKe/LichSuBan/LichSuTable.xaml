@@ -67,9 +67,8 @@
                                 <TextBlock
                                     Margin="20,0,0,0"
                                     FontSize="17"
-                                    Text="{Binding Customer.DisplayName, Converter={StaticResource CusNameConverter}}" />
+                                    Text="{Binding KhachHangDTO.HoTen}" />
                             </DataTemplate>
-                            <!--  Text="{Binding Customer.DisplayName, Converter={StaticResource CusNameConverter}}" />  -->
 
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -88,7 +87,7 @@
                                 <TextBlock
                                     HorizontalAlignment="Center"
                                     FontSize="17"
-                                    Text="{Binding CreateAt, StringFormat='dd/MM/yyyy HH:mm:ss'}" />
+                                    Text="{Binding NgayTao, StringFormat='dd/MM/yyyy HH:mm:ss'}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
 
@@ -108,7 +107,7 @@
                                 <TextBlock
                                     HorizontalAlignment="Center"
                                     FontSize="17"
-                                    Text="{Binding TotalPrice, StringFormat={}{0:N0} VNĐ}" />
+                                    Text="{Binding TongTienBan, StringFormat={}{0:N0} VNĐ}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
 

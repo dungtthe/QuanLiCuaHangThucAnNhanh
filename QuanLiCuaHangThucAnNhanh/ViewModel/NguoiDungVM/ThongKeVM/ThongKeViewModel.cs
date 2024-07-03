@@ -1,7 +1,10 @@
-﻿using QuanLiCuaHangThucAnNhanh.View.MessageBox;
+﻿using QuanLiCuaHangThucAnNhanh.Model.DA;
+using QuanLiCuaHangThucAnNhanh.Model.DTO;
+using QuanLiCuaHangThucAnNhanh.View.MessageBox;
 using QuanLiCuaHangThucAnNhanh.View.NguoiDung.ThongKe.DoanhThu;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,6 +67,8 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
             LichSuBanCM = new RelayCommand<Frame>((p) => { return true; }, async (p) =>
             {
                 if (p == null) return;
+
+
                 if (!checkThaoTac && checkLanDau)
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Thao tác quá nhanh!");
@@ -71,13 +76,23 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
                 }
                 checkThaoTac = false;
 
-
+                DanhSachHoaDon = new ObservableCollection<HoaDonBanDTO>(await Task.Run(() => HoaDonBanDA.gI().GetAllHoaDonBan()));
+                if (DanhSachHoaDon != null)
+                {
+                    danhSachHoaDon = new List<HoaDonBanDTO>(DanhSachHoaDon);
+                    // Lọc hóa đơn theo ngày tháng năm
+                    DanhSachHoaDon = new ObservableCollection<HoaDonBanDTO>(
+                        danhSachHoaDon.FindAll(x => x.NgayTao.HasValue && x.NgayTao.Value.Date >= SelectedDateFrom.Date && x.NgayTao.Value.Date <= SelectedDateTo.Date)
+                    );
+                }
 
 
                 p.Content = new View.NguoiDung.ThongKe.LichSuBan.LichSuTable();
+
                 checkThaoTac = true;
                 checkLanDau = true;
                 CaseNav = 0;
+                await loadDataForDateChange();
 
             });
             #endregion
@@ -127,7 +142,23 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
         }
         private async Task loadDataForDateChange()
         {
+            if (CaseNav == -1) return;
 
+            //lịch sử bán
+            if (CaseNav == 1)
+            {
+
+                DanhSachHoaDon = new ObservableCollection<HoaDonBanDTO>(await Task.Run(() => HoaDonBanDA.gI().GetAllHoaDonBan()));
+                if (DanhSachHoaDon != null)
+                {
+                    danhSachHoaDon = new List<HoaDonBanDTO>(DanhSachHoaDon);
+                    // Lọc hóa đơn theo ngày tháng năm
+                    DanhSachHoaDon = new ObservableCollection<HoaDonBanDTO>(
+                        danhSachHoaDon.FindAll(x => x.NgayTao.HasValue && x.NgayTao.Value.Date >= SelectedDateFrom.Date && x.NgayTao.Value.Date <= SelectedDateTo.Date)
+                    );
+                }
+                return;
+            }
         }
 
 

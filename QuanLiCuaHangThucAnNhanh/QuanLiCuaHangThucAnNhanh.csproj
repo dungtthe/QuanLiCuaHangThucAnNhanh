@@ -75,6 +75,7 @@
     <Compile Include="Model\DanhMucSanPham.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\DA\HoaDonBanDA.cs" />
     <Compile Include="Model\DA\NguoiDungDA.cs" />
     <Compile Include="Model\DTO\ChiTietHoaDonBanDTO.cs" />
     <Compile Include="Model\DTO\ChiTietHoaDonNhapDTO.cs" />
