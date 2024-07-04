@@ -54,6 +54,20 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
             }
         }
 
+
+        private decimal giaBan;
+        public decimal GiaBan
+        {
+            get => giaBan;
+            set
+            {
+                giaBan = value;
+                OnPropertyChanged(nameof(GiaBan));
+            }
+        }
+
+
+
         private int danhMucSanPhamID;
         public int DanhMucSanPhamID
         {
