@@ -14,7 +14,9 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
 {
     public class SaleViewModel : BaseViewModel
     {
-        public static List<SanPhamDTO> prdList;
+
+        //danh sách sản phẩm 
+        private List<SanPhamDTO> prdList;
         private ObservableCollection<SanPhamDTO> _productList;
 
         public ObservableCollection<SanPhamDTO> ProductList
@@ -22,6 +24,9 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
             get { return _productList; }
             set { _productList = value; OnPropertyChanged(nameof(ProductList)); }
         }
+
+
+        //danh sách tên danh mục sản phẩm
         private ObservableCollection<string> combogenrelist;
         public ObservableCollection<string> ComboList
         {
@@ -30,6 +35,8 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
         }
 
 
+
+        //khách hàng cho bill
 
         private KhachHangDTO khachHangForBill;
         public KhachHangDTO KhachHangForBill
@@ -42,10 +49,11 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
             }
         }
 
-
         private KhachHangDTO khachVangLai;
 
-        //text tìm kiếm
+
+
+        //text tìm kiếm khách hàng
         private string _cusInfo;
         public string CusInfo
         {
@@ -54,17 +62,53 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
         }
 
 
+
+        //chọn item bên danh sách sản phẩm
+        private SanPhamDTO _selectedItemSanPhamDTO;
+
+        public SanPhamDTO SelectedItemSanPhamDTO
+        {
+            get { return _selectedItemSanPhamDTO; }
+            set { _selectedItemSanPhamDTO = value; OnPropertyChanged(nameof(SelectedItemSanPhamDTO)); }
+        }
+
+        //chọn item bên đơn hàng
+        private ChiTietHoaDonBanDTO _selectedItemChiTietHoaDonBan;
+        public ChiTietHoaDonBanDTO SelectedItemChiTietHoaDonBan
+        {
+            get => _selectedItemChiTietHoaDonBan;
+            set
+            {
+                _selectedItemChiTietHoaDonBan = value;
+                OnPropertyChanged(nameof(SelectedItemChiTietHoaDonBan));
+            }
+        }
+
+        //danh sách sản phẩm trong đơn hàng
+        private ObservableCollection<ChiTietHoaDonBanDTO> listChiTietHoaDonBan;
+        public ObservableCollection<ChiTietHoaDonBanDTO> ListChiTietHoaDonBan
+        {
+            get => listChiTietHoaDonBan;
+            set
+            {
+                listChiTietHoaDonBan = value;
+                OnPropertyChanged(nameof(ListChiTietHoaDonBan));
+            }
+        }
+
+
+
         public ICommand FirstLoadCM { get; set; }
         public ICommand SearchCusCM { get; set; }
 
+        //chọn item cho sản phẩm 
+        public ICommand SelectSanPhamDTOCM { get; set; }
 
 
         public SaleViewModel()
         {
-            KhachHangForBill = new KhachHangDTO();
-            KhachHangForBill.HoTen = "Khách vãng lai";
-            khachVangLai = new KhachHangDTO();
-            khachVangLai.HoTen= "Khách vãng lai";
+            khachVangLai = new KhachHangDTO(1,"Khách vãng lai");
+            KhachHangForBill = khachVangLai;
 
             FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
@@ -84,6 +128,12 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
             SearchCusCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
 
+                if (string.IsNullOrEmpty(CusInfo))
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error,"Vui lòng nhập số điện thoại hoặc Email!");
+                    return;
+                }
+
                 KhachHangDTO temp = null;
 
 
@@ -98,12 +148,21 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
                 {
                     Error wd1 = new Error("Khách hàng không tồn tại");
                     temp = khachVangLai;
+                    CusInfo = "";
                     wd1.ShowDialog();
 
                 }
                 KhachHangForBill = temp;
+            });
 
-               
+
+
+            SelectSanPhamDTOCM = new RelayCommand<SanPhamDTO>((p) => { return true; }, (p) =>
+            {
+                if (SelectedItemSanPhamDTO != null)
+                {
+                    MessageBox.Show(SelectedItemSanPhamDTO.TenSP);
+                }
             });
         }
     }

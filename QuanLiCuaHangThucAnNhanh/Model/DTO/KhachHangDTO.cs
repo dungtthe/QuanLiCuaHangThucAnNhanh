@@ -110,6 +110,18 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
         }
 
 
+
+        public KhachHangDTO()
+        {
+
+        }
+
+        public KhachHangDTO(int id,string hoten)
+        {
+            this.ID = id;
+            this.HoTen= hoten;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {

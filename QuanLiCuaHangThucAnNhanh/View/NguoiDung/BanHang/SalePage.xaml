@@ -174,7 +174,7 @@
                             x:Name="SanPhamList"
                             VerticalAlignment="Top"
                             ItemsSource="{Binding ProductList}"
-                            SelectedItem="{Binding SelectedPrdItem}">
+                            SelectedItem="{Binding SelectedItemSanPhamDTO}">
                             <ListView.ItemContainerStyle>
                                 <Style BasedOn="{StaticResource MaterialDesignListBoxItem}" TargetType="{x:Type ListViewItem}">
                                     <Setter Property="Padding" Value="0" />
@@ -281,7 +281,7 @@
                                         </StackPanel>
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                <i:InvokeCommandAction Command="{Binding DataContext.SelectPrd, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}" />
+                                                <i:InvokeCommandAction Command="{Binding DataContext.SelectSanPhamDTOCM, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}" />
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Border>
