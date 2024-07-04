@@ -9,7 +9,6 @@
         Width="530"
         Height="420"
         AllowsTransparency="True"
-        MouseLeftButtonDown="Window_MouseLeftButtonDown"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
@@ -23,10 +22,10 @@
         </ResourceDictionary>
     </Window.Resources>
     <Border
-    Background="White"
-    BorderBrush="DarkGray"
-    BorderThickness="1"
-    CornerRadius="20">
+        Background="White"
+        BorderBrush="DarkGray"
+        BorderThickness="1"
+        CornerRadius="20">
         <Grid>
             <Grid.Resources>
                 <Style TargetType="TextBlock">
@@ -40,11 +39,11 @@
             </Grid.RowDefinitions>
 
             <TextBlock
-            Margin="30,35,0,0"
-            FontSize="20"
-            FontWeight="Bold"
-            Foreground="#CC824D"
-            Text="Sửa thông tin nhân viên:" />
+                Margin="30,35,0,0"
+                FontSize="20"
+                FontWeight="Bold"
+                Foreground="#CC824D"
+                Text="Sửa thông tin nhân viên:" />
 
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
@@ -52,118 +51,118 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <TextBlock
-                Grid.Row="0"
-                Margin="40,20,0,20"
-                FontSize="14.4"
-                FontWeight="Bold"
-                Text="Thông tin cơ bản: " />
+                    Grid.Row="0"
+                    Margin="40,20,0,20"
+                    FontSize="14.4"
+                    FontWeight="Bold"
+                    Text="Thông tin cơ bản: " />
 
                 <StackPanel
-                Grid.Row="1"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Orientation="Horizontal">
+                    Grid.Row="1"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
                     <StackPanel Margin="0,0,0,20" Orientation="Vertical">
 
                         <!--  Họ tên  -->
                         <StackPanel
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal">
-                            <TextBlock
-                            Margin="0,0,10,0"
+                            HorizontalAlignment="Right"
                             VerticalAlignment="Center"
-                            FontSize="12.8"
-                            Text="Họ tên" />
+                            Orientation="Horizontal">
+                            <TextBlock
+                                Margin="0,0,10,0"
+                                VerticalAlignment="Center"
+                                FontSize="12.8"
+                                Text="Họ tên" />
                             <TextBox
-                            Width="300"
-                            Height="30"
-                            Padding="12,0,0,0"
-                            HorizontalAlignment="Left"
-                            VerticalContentAlignment="Center"
-                            materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                            materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
-                            Background="#D9D9D9"
-                            BorderBrush="Transparent"
-                            FontFamily="Inter"
-                            FontSize="15"
-                            Text="{Binding DisplayName}" />
+                                Width="300"
+                                Height="30"
+                                Padding="12,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalContentAlignment="Center"
+                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
+                                Background="#D9D9D9"
+                                BorderBrush="Transparent"
+                                FontFamily="Inter"
+                                FontSize="15"
+                                Text="{Binding DisplayName}" />
 
                         </StackPanel>
 
                         <!--  Email  -->
                         <StackPanel
-                        Margin="0,10,0,0"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal">
-                            <TextBlock
-                            Margin="0,0,10,0"
+                            Margin="0,10,0,0"
+                            HorizontalAlignment="Right"
                             VerticalAlignment="Center"
-                            FontSize="12.8"
-                            Text="Email" />
+                            Orientation="Horizontal">
+                            <TextBlock
+                                Margin="0,0,10,0"
+                                VerticalAlignment="Center"
+                                FontSize="12.8"
+                                Text="Email" />
                             <TextBox
-                            Width="300"
-                            Height="30"
-                            Padding="12,2.4"
-                            HorizontalAlignment="Left"
-                            VerticalContentAlignment="Center"
-                            materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                            materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
-                            Background="#D9D9D9"
-                            BorderBrush="Transparent"
-                            FontFamily="Inter"
-                            FontSize="15"
-                            Text="{Binding Email}" />
+                                Width="300"
+                                Height="30"
+                                Padding="12,2.4"
+                                HorizontalAlignment="Left"
+                                VerticalContentAlignment="Center"
+                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
+                                Background="#D9D9D9"
+                                BorderBrush="Transparent"
+                                FontFamily="Inter"
+                                FontSize="15"
+                                Text="{Binding Email}" />
                         </StackPanel>
 
                         <!--  Số điện thoại  -->
                         <StackPanel
-                        Margin="0,10,0,0"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal">
-                            <TextBlock
-                            Margin="0,0,10,0"
+                            Margin="0,10,0,0"
+                            HorizontalAlignment="Right"
                             VerticalAlignment="Center"
-                            FontSize="12.8"
-                            Text="Số điện thoại" />
+                            Orientation="Horizontal">
+                            <TextBlock
+                                Margin="0,0,10,0"
+                                VerticalAlignment="Center"
+                                FontSize="12.8"
+                                Text="Số điện thoại" />
                             <TextBox
-                            Width="300"
-                            Height="30"
-                            Padding="12,2.4"
-                            HorizontalAlignment="Left"
-                            VerticalContentAlignment="Center"
-                            materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                            materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
-                            Background="#D9D9D9"
-                            BorderBrush="Transparent"
-                            FontFamily="Inter"
-                            FontSize="15"
-                            Text="{Binding PhoneNumber}" />
+                                Width="300"
+                                Height="30"
+                                Padding="12,2.4"
+                                HorizontalAlignment="Left"
+                                VerticalContentAlignment="Center"
+                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
+                                Background="#D9D9D9"
+                                BorderBrush="Transparent"
+                                FontFamily="Inter"
+                                FontSize="15"
+                                Text="{Binding PhoneNumber}" />
                         </StackPanel>
 
                         <!--  Chức vụ  -->
                         <StackPanel
-                        Margin="0,10,0,0"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal">
-                            <TextBlock
-                            Margin="0,0,10,0"
+                            Margin="0,10,0,0"
+                            HorizontalAlignment="Right"
                             VerticalAlignment="Center"
-                            FontSize="12.8"
-                            Text="Chức vụ" />
+                            Orientation="Horizontal">
+                            <TextBlock
+                                Margin="0,0,10,0"
+                                VerticalAlignment="Center"
+                                FontSize="12.8"
+                                Text="Chức vụ" />
                             <ComboBox
-                            Width="300"
-                            Height="30"
-                            Padding="12,0,5,0"
-                            materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                            materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
-                            Background="#D9D9D9"
-                            BorderThickness="0"
-                            FontSize="15"
-                            Text="{Binding Role}">
+                                Width="300"
+                                Height="30"
+                                Padding="12,0,5,0"
+                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
+                                Background="#D9D9D9"
+                                BorderThickness="0"
+                                FontSize="15"
+                                Text="{Binding Role}">
                                 <ComboBoxItem Content="Quản lí" />
                                 <ComboBoxItem Content="Nhân viên" />
                             </ComboBox>
@@ -171,56 +170,55 @@
 
                         <!--  Địa chỉ  -->
                         <StackPanel
-                        Margin="0,10,0,0"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal">
-                            <TextBlock
-                            Margin="0,0,10,0"
+                            Margin="0,10,0,0"
+                            HorizontalAlignment="Right"
                             VerticalAlignment="Center"
-                            FontSize="12.8"
-                            Text="Địa chỉ" />
+                            Orientation="Horizontal">
+                            <TextBlock
+                                Margin="0,0,10,0"
+                                VerticalAlignment="Center"
+                                FontSize="12.8"
+                                Text="Địa chỉ" />
                             <TextBox
-                            Name="wageTextBox"
-                            Width="300"
-                            Height="30"
-                            Padding="12,2.4"
-                            HorizontalAlignment="Left"
-                            VerticalContentAlignment="Center"
-                            materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                            materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
-                            Background="#D9D9D9"
-                            BorderBrush="Transparent"
-                            FontFamily="Inter"
-                            FontSize="15"
-                            PreviewKeyDown="TextBox_PreviewKeyDown"
-                            Text="{Binding Wage, Mode=TwoWay, StringFormat=N0}"
-                            TextChanged="TextBox_TextChanged" />
+                                Name="wageTextBox"
+                                Width="300"
+                                Height="30"
+                                Padding="12,2.4"
+                                HorizontalAlignment="Left"
+                                VerticalContentAlignment="Center"
+                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
+                                Background="#D9D9D9"
+                                BorderBrush="Transparent"
+                                FontFamily="Inter"
+                                FontSize="15"
+                                Text="{Binding Wage, Mode=TwoWay, StringFormat=N0}"
+                                />
                         </StackPanel>
 
                         <!--  Ngày sinh  -->
                         <StackPanel
-                        Margin="0,10,0,0"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal">
+                            Margin="0,10,0,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
                             <TextBlock
-                            Margin="0,0,10,0"
-                            VerticalAlignment="Center"
-                            FontSize="12.8"
-                            Text="Ngày sinh" />
+                                Margin="0,0,10,0"
+                                VerticalAlignment="Center"
+                                FontSize="12.8"
+                                Text="Ngày sinh" />
                             <DatePicker
-                            Width="300"
-                            Height="30"
-                            Padding="12,2.4"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                            materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
-                            Background="#D9D9D9"
-                            BorderThickness="0"
-                            FontSize="14"
-                            SelectedDate="{Binding BirthDay, Mode=TwoWay}" />
+                                Width="300"
+                                Height="30"
+                                Padding="12,2.4"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
+                                Background="#D9D9D9"
+                                BorderThickness="0"
+                                FontSize="14"
+                                SelectedDate="{Binding BirthDay, Mode=TwoWay}" />
 
                         </StackPanel>
                     </StackPanel>
@@ -232,37 +230,37 @@
             </Grid>
             <Grid Grid.Row="2">
                 <StackPanel
-                Margin="0,10,20,0"
-                HorizontalAlignment="Right"
-                Orientation="Horizontal">
+                    Margin="0,10,20,0"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
                     <Button
-                    Width="98.304"
-                    Height="37.888"
-                    Margin="0,0,20,0"
-                    Padding="0"
-                    materialDesign:ButtonAssist.CornerRadius="15.36"
-                    Background="#F0BD70"
-                    BorderThickness="0"
-                    Command="{Binding AddStaffCommand}"
-                    CommandParameter="{Binding ElementName=addStaffWindow}"
-                    Content="Sửa"
-                    FontSize="15.36"
-                    FontWeight="Bold" />
+                        Width="98.304"
+                        Height="37.888"
+                        Margin="0,0,20,0"
+                        Padding="0"
+                        materialDesign:ButtonAssist.CornerRadius="15.36"
+                        Background="#F0BD70"
+                        BorderThickness="0"
+                        Command="{Binding AddStaffCommand}"
+                        CommandParameter="{Binding ElementName=addStaffWindow}"
+                        Content="Sửa"
+                        FontSize="15.36"
+                        FontWeight="Bold" />
 
                     <Button
-                    Width="98.304"
-                    Height="37.888"
-                    Margin="0,0,50,0"
-                    Padding="0"
-                    materialDesign:ButtonAssist.CornerRadius="15.36"
-                    Background="#F0BD70"
-                    BorderThickness="0"
-                    Command="{Binding CloseAddWindowCommand}"
-                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                    Content="Hủy"
-                    FontSize="15.36"
-                    FontWeight="Bold"
-                    Foreground="White" />
+                        Width="98.304"
+                        Height="37.888"
+                        Margin="0,0,50,0"
+                        Padding="0"
+                        materialDesign:ButtonAssist.CornerRadius="15.36"
+                        Background="#F0BD70"
+                        BorderThickness="0"
+                        Command="{Binding CloseAddWindowCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                        Content="Hủy"
+                        FontSize="15.36"
+                        FontWeight="Bold"
+                        Foreground="White" />
                 </StackPanel>
             </Grid>
         </Grid>

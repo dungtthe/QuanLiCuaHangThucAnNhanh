@@ -9,7 +9,6 @@
         Width="530"
         Height="420"
         AllowsTransparency="True"
-        MouseLeftButtonDown="Window_MouseLeftButtonDown"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
@@ -193,9 +192,7 @@
                                 BorderBrush="Transparent"
                                 FontFamily="Inter"
                                 FontSize="15"
-                                PreviewKeyDown="TextBox_PreviewKeyDown"
-                                Text="{Binding Wage, Mode=TwoWay, StringFormat=N0}"
-                                TextChanged="TextBox_TextChanged" />
+                                Text="{Binding Wage, Mode=TwoWay, StringFormat=N0}"/>
                         </StackPanel>
 
                         <!--  Ngày sinh  -->
