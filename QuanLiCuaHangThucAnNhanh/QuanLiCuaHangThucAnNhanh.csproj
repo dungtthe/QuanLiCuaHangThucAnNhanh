@@ -182,8 +182,14 @@
     <Compile Include="View\NguoiDung\MainNguoiDungView.xaml.cs">
       <DependentUpon>MainNguoiDungView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\NguoiDung\StaffManagement\StaffManagement.xaml.cs">
-      <DependentUpon>StaffManagement.xaml</DependentUpon>
+    <Compile Include="View\NguoiDung\StaffManagement\StaffAddingView.xaml.cs">
+      <DependentUpon>StaffAddingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NguoiDung\StaffManagement\StaffEditingView.xaml.cs">
+      <DependentUpon>StaffEditingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NguoiDung\StaffManagement\StaffManagementView.xaml.cs">
+      <DependentUpon>StaffManagementView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\NguoiDung\ThongKe\DoanhThu\DoanhThuTable.xaml.cs">
       <DependentUpon>DoanhThuTable.xaml</DependentUpon>
@@ -269,7 +275,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\NguoiDung\StaffManagement\StaffManagement.xaml">
+    <Page Include="View\NguoiDung\StaffManagement\StaffAddingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NguoiDung\StaffManagement\StaffEditingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NguoiDung\StaffManagement\StaffManagementView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

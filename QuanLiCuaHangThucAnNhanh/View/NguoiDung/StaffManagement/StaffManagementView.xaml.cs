@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace QuanLiCuaHangThucAnNhanh.View.NguoiDung.StaffManagement
 {
     /// <summary>
-    /// Interaction logic for StaffManagement.xaml
+    /// Interaction logic for StaffManagementView.xaml
     /// </summary>
-    public partial class StaffManagement : Page
+    public partial class StaffManagementView : Page
     {
-        public StaffManagement()
+        public StaffManagementView()
         {
             InitializeComponent();
         }
