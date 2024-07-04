@@ -182,6 +182,9 @@
     <Compile Include="View\NguoiDung\MainNguoiDungView.xaml.cs">
       <DependentUpon>MainNguoiDungView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\NguoiDung\StaffManagement\StaffManagement.xaml.cs">
+      <DependentUpon>StaffManagement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\NguoiDung\ThongKe\DoanhThu\DoanhThuTable.xaml.cs">
       <DependentUpon>DoanhThuTable.xaml</DependentUpon>
     </Compile>
@@ -259,6 +262,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NguoiDung\MainNguoiDungView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NguoiDung\StaffManagement\ButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NguoiDung\StaffManagement\StaffManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
