@@ -135,6 +135,7 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
                             DonGia=item.DonGia,
                             IsDeleted=false
                         };
+                        listChiTiet.Add(chiTietHoaDonBan);
                     }
 
 
