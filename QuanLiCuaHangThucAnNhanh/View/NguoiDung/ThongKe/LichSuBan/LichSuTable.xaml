@@ -25,7 +25,7 @@
             x:Name="billTable"
             Margin="11"
             ItemsSource="{Binding DanhSachHoaDon}"
-            SelectedItem="{Binding SelectedItem}">
+            SelectedItem="{Binding SelectedItemForChiTietHoaDonBan}">
             <ListView.ItemContainerStyle>
                 <Style BasedOn="{StaticResource MaterialDesignGridViewItem}" TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -127,7 +127,7 @@
                                         <Image Source="/QuanLiCuaHangThucAnNhanh;component/Resources/Icon/Info_Icon.png" />
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                <i:InvokeCommandAction Command="{Binding ElementName=billTable, Path=DataContext.InfoBillCM}" />
+                                                <i:InvokeCommandAction Command="{Binding ElementName=billTable, Path=DataContext.ChiTietHoaDonBanCM}" />
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Border>

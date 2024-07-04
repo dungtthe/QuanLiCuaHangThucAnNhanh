@@ -88,7 +88,7 @@
                                 FontFamily="Inter"
                                 FontSize="17"
                                 IsReadOnly="True"
-                                Text="{Binding CusName}" />
+                                Text="{Binding SelectedItemForChiTietHoaDonBan.KhachHangDTO.HoTen}" />
                         </StackPanel>
                         <StackPanel>
                             <TextBlock
@@ -111,7 +111,7 @@
                                 FontFamily="Inter"
                                 FontSize="17"
                                 IsReadOnly="True"
-                                Text="{Binding StaffName}" />
+                                Text="{Binding SelectedItemForChiTietHoaDonBan.NguoiDungDTO.HoTen}" />
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -132,7 +132,7 @@
                             <ListView
                                 Width="795"
                                 Margin="10,0,0,0"
-                                ItemsSource="{Binding BookList}">
+                                ItemsSource="{Binding ChiTietHoaDonBanList}">
                                 <ListView.ItemContainerStyle>
                                     <Style BasedOn="{StaticResource MaterialDesignGridViewItem}" TargetType="ListViewItem">
                                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -171,7 +171,7 @@
                                                     <TextBlock
                                                         Margin="5,0,0,0"
                                                         FontSize="17"
-                                                        Text="{Binding Book.DisplayName}" />
+                                                        Text="{Binding SanPhamDTO.TenSP}" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
@@ -191,7 +191,7 @@
                                                         Margin="0,0,15,0"
                                                         HorizontalAlignment="Center"
                                                         FontSize="17"
-                                                        Text="{Binding Quantity}" />
+                                                        Text="{Binding SoLuong}" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
 
@@ -212,7 +212,7 @@
                                                         Margin="0,0,10,0"
                                                         HorizontalAlignment="Center"
                                                         FontSize="17"
-                                                        Text="{Binding PriceItem, Converter={StaticResource PriceConverter}}" />
+                                                        Text="{Binding DonGia, Converter={StaticResource PriceConverter}}" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
 
@@ -233,7 +233,7 @@
                                                         Margin="0,0,10,0"
                                                         HorizontalAlignment="Center"
                                                         FontSize="17"
-                                                        Text="{Binding TotalPrice, Converter={StaticResource PriceConverter}}" />
+                                                        Text="{Binding ThanhTien, Converter={StaticResource PriceConverter}}" />
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
 
@@ -259,7 +259,7 @@
                             Height="23"
                             VerticalAlignment="Top"
                             Style="{DynamicResource TextBlock}"
-                            Text="{Binding BillDate, StringFormat='dd/MM/yyyy'}" />
+                            Text="{Binding SelectedItemForChiTietHoaDonBan.NgayTao, StringFormat='dd/MM/yyyy HH:mm:ss'}" />
                     </StackPanel>
 
 
@@ -278,7 +278,7 @@
                             Margin="0,0,5,0"
                             VerticalAlignment="Top"
                             Style="{DynamicResource TextBlock}"
-                            Text="{Binding TotalPrice, Converter={StaticResource PriceConverter}}" />
+                            Text="{Binding SelectedItemForChiTietHoaDonBan.TongTienBan, Converter={StaticResource PriceConverter}}" />
                         <TextBlock
                             Height="23"
                             HorizontalAlignment="Left"

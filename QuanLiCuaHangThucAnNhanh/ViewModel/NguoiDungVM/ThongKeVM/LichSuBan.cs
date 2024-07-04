@@ -17,5 +17,22 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
             get { return _danhSachHoaDon; }
             set { _danhSachHoaDon = value; OnPropertyChanged(nameof(DanhSachHoaDon)); }
         }
+
+
+        //phục vụ xem chi tiết hóa đơn
+        private HoaDonBanDTO _selectedItemForChiTietHoaDonBan;
+        public HoaDonBanDTO SelectedItemForChiTietHoaDonBan
+        {
+            get { return _selectedItemForChiTietHoaDonBan; }
+            set { _selectedItemForChiTietHoaDonBan = value; OnPropertyChanged(nameof(SelectedItemForChiTietHoaDonBan)); }
+        }
+
+
+        private ObservableCollection<ChiTietHoaDonBanDTO> _chiTietHoaDonBanList;
+        public ObservableCollection<ChiTietHoaDonBanDTO> ChiTietHoaDonBanList
+        {
+            get { return _chiTietHoaDonBanList; }
+            set { _chiTietHoaDonBanList = value; OnPropertyChanged(nameof(ChiTietHoaDonBanList)); }
+        }
     }
 }

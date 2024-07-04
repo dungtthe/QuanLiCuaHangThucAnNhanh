@@ -2,6 +2,7 @@
 using QuanLiCuaHangThucAnNhanh.Model.DTO;
 using QuanLiCuaHangThucAnNhanh.View.MessageBox;
 using QuanLiCuaHangThucAnNhanh.View.NguoiDung.ThongKe.DoanhThu;
+using QuanLiCuaHangThucAnNhanh.View.NguoiDung.ThongKe.LichSuBan;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -53,7 +54,8 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
         public ICommand LichSuBanCM { get; set; }
         public ICommand LichSuNhapCM { get; set; }
         public ICommand RevenueCM { get; set; }
-
+        public ICommand CloseWdCM { get; set; }
+        public ICommand ChiTietHoaDonBanCM {  get; set; }
 
         #endregion
 
@@ -151,6 +153,35 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
                 await loadDataForDateChange();
             });
             #endregion
+
+            #region close window
+            CloseWdCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                if (p != null)
+                {
+                    p.Close();
+                }
+            });
+            #endregion
+
+            #region chi tiết hóa đơn bán
+            //chi tiết hóa đơn 
+            ChiTietHoaDonBanCM = new RelayCommand<HoaDonBanDTO>((p) => { return true; }, (p) =>
+            {
+                if (SelectedItemForChiTietHoaDonBan != null)
+                {
+                    HoaDonBanDTO a = SelectedItemForChiTietHoaDonBan;
+                    ChiTietHoaDonBanList = new ObservableCollection<ChiTietHoaDonBanDTO>(a.ListChiTietHoaDonBanDTO);
+                    View.NguoiDung.ThongKe.LichSuBan.ChiTietHoaDon wd = new View.NguoiDung.ThongKe.LichSuBan.ChiTietHoaDon();
+                    wd.ShowDialog();
+                }
+                else
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error,"Có lỗi xảy ra!");
+                }
+            });
+            #endregion
+
 
         }
         private async Task loadDataForDateChange()
