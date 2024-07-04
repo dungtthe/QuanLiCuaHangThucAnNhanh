@@ -126,7 +126,7 @@
                             FontFamily="Inter"
                             FontSize="14"
                             ItemsSource="{Binding ComboList}"
-                            SelectedItem="{Binding GenreBox}" />
+                            SelectedItem="{Binding DanhMucSelect}" />
                     </Border>
                     <!--  Nhập kho  -->
                     <Border

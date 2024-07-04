@@ -35,6 +35,13 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
             set { combogenrelist = value; OnPropertyChanged(nameof(ComboList)); }
         }
 
+        //danh mục sản phẩm đang chọn
+        private string _danhMucSelect;
+        public string DanhMucSelect
+        {
+            get { return _danhMucSelect; }
+            set { _danhMucSelect = value; OnPropertyChanged(); UpdateCb(); }
+        }
 
         public ICommand FirstLoadCM { get; set; }
 
@@ -63,6 +70,10 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
                     prdList = new List<SanPhamDTO>(ProductList);
                 }
 
+
+                ComboList = new ObservableCollection<string>(await DanhMucSanPhamDA.gI().GetAllTenDanhMucSanPham());
+                ComboList.Insert(0, "Tất cả thể loại");
+                DanhMucSelect = "Tất cả thể loại";
             });
 
         }
@@ -84,6 +95,19 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
                     decimal hesoDecimal = (decimal)heso.Value;
                     item.GiaBan = item.GiaNhap * hesoDecimal;
                 }
+            }
+        }
+
+
+        async void UpdateCb()
+        {
+            List<SanPhamDTO> sanPhams = await SanPhamDA.gI().GetAllSanPham();
+            SetGia(sanPhams);
+            ProductList = new ObservableCollection<SanPhamDTO>(sanPhams);
+            prdList = new List<SanPhamDTO>(ProductList);
+            if (DanhMucSelect != "Tất cả thể loại")
+            {
+                ProductList = new ObservableCollection<SanPhamDTO>(prdList.FindAll(x => (x.DanhMucSanPhamDTO.TenDanhMuc == DanhMucSelect)));
             }
         }
 
