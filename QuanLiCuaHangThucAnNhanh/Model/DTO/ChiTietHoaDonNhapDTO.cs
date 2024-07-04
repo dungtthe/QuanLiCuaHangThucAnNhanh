@@ -38,6 +38,10 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
             set
             {
                 soLuong = value;
+                if (donGia != 0)
+                {
+                    ThanhTien = soLuong * donGia;
+                }
                 OnPropertyChanged(nameof(SoLuong));
             }
         }
@@ -49,7 +53,22 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
             set
             {
                 donGia = value;
+                if (soLuong != 0)
+                {
+                    ThanhTien = soLuong * donGia;
+                }
                 OnPropertyChanged(nameof(DonGia));
+            }
+        }
+
+        private decimal thanhTien;
+        public decimal ThanhTien
+        {
+            get => thanhTien;
+            set
+            {
+                thanhTien = value;
+                OnPropertyChanged(nameof(ThanhTien));
             }
         }
 

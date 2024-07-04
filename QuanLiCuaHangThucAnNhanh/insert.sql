@@ -40,8 +40,8 @@ VALUES(N'Sting',55,10000,2,NULL);
 -- Chèn dữ liệu vào bảng HoaDonNhap
 INSERT INTO HoaDonNhap (TongTienNhap, NguoiDungID) 
 VALUES 
-(500000, 1),
-(200000, 2);
+(980000, 1),
+(1440000, 2);
 
 -- Chèn dữ liệu vào bảng ChiTietHoaDonNhap
 INSERT INTO ChiTietHoaDonNhap (HoaDonNhapID, SanPhamID, SoLuong, DonGia)

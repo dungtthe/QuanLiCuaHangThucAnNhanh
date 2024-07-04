@@ -24,7 +24,7 @@
             x:Name="danhsachphieunhap"
             Margin="11"
             ItemsSource="{Binding DanhSachNhap}"
-            SelectedItem="{Binding SelectedItem_ForDsNhap}">
+            SelectedItem="{Binding SelectedItemForChiTietHoaDonNhap}">
             <ListView.ItemContainerStyle>
                 <Style BasedOn="{StaticResource MaterialDesignGridViewItem}" TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -108,7 +108,7 @@
                                         <Image Source="/QuanLiCuaHangThucAnNhanh;component/Resources/Icon/Info_Icon.png" />
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                <i:InvokeCommandAction Command="{Binding ElementName=danhsachphieunhap, Path=DataContext.ChiTietPhieuNhapCM}" />
+                                                <i:InvokeCommandAction Command="{Binding ElementName=danhsachphieunhap, Path=DataContext.ChiTietHoaDonNhapCM}" />
                                             </i:EventTrigger>
                                         </i:Interaction.Triggers>
                                     </Border>

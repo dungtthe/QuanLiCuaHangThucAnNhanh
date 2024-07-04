@@ -56,6 +56,8 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
         public ICommand RevenueCM { get; set; }
         public ICommand CloseWdCM { get; set; }
         public ICommand ChiTietHoaDonBanCM {  get; set; }
+        public ICommand ChiTietHoaDonNhapCM { get; set; }
+
 
         #endregion
 
@@ -171,7 +173,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
                 if (SelectedItemForChiTietHoaDonBan != null)
                 {
                     HoaDonBanDTO a = SelectedItemForChiTietHoaDonBan;
-                    ChiTietHoaDonBanList = new ObservableCollection<ChiTietHoaDonBanDTO>(a.ListChiTietHoaDonBanDTO);
+                    //ChiTietHoaDonBanList = new ObservableCollection<ChiTietHoaDonBanDTO>(a.ListChiTietHoaDonBanDTO);
                     View.NguoiDung.ThongKe.LichSuBan.ChiTietHoaDon wd = new View.NguoiDung.ThongKe.LichSuBan.ChiTietHoaDon();
                     wd.ShowDialog();
                 }
@@ -182,6 +184,22 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
             });
             #endregion
 
+            #region chi tiết hóa đơn nhập
+            //chi tiết hóa đơn 
+            ChiTietHoaDonNhapCM = new RelayCommand<HoaDonBanDTO>((p) => { return true; }, (p) =>
+            {
+                if (SelectedItemForChiTietHoaDonNhap != null)
+                {
+                    HoaDonNhapDTO a = SelectedItemForChiTietHoaDonNhap;
+                    View.NguoiDung.ThongKe.LichSuNhap.ChiTietHoaDon wd = new View.NguoiDung.ThongKe.LichSuNhap.ChiTietHoaDon();
+                    wd.ShowDialog();
+                }
+                else
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra!");
+                }
+            });
+            #endregion
 
         }
         private async Task loadDataForDateChange()
