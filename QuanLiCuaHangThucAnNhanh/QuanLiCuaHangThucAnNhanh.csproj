@@ -209,6 +209,9 @@
     <Compile Include="View\NguoiDung\ThongKe\DoanhThu\DoanhThuTable.xaml.cs">
       <DependentUpon>DoanhThuTable.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\NguoiDung\ThongKe\LichSuBan\ChiTietHoaDon.xaml.cs">
+      <DependentUpon>ChiTietHoaDon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\NguoiDung\ThongKe\LichSuBan\LichSuTable.xaml.cs">
       <DependentUpon>LichSuTable.xaml</DependentUpon>
     </Compile>
@@ -311,6 +314,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NguoiDung\ThongKe\DoanhThu\DoanhThuTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NguoiDung\ThongKe\LichSuBan\ChiTietHoaDon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
