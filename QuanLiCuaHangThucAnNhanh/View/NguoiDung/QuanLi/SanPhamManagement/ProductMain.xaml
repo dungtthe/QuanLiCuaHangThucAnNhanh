@@ -249,84 +249,116 @@
                             BorderBrush="#E0AE8A"
                             BorderThickness="2,2,2,2"
                             CornerRadius="15">
-                            <StackPanel Width="259" Height="354">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
 
                                 <Image
+                                    Grid.Row="0"
                                     Width="235"
                                     Height="150"
                                     MaxWidth="200"
                                     MaxHeight="150"
                                     Margin="0,10,0,0"
                                     Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}, ConverterParameter={StaticResource DefaultImage}}" />
-                                <StackPanel Height="120">
+
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Width="200"
+                                    Margin="15,15,0,0"
+                                    HorizontalAlignment="Left"
+                                    FontFamily="Poppins"
+                                    FontSize="18"
+                                    FontWeight="SemiBold"
+                                    Text="{Binding TenSP}"
+                                    TextWrapping="Wrap" />
+
+                                <DockPanel Grid.Row="2" Margin="0,5,0,0">
                                     <TextBlock
-                                        Grid.Row="1"
-                                        Width="200"
-                                        Margin="15,15,0,0"
+                                        Margin="15,5,0,0"
                                         HorizontalAlignment="Left"
                                         FontFamily="Poppins"
-                                        FontSize="18"
-                                        FontWeight="SemiBold"
-                                        Text="{Binding TenSP}"
+                                        FontSize="14"
+                                        FontWeight="Bold"
+                                        Text="Loại:"
                                         TextWrapping="Wrap" />
-                                    <DockPanel Margin="0,5,0,0">
-                                        <TextBlock
-                                            Grid.Row="1"
-                                            Margin="15,5,0,0"
-                                            HorizontalAlignment="Left"
-                                            FontFamily="Poppins"
-                                            FontSize="14"
-                                            FontWeight="Bold"
-                                            Text="Loại:"
-                                            TextWrapping="Wrap" />
-                                        <TextBlock
-                                            Grid.Row="1"
-                                            MaxWidth="150"
-                                            Margin="10,5,0,0"
-                                            HorizontalAlignment="Left"
-                                            FontFamily="Poppins"
-                                            FontSize="14"
-                                            FontWeight="Regular"
-                                            Text="{Binding DanhMucSanPhamDTO.TenDanhMuc}"
-                                            TextTrimming="CharacterEllipsis"
-                                            TextWrapping="NoWrap" />
-                                    </DockPanel>
+                                    <TextBlock
+                                        MaxWidth="150"
+                                        Margin="10,5,0,0"
+                                        HorizontalAlignment="Left"
+                                        FontFamily="Poppins"
+                                        FontSize="14"
+                                        FontWeight="Regular"
+                                        Text="{Binding DanhMucSanPhamDTO.TenDanhMuc}"
+                                        TextTrimming="CharacterEllipsis"
+                                        TextWrapping="NoWrap" />
+                                </DockPanel>
 
-                                    <DockPanel>
-                                        <TextBlock
-                                            Grid.Row="1"
-                                            Margin="15,10,0,0"
-                                            HorizontalAlignment="Left"
-                                            FontFamily="Poppins"
-                                            FontSize="14"
-                                            FontWeight="Bold"
-                                            Text="Số lượng: "
-                                            TextWrapping="Wrap" />
-                                        <TextBlock
-                                            Width="60"
-                                            Margin="0,10,0,0"
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top"
-                                            FontFamily="Poppins"
-                                            FontSize="16"
-                                            FontWeight="Regular"
-                                            Text="{Binding SoLuongTon}"
-                                            TextWrapping="Wrap" />
-                                        <TextBlock
-                                            x:Name="PriceSP"
-                                            Margin="0,10,10,0"
-                                            HorizontalAlignment="Right"
-                                            VerticalAlignment="Center"
-                                            FontFamily="Poppins"
-                                            FontSize="14"
-                                            FontWeight="Bold"
-                                            Foreground="#EA6A12"
-                                            Text="{Binding GiaBan, StringFormat={}{0:N0} VNĐ}" />
-                                    </DockPanel>
+                                <DockPanel Grid.Row="3">
+                                    <TextBlock
+                                        Margin="15,10,0,0"
+                                        HorizontalAlignment="Left"
+                                        FontFamily="Poppins"
+                                        FontSize="14"
+                                        FontWeight="Bold"
+                                        Text="Số lượng: "
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Width="60"
+                                        Margin="0,10,0,0"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top"
+                                        FontFamily="Poppins"
+                                        FontSize="16"
+                                        FontWeight="Regular"
+                                        Text="{Binding SoLuongTon}"
+                                        TextWrapping="Wrap" />
+                                </DockPanel>
+                                <TextBlock
+                                    Grid.Row="3"
+                                    Margin="15,40,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontFamily="Poppins"
+                                    FontSize="14"
+                                    FontWeight="Bold"
+                                    Foreground="#EA6A12"
+                                    Text="{Binding GiaBan, StringFormat={}{0:N0} VNĐ}" />
+
+                                <StackPanel
+                                    Grid.Row="3"
+                                    Margin="0,0,10,0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom"
+                                    Orientation="Horizontal">
+                                    <Button
+                                        Width="30"
+                                        Padding="0"
+                                        VerticalAlignment="Center"
+                                        Background="{x:Null}"
+                                        BorderBrush="{x:Null}"
+                                        Command="{Binding DataContext.OpenEditWdCM, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                        CommandParameter="{Binding}"
+                                        Foreground="{x:Null}">
+                                        <Image Width="22" Source="/QuanLiCuaHangThucAnNhanh;component/Resources/Icon/Edit.png" />
+                                    </Button>
+                                    <Button
+                                        Width="30"
+                                        Padding="0"
+                                        VerticalAlignment="Center"
+                                        Background="{x:Null}"
+                                        BorderBrush="{x:Null}"
+                                        Command="{Binding DataContext.DeleteSanPhamListCM, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                        CommandParameter="{Binding}"
+                                        Foreground="{x:Null}">
+                                        <Image Width="22" Source="/QuanLiCuaHangThucAnNhanh;component/Resources/Icon/DeleteBlue_Icon.png" />
+                                    </Button>
                                 </StackPanel>
-
-
-                            </StackPanel>
+                            </Grid>
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseLeftButtonUp">
                                     <i:InvokeCommandAction Command="{Binding DataContext.SelectSanPhamDTOCM, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}" />
@@ -335,9 +367,6 @@
                         </Border>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-
-
-
 
 
 
