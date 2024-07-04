@@ -66,8 +66,7 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
             }
         }
 
-
-
+      
         private int danhMucSanPhamID;
         public int DanhMucSanPhamID
         {

@@ -127,7 +127,7 @@
                                 FontFamily="Inter"
                                 FontSize="18"
                                 ItemsSource="{Binding ComboList}"
-                                SelectedItem="{Binding GenreBox}" />
+                                SelectedItem="{Binding DanhMucSelect}" />
                         </Border>
                         <StackPanel Orientation="Horizontal">
                             <Image
@@ -542,7 +542,7 @@
                                                             <TextBlock
                                                                 Margin="0,0,0,0"
                                                                 FontSize="17"
-                                                                Text="{Binding Book.DisplayName}" />
+                                                                Text="{Binding SanPhamDTO.TenSP}" />
                                                             <!--<TextBox Text="{Binding Description}"
                                                             x:Name="NoteBox"
                                                             Width="170"
@@ -597,7 +597,7 @@
                                                                 MaxWidth="32"
                                                                 Margin="10,0,10,0"
                                                                 FontSize="17"
-                                                                Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}">
+                                                                Text="{Binding SoLuong, UpdateSourceTrigger=PropertyChanged}">
                                                                 <i:Interaction.Triggers>
                                                                     <i:EventTrigger EventName="TextChanged">
                                                                         <i:InvokeCommandAction Command="{Binding DataContext.ChangeCountCM, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}" />
@@ -637,7 +637,7 @@
                                                 </GridViewColumn.HeaderContainerStyle>
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <TextBlock FontSize="17" Text="{Binding Book.Price, Converter={StaticResource PriceConverter}}" />
+                                                        <TextBlock FontSize="17" Text="{Binding DonGia, Converter={StaticResource PriceConverter}}" />
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
 
@@ -659,7 +659,7 @@
                                                             HorizontalAlignment="Center"
                                                             VerticalAlignment="Center"
                                                             FontSize="17"
-                                                            Text="{Binding PriceItem, Converter={StaticResource PriceConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                                                            Text="{Binding ThanhTien, Converter={StaticResource PriceConverter}, UpdateSourceTrigger=PropertyChanged}" />
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
                                             </GridViewColumn>

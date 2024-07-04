@@ -82,6 +82,7 @@
     <Compile Include="Model\DA\KhachHangDA.cs" />
     <Compile Include="Model\DA\NguoiDungDA.cs" />
     <Compile Include="Model\DA\SanPhamDA.cs" />
+    <Compile Include="Model\DA\ThamSoDA.cs" />
     <Compile Include="Model\DTO\ChiTietHoaDonBanDTO.cs" />
     <Compile Include="Model\DTO\ChiTietHoaDonNhapDTO.cs" />
     <Compile Include="Model\DTO\DanhMucSanPhamDTO.cs" />

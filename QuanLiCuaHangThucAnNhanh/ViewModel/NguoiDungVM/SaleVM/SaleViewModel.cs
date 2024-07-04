@@ -14,6 +14,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
 {
     public class SaleViewModel : BaseViewModel
     {
+        private ThamSoDTO thamSoDTO;
 
         //danh sách sản phẩm 
         private List<SanPhamDTO> prdList;
@@ -35,6 +36,13 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
         }
 
 
+        //danh mục sản phẩm đang chọn
+        private string _danhMucSelect;
+        public string DanhMucSelect
+        {
+            get { return _danhMucSelect; }
+            set { _danhMucSelect = value; OnPropertyChanged(); UpdateCb(); }
+        }
 
         //khách hàng cho bill
 
@@ -109,10 +117,22 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
         {
             khachVangLai = new KhachHangDTO(1,"Khách vãng lai");
             KhachHangForBill = khachVangLai;
+            ListChiTietHoaDonBan = new ObservableCollection<ChiTietHoaDonBanDTO>();
 
             FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
-                ProductList = new ObservableCollection<SanPhamDTO>(await SanPhamDA.gI().GetAllSanPham());
+                thamSoDTO = await ThamSoDA.gI().GetThamSoCur();
+                if(thamSoDTO == null)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra!");
+                    return;
+                }
+
+
+                List<SanPhamDTO> sanPhams = await SanPhamDA.gI().GetAllSanPham();
+                SetGia(sanPhams);
+
+                ProductList = new ObservableCollection<SanPhamDTO>(sanPhams);
                 if (ProductList != null)
                 {
                     prdList = new List<SanPhamDTO>(ProductList);
@@ -121,6 +141,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
 
                 ComboList = new ObservableCollection<string>(await DanhMucSanPhamDA.gI().GetAllTenDanhMucSanPham());
                 ComboList.Insert(0, "Tất cả thể loại");
+                DanhMucSelect = "Tất cả thể loại";
 
             });
 
@@ -161,9 +182,80 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
             {
                 if (SelectedItemSanPhamDTO != null)
                 {
-                    MessageBox.Show(SelectedItemSanPhamDTO.TenSP);
+                    AddSanPhamDTOToListChiTietHoaDon(SelectedItemSanPhamDTO);
                 }
             });
+        }
+
+
+
+
+
+        private void AddSanPhamDTOToListChiTietHoaDon(SanPhamDTO sanPhamDTO)
+        {
+
+            bool flag = false;
+            foreach(var item in ListChiTietHoaDonBan)
+            {
+                if(item.SanPhamDTO.ID == sanPhamDTO.ID)
+                {
+                    flag = true;
+                    if (item.SoLuong >= sanPhamDTO.SoLuongTon)
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Số lượng sản phẩm đã hết!");
+                    }
+                    else
+                    {
+                        item.SoLuong++;
+                    }
+                    break;
+                }
+            }
+
+            if (!flag)
+            {
+                ChiTietHoaDonBanDTO chiTietHoaDonBanDTO = new ChiTietHoaDonBanDTO();
+                chiTietHoaDonBanDTO.SanPhamID = sanPhamDTO.ID;
+                chiTietHoaDonBanDTO.SanPhamDTO = sanPhamDTO;
+                chiTietHoaDonBanDTO.SoLuong = 1;
+                chiTietHoaDonBanDTO.DonGia = sanPhamDTO.GiaBan;
+                chiTietHoaDonBanDTO.IsDeleted = false;
+                chiTietHoaDonBanDTO.ThanhTien = sanPhamDTO.GiaBan;
+                ListChiTietHoaDonBan.Add(chiTietHoaDonBanDTO);
+
+            }
+        }
+
+
+        async void UpdateCb()
+        {
+            List<SanPhamDTO> sanPhams = await SanPhamDA.gI().GetAllSanPham();
+            SetGia(sanPhams);
+            ProductList = new ObservableCollection<SanPhamDTO>(sanPhams);
+            prdList = new List<SanPhamDTO>(ProductList);
+            if (DanhMucSelect != "Tất cả thể loại")
+            {
+                ProductList = new ObservableCollection<SanPhamDTO>(prdList.FindAll(x => (x.DanhMucSanPhamDTO.TenDanhMuc == DanhMucSelect)));
+            }
+        }
+
+        void SetGia(List<SanPhamDTO> sanPhams)
+        {
+            if (sanPhams == null)
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra!");
+                return;
+            }
+
+            foreach (SanPhamDTO item in sanPhams)
+            {
+                double? heso = thamSoDTO.HeSoBan;
+                if (heso.HasValue)
+                {
+                    decimal hesoDecimal = (decimal)heso.Value;
+                    item.GiaBan = item.GiaNhap * hesoDecimal;
+                }
+            }
         }
     }
 }

@@ -38,6 +38,7 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
             set
             {
                 soLuong = value;
+                ThanhTien = soLuong * donGia;
                 OnPropertyChanged(nameof(SoLuong));
             }
         }
@@ -85,6 +86,18 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
                 OnPropertyChanged(nameof(SanPhamDTO));
             }
         }
+
+        private decimal thanhTien;
+        public decimal ThanhTien
+        {
+            get => thanhTien;
+            set
+            {
+                thanhTien = value;
+                OnPropertyChanged(nameof(ThanhTien));
+            }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
