@@ -31,6 +31,7 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
             }
         }
 
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {

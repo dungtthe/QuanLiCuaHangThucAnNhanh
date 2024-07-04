@@ -61,6 +61,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converter\ByteArrayToImageSourceConverter.cs" />
     <Compile Include="Converter\CusNameConverter.cs" />
     <Compile Include="Converter\IndexConverter.cs" />
     <Compile Include="Converter\InputPriceConvert.cs" />
@@ -75,10 +76,12 @@
     <Compile Include="Model\DanhMucSanPham.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Model\DA\DanhMucSanPhamDA.cs" />
     <Compile Include="Model\DA\HoaDonBanDA.cs" />
     <Compile Include="Model\DA\HoaDonNhapDA.cs" />
     <Compile Include="Model\DA\KhachHangDA.cs" />
     <Compile Include="Model\DA\NguoiDungDA.cs" />
+    <Compile Include="Model\DA\SanPhamDA.cs" />
     <Compile Include="Model\DTO\ChiTietHoaDonBanDTO.cs" />
     <Compile Include="Model\DTO\ChiTietHoaDonNhapDTO.cs" />
     <Compile Include="Model\DTO\DanhMucSanPhamDTO.cs" />
