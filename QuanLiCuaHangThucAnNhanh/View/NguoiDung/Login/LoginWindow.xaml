@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="loginWindow"
     Title="Login"
-    Width="846"
+    Width="881"
     Height="494"
     Background="White"
     DataContext="{StaticResource LoginVM}"
@@ -27,7 +27,7 @@
     mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="345.08" />
+            <ColumnDefinition Width="380.08" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Image
