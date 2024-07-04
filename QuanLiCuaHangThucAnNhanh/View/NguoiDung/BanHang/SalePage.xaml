@@ -174,7 +174,7 @@
                             x:Name="SanPhamList"
                             VerticalAlignment="Top"
                             ItemsSource="{Binding ProductList}"
-                            SelectedItem="{Binding SelectedItemSanPhamDTO}">
+                            SelectedItem="{Binding SelectedPrdItem}" d:ItemsSource="{d:SampleData ItemCount=5}">
                             <ListView.ItemContainerStyle>
                                 <Style BasedOn="{StaticResource MaterialDesignListBoxItem}" TargetType="{x:Type ListViewItem}">
                                     <Setter Property="Padding" Value="0" />
@@ -197,75 +197,76 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <Border
-                                        Width="229"
-                                        Height="260"
                                         Margin="0,5,0,0"
+                                        Width="249"
+                                        Height="290"
                                         Background="White"
                                         BorderBrush="#E0AE8A"
                                         BorderThickness="2,2,2,2"
                                         CornerRadius="15">
-                                        <StackPanel Width="229" Height="260">
+                                        <StackPanel Width="229"
+                                                    Height="354">
 
                                             <Image
-                                                Width="205"
                                                 Height="150"
-                                                MaxWidth="200"
+                                                Width="205"
                                                 MaxHeight="150"
+                                                MaxWidth="200"
                                                 Margin="0,10,0,0"
                                                 Source="{Binding Image, Converter={StaticResource ByteArrayToImageSourceConverter}, ConverterParameter={StaticResource DefaultImage}}" />
-                                            <StackPanel Height="80">
+                                            <StackPanel Height="120">
                                                 <TextBlock
-                                                    Width="200"
-                                                    Margin="15,5,0,0"
+                                                    TextWrapping="Wrap"
+                                                    Margin="15,15,0,0"
                                                     HorizontalAlignment="Left"
                                                     FontFamily="Poppins"
                                                     FontSize="18"
                                                     FontWeight="SemiBold"
                                                     Text="{Binding TenSP}"
-                                                    TextWrapping="Wrap" />
-                                                <DockPanel>
+                                                    Grid.Row="1"
+                                                    Width="200" />
+                                                <DockPanel Margin="0,5,0,0">
+                                                    <TextBlock TextWrapping="Wrap"
+                                                               Margin="15,5,0,0"
+                                                               HorizontalAlignment="Left"
+                                                               FontFamily="Poppins"
+                                                               FontSize="14"
+                                                               Text="Loại:"
+                                                               FontWeight="Bold"
+                                                               Grid.Row="1" />
                                                     <TextBlock
-                                                        Margin="15,2,0,0"
+                                                        TextWrapping="NoWrap"
+                                                        TextTrimming="CharacterEllipsis"
+                                                        Margin="10,5,0,0"
                                                         HorizontalAlignment="Left"
                                                         FontFamily="Poppins"
-                                                        FontSize="12"
-                                                        FontWeight="Regular"
-                                                        Text="Loại: "
-                                                        TextWrapping="Wrap" />
-                                                    <TextBlock
-                                                        MaxWidth="150"
-                                                        Margin="0,2,0,0"
-                                                        HorizontalAlignment="Left"
-                                                        FontFamily="Poppins"
-                                                        FontSize="12"
+                                                        FontSize="14"
                                                         FontWeight="Regular"
                                                         Text="{Binding DanhMucSanPhamDTO.TenDanhMuc}"
-                                                        TextTrimming="CharacterEllipsis"
-                                                        TextWrapping="NoWrap" />
+                                                        Grid.Row="1"
+                                                        MaxWidth="150" />
                                                 </DockPanel>
-                                            </StackPanel>
 
-                                            <DockPanel Margin="0,2,10,2" LastChildFill="False">
-                                                <TextBlock
-                                                    Margin="15,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    VerticalAlignment="Top"
-                                                    FontFamily="Poppins"
-                                                    FontSize="16"
-                                                    FontWeight="Regular"
-                                                    Text="Tồn: "
-                                                    TextWrapping="Wrap" />
-                                                <TextBlock
-                                                    Width="60"
-                                                    Margin="0,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    VerticalAlignment="Top"
-                                                    FontFamily="Poppins"
-                                                    FontSize="16"
-                                                    FontWeight="Regular"
-                                                    Text="{Binding SoLuongTon}"
-                                                    TextWrapping="Wrap" />
-                                                <DockPanel Width="95" Margin="10,0,0,0">
+                                                <DockPanel >
+                                                    <TextBlock
+                                                        TextWrapping="Wrap"
+                                                        Margin="15,10,0,0"
+                                                        HorizontalAlignment="Left"
+                                                        FontFamily="Poppins"
+                                                        FontSize="14"
+                                                        FontWeight="Bold"
+                                                        Text="Số lượng: "
+                                                        Grid.Row="1" />
+                                                    <TextBlock
+                                                        Width="60"
+                                                        Margin="0,10,0,0"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Top"
+                                                        FontFamily="Poppins"
+                                                        FontSize="16"
+                                                        Text="{Binding SoLuongTon}"
+                                                        FontWeight="Regular"
+                                                        TextWrapping="Wrap" />
                                                     <TextBlock
                                                         x:Name="PriceSP"
                                                         Margin="0,0,0,0"
@@ -277,7 +278,9 @@
                                                         Foreground="#EA6A12"
                                                         Text="{Binding GiaBan, StringFormat={}{0:N0} VNĐ}" />
                                                 </DockPanel>
-                                            </DockPanel>
+                                            </StackPanel>
+
+
                                         </StackPanel>
                                         <i:Interaction.Triggers>
                                             <i:EventTrigger EventName="MouseLeftButtonUp">
@@ -388,10 +391,10 @@
                                     FontSize="16"
                                     Text="{Binding CusInfo}">
                                     <!--<i:Interaction.Triggers>
-                                        <i:EventTrigger EventName="OnTextChanged">
-                                            <i:InvokeCommandAction Command="{Binding SearchCusCM}"
-                                                                   CommandParameter="{Binding ElementName=searchCusBox}" />
-                                        </i:EventTrigger>
+                                    <i:EventTrigger EventName="OnTextChanged">
+                                    <i:InvokeCommandAction Command="{Binding SearchCusCM}"
+                                    CommandParameter="{Binding ElementName=searchCusBox}" />
+                                    </i:EventTrigger>
                                     </i:Interaction.Triggers>-->
                                 </TextBox>
                                 <Border
@@ -510,11 +513,11 @@
                                                             Orientation="Vertical">
                                                             <TextBlock FontSize="17" Text="{Binding Converter={StaticResource IndexConverter}, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}" />
                                                             <!--<Image Margin="0 15 0 0"
-                                                                   VerticalAlignment="Center"
-                                                                   HorizontalAlignment="Center"
-                                                                   Width="15"
-                                                                   Height="15"
-                                                                   Source="/QuanLiCuaHangThucAnNhanh;component/Resources/Icon/PenBlack_Icon.png" />-->
+                                                            VerticalAlignment="Center"
+                                                            HorizontalAlignment="Center"
+                                                            Width="15"
+                                                            Height="15"
+                                                            Source="/QuanLiCuaHangThucAnNhanh;component/Resources/Icon/PenBlack_Icon.png" />-->
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
@@ -540,19 +543,19 @@
                                                                 FontSize="17"
                                                                 Text="{Binding Book.DisplayName}" />
                                                             <!--<TextBox Text="{Binding Description}"
-                                                                     x:Name="NoteBox"
-                                                                     Width="170"
-                                                                     Height="40"
-                                                                     VerticalContentAlignment="Center"
-                                                                     materialDesign:HintAssist.Hint="Ghi chú..."
-                                                                     materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                                                                     BorderThickness="0"
-                                                                     FontSize="15">-->
+                                                            x:Name="NoteBox"
+                                                            Width="170"
+                                                            Height="40"
+                                                            VerticalContentAlignment="Center"
+                                                            materialDesign:HintAssist.Hint="Ghi chú..."
+                                                            materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                                            BorderThickness="0"
+                                                            FontSize="15">-->
                                                             <!--<i:Interaction.Triggers>
-                                                                    <i:EventTrigger EventName="TextChanged">
-                                                                        <i:InvokeCommandAction Command="{Binding NoteBoxCM}" CommandParameter="{Binding ElementName=NoteBox}"/>
-                                                                    </i:EventTrigger>
-                                                                </i:Interaction.Triggers>-->
+                                                            <i:EventTrigger EventName="TextChanged">
+                                                            <i:InvokeCommandAction Command="{Binding NoteBoxCM}" CommandParameter="{Binding ElementName=NoteBox}"/>
+                                                            </i:EventTrigger>
+                                                            </i:Interaction.Triggers>-->
                                                             <!--</TextBox>-->
                                                         </StackPanel>
                                                     </DataTemplate>
