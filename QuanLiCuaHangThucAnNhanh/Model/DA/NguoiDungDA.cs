@@ -41,5 +41,34 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
                 return null;
             }
         }
+
+        public async Task<List<NguoiDungDTO>> GetAllUser()
+        {
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    var staffList = (from s in context.NguoiDungs
+                                   where s.IsDeleted == false
+                                   select new NguoiDungDTO
+                                   {
+                                       ID = s.ID,
+                                       HoTen = s.HoTen,
+                                       SoDienThoai = s.SoDienThoai,
+                                       Email = s.Email,
+                                       NgaySinh = s.NgaySinh,
+                                       Loai = s.Loai,
+                                       DiaChi = s.DiaChi,
+                                       IsDeleted = s.IsDeleted
+                                   }).ToListAsync();
+                    return await staffList;
+                }
+            }
+            catch
+            {
+                return null;
+            }
+
+        }
     }
 }

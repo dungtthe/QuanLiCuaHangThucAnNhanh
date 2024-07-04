@@ -10,6 +10,8 @@
       d:Width="800"
       Background="White"
       mc:Ignorable="d"
+      x:Name="StaffManagementList"
+      DataContext="{StaticResource StaffPageVM}"
       Title="StaffManagement">
     <Page.Resources>
         <ResourceDictionary>
@@ -21,9 +23,10 @@
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding FirstLoadStaffPage}" />
+            <i:InvokeCommandAction Command="{Binding FirstLoadCM}" CommandParameter="{Binding ElementName=StaffManagementList}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
+
 
     <Grid>
         <Grid.RowDefinitions>
@@ -164,7 +167,7 @@
                     IsReadOnly="True"
                     SelectionMode="Single"
                     SelectionUnit="FullRow"
-                    ItemsSource="{Binding StaffObservation, Mode=TwoWay}"
+                    ItemsSource="{Binding StaffList, Mode=TwoWay}"
                     SelectedItem="{Binding SelectedItem}">
                     <DataGrid.CellStyle>
                         <Style BasedOn="{StaticResource MaterialDesignDataGridCell}" TargetType="DataGridCell">
@@ -200,7 +203,7 @@
                                         FontSize="15"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Text="{Binding DisplayName}" />
+                                        Text="{Binding HoTen}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -215,7 +218,7 @@
                                         FontSize="15"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Text="{Binding PhoneNumber}" />
+                                        Text="{Binding SoDienThoai}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
@@ -235,20 +238,6 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Width="auto" SortMemberPath="Gender">
-                            <DataGridTemplateColumn.Header>
-                                <TextBlock Text="Giới tính" Foreground="Black"></TextBlock>
-                            </DataGridTemplateColumn.Header>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock
-                                        FontSize="15"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        Text="{Binding Gender}" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
 
                         <DataGridTemplateColumn Width="auto"  SortMemberPath="BirthDay">
                             <DataGridTemplateColumn.Header>
@@ -262,26 +251,11 @@
                                         VerticalAlignment="Center"
                                         IsHitTestVisible="False"
                                         IsTodayHighlighted="True"
-                                        SelectedDate="{Binding BirthDay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        SelectedDate="{Binding NgaySinh, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Width="auto" SortMemberPath="StartDate">
-                            <DataGridTemplateColumn.Header>
-                                <TextBlock Text="Ngày bắt đầu" Foreground="Black"></TextBlock>
-                            </DataGridTemplateColumn.Header>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <DatePicker
-                                        FontSize="15"
-                                        IsHitTestVisible="False"
-                                        IsTodayHighlighted="True"
-                                        SelectedDate="{Binding StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                    </DatePicker>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
 
                         <DataGridTemplateColumn Width="auto" SortMemberPath="Role">
                             <DataGridTemplateColumn.Header>
@@ -293,29 +267,15 @@
                                         FontSize="15"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Text="{Binding Role}" />
+                                        Text="{Binding ChucVu}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Width="auto"  SortMemberPath="Wage">
-                            <DataGridTemplateColumn.Header>
-                                <TextBlock Text="Lương" Foreground="Black"></TextBlock>
-                            </DataGridTemplateColumn.Header>
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock
-                                        FontSize="15"
-                                        HorizontalAlignment="Left"
-                                        VerticalAlignment="Center"
-                                        Text="{Binding Wage, StringFormat={}{0:N0} VNĐ}" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
 
                         <DataGridTemplateColumn Width="auto"  SortMemberPath="Status">
                             <DataGridTemplateColumn.Header>
-                                <TextBlock Text="Trạng thái" Foreground="Black"></TextBlock>
+                                <TextBlock Text="Địa chỉ" Foreground="Black"></TextBlock>
                             </DataGridTemplateColumn.Header>
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -323,7 +283,7 @@
                                         FontSize="15"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        Text="{Binding Status}" />
+                                        Text="{Binding DiaChi}" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

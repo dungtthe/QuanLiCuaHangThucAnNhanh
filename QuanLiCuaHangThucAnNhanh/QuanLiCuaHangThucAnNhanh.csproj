@@ -141,6 +141,7 @@
     <Compile Include="ViewModel\MessageBoxVM\MessageBoxViewModel.cs" />
     <Compile Include="ViewModel\NguoiDungVM\MainNguoiDungVM.cs" />
     <Compile Include="ViewModel\NguoiDungVM\SaleVM\SaleViewModel.cs" />
+    <Compile Include="ViewModel\NguoiDungVM\StaffVM\StaffManagementVM.cs" />
     <Compile Include="ViewModel\NguoiDungVM\ThongKeVM\DoanhThu.cs" />
     <Compile Include="ViewModel\NguoiDungVM\ThongKeVM\LichSuBan.cs" />
     <Compile Include="ViewModel\NguoiDungVM\ThongKeVM\LichSuNhap.cs" />
