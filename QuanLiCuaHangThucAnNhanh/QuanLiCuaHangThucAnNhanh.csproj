@@ -140,6 +140,7 @@
     <Compile Include="ViewModel\NguoiDungVM\LoginVM\LoginViewModel.cs" />
     <Compile Include="ViewModel\MessageBoxVM\MessageBoxViewModel.cs" />
     <Compile Include="ViewModel\NguoiDungVM\MainNguoiDungVM.cs" />
+    <Compile Include="ViewModel\NguoiDungVM\QuanLi\ProductVM\ProductViewModel.cs" />
     <Compile Include="ViewModel\NguoiDungVM\SaleVM\SaleViewModel.cs" />
     <Compile Include="ViewModel\NguoiDungVM\StaffVM\StaffManagementVM.cs" />
     <Compile Include="ViewModel\NguoiDungVM\ThongKeVM\DoanhThu.cs" />

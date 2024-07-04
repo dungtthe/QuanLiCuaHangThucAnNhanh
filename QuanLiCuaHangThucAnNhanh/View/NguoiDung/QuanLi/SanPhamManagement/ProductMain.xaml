@@ -12,6 +12,7 @@
     Title="ProductPage"
     d:DesignHeight="800"
     d:DesignWidth="1536"
+    DataContext="{StaticResource ProductVM}"
     mc:Ignorable="d">
 
     <i:Interaction.Triggers>
@@ -241,17 +242,17 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Border
-                            Width="229"
+                            Width="259"
                             Height="290"
                             Margin="0,5,0,0"
                             Background="White"
                             BorderBrush="#E0AE8A"
                             BorderThickness="2,2,2,2"
                             CornerRadius="15">
-                            <StackPanel Width="229" Height="354">
+                            <StackPanel Width="259" Height="354">
 
                                 <Image
-                                    Width="205"
+                                    Width="235"
                                     Height="150"
                                     MaxWidth="200"
                                     MaxHeight="150"
