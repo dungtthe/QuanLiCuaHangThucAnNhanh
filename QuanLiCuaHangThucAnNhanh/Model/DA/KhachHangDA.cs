@@ -1,4 +1,5 @@
 ﻿using QuanLiCuaHangThucAnNhanh.Model.DTO;
+using QuanLiCuaHangThucAnNhanh.Model.Mapper;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -49,6 +50,43 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
 
         }
 
+
+        public async Task<KhachHangDTO> FindNguoiDungBySoDienThoai(string SoDienThoai)
+        {
+
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    var cus = await context.KhachHangs
+                        .Where(nd => nd.SoDienThoai == SoDienThoai && nd.IsDeleted == false)
+                        .FirstOrDefaultAsync();
+                    return KhachHangMapper.MapToDTO(cus);
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public async Task<KhachHangDTO> FindNguoiDungByEmail(string Email)
+        {
+
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    var cus = await context.KhachHangs
+                        .Where(nd => nd.Email == Email && nd.IsDeleted == false)
+                        .FirstOrDefaultAsync();
+                    return KhachHangMapper.MapToDTO(cus);
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
     }
 }
