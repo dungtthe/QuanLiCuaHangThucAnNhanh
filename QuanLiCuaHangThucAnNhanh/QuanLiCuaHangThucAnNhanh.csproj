@@ -188,6 +188,9 @@
     <Compile Include="View\NguoiDung\MainNguoiDungView.xaml.cs">
       <DependentUpon>MainNguoiDungView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\NguoiDung\QuanLi\HeThong\SystemPage.xaml.cs">
+      <DependentUpon>SystemPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\NguoiDung\QuanLi\SanPhamManagement\ProductMain.xaml.cs">
       <DependentUpon>ProductMain.xaml</DependentUpon>
     </Compile>
@@ -277,6 +280,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NguoiDung\MainNguoiDungView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NguoiDung\QuanLi\HeThong\SystemPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

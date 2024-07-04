@@ -26,6 +26,20 @@ VALUES
 (N'Bánh mì trứng', 40, 12000, 1),
 (N'Coca Cola', 100, 8000, 2),
 (N'Pepsi', 80, 8000, 2);
+INSERT INTO SanPham (TenSP, SoLuongTon, GiaNhap, DanhMucSanPhamID, Image)
+VALUES (N'Bánh mì chảo', 100, 15000, 1, NULL);
+
+INSERT INTO SanPham (TenSP, SoLuongTon, GiaNhap, DanhMucSanPhamID, Image)
+VALUES (N'Hamburger gà', 80, 20000, 1, NULL);
+
+INSERT INTO SanPham (TenSP, SoLuongTon, GiaNhap, DanhMucSanPhamID, Image)
+VALUES (N'Sữa tươi', 120, 12000, 2, NULL);
+
+INSERT INTO SanPham (TenSP, SoLuongTon, GiaNhap, DanhMucSanPhamID, Image)
+VALUES (N'Cà phê đen', 150, 18000, 2, NULL);
+
+INSERT INTO SanPham (TenSP, SoLuongTon, GiaNhap, DanhMucSanPhamID, Image)
+VALUES(N'Sting',55,10000,2,NULL);
 
 -- Chèn dữ liệu vào bảng HoaDonNhap
 INSERT INTO HoaDonNhap (TongTienNhap, NguoiDungID) 

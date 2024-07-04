@@ -2,6 +2,7 @@
 using QuanLiCuaHangThucAnNhanh.View.MessageBox;
 using QuanLiCuaHangThucAnNhanh.View.NguoiDung.BanHang;
 using QuanLiCuaHangThucAnNhanh.View.NguoiDung.CustomerMangament;
+using QuanLiCuaHangThucAnNhanh.View.NguoiDung.QuanLi.HeThong;
 using QuanLiCuaHangThucAnNhanh.View.NguoiDung.QuanLi.SanPhamManagement;
 using QuanLiCuaHangThucAnNhanh.View.NguoiDung.StaffManagement;
 using QuanLiCuaHangThucAnNhanh.View.NguoiDung.ThongKe;
@@ -49,6 +50,11 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM
             LoadSanPhamPage = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
                 p.Content = new ProductMain();
+            });
+
+            LoadHeThongPage = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+            {
+                p.Content = new SystemPage();
             });
         }
     }
