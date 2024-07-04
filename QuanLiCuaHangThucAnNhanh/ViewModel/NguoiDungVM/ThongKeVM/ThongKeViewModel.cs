@@ -18,6 +18,17 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
     public partial class ThongKeViewModel:BaseViewModel
     {
 
+        private bool isLichSuBanOrLichSuNhap;
+        public bool IsLichSuBanOrLichSuNhap
+        {
+            get => isLichSuBanOrLichSuNhap;
+            set
+            {
+                isLichSuBanOrLichSuNhap = value;
+                OnPropertyChanged(nameof(IsLichSuBanOrLichSuNhap));
+            }
+        }
+
 
         #region chọn ngày
         private DateTime _selectedDateFrom = DateTime.Now.AddDays(-2);
@@ -65,6 +76,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
         bool checkLanDau = false;
         public ThongKeViewModel()
         {
+            IsLichSuBanOrLichSuNhap = true;
 
             #region Lịch sử bán
 

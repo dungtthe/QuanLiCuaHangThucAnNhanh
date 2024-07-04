@@ -250,7 +250,8 @@
                     HorizontalAlignment="Center"
                     Background="#ffecdf"
                     BorderBrush="#ffecdf"
-                    CornerRadius="16">
+                    CornerRadius="16"
+                    Visibility="{Binding IsLichSuBanOrLichSuNhap, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Button
                         Padding="0"
                         Background="{x:Null}"

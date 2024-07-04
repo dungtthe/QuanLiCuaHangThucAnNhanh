@@ -67,12 +67,15 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
             {
                 case 0:
                     LichSuBanColor = colorSelect;
+                    IsLichSuBanOrLichSuNhap = true;
                     break;
                 case 1:
                     LichSuNhapColor = colorSelect;
+                    IsLichSuBanOrLichSuNhap = true;
                     break;
                 case 2:
                     DoanhThuColor = colorSelect;
+                    IsLichSuBanOrLichSuNhap = false;
                     break;
 
             }
