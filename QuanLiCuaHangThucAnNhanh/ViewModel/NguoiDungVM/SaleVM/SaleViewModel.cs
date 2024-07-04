@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
@@ -104,25 +105,45 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
             }
         }
 
+        private decimal tongTien;
+        public decimal TongTien
+        {
+            get => tongTien;
+            set
+            {
+                tongTien = value;
+                OnPropertyChanged(nameof(TongTien));
+            }
+        }
 
+
+        private bool _payEnabled;
+        public bool PayEnabled
+        {
+            get { return _payEnabled; }
+            set { _payEnabled = value; OnPropertyChanged(); }
+        }
 
         public ICommand FirstLoadCM { get; set; }
         public ICommand SearchCusCM { get; set; }
 
         //chọn item cho sản phẩm 
         public ICommand SelectSanPhamDTOCM { get; set; }
+        public ICommand PayBill { get; set; }
 
 
         public SaleViewModel()
         {
-            khachVangLai = new KhachHangDTO(1,"Khách vãng lai");
+            khachVangLai = new KhachHangDTO(1, "Khách vãng lai");
             KhachHangForBill = khachVangLai;
             ListChiTietHoaDonBan = new ObservableCollection<ChiTietHoaDonBanDTO>();
+            TongTien = 0;
+            PayEnabled = false;
 
             FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
                 thamSoDTO = await ThamSoDA.gI().GetThamSoCur();
-                if(thamSoDTO == null)
+                if (thamSoDTO == null)
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra!");
                     return;
@@ -151,7 +172,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
 
                 if (string.IsNullOrEmpty(CusInfo))
                 {
-                    MessageBoxCustom.Show(MessageBoxCustom.Error,"Vui lòng nhập số điện thoại hoặc Email!");
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Vui lòng nhập số điện thoại hoặc Email!");
                     return;
                 }
 
@@ -185,9 +206,37 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
                     AddSanPhamDTOToListChiTietHoaDon(SelectedItemSanPhamDTO);
                 }
             });
+
+            PayBill = new RelayCommand<Frame>((p) => { return true; }, async (p) =>
+            {
+                Warning wd = new Warning("Xác nhận thanh toán hóa đơn?");
+                wd.ShowDialog();
+                if (wd.DialogResult == true)
+                {
+                    HoaDonBanDTO hoaDonBanDTO = new HoaDonBanDTO();
+                    hoaDonBanDTO.ListChiTietHoaDonBanDTO = new List<ChiTietHoaDonBanDTO>(ListChiTietHoaDonBan);
+                    hoaDonBanDTO.NgayTao = DateTime.Now;
+                    hoaDonBanDTO.TongTienBan = TongTien;
+                    hoaDonBanDTO.NguoiDungID = MainNguoiDungVM.nguoiDungDTOCur.ID;
+                    hoaDonBanDTO.KhachHangID = KhachHangForBill.ID;
+                    hoaDonBanDTO.IsDeleted = false;
+
+                    bool flag = await HoaDonBanDA.gI().AddNewBill(hoaDonBanDTO);
+
+                    if (flag)
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Success, "Thanh toán đơn hàng thành công!");
+                    }
+                    else
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra!");
+                    }
+
+
+                }
+
+            });
         }
-
-
 
 
 
@@ -224,6 +273,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
                 ListChiTietHoaDonBan.Add(chiTietHoaDonBanDTO);
 
             }
+            SetTongTien();
         }
 
 
@@ -255,6 +305,25 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
                     decimal hesoDecimal = (decimal)heso.Value;
                     item.GiaBan = item.GiaNhap * hesoDecimal;
                 }
+            }
+        }
+
+
+        void SetTongTien()
+        {
+            TongTien = 0;
+            foreach(var item in ListChiTietHoaDonBan)
+            {
+                TongTien +=item.ThanhTien;
+            }
+
+            if (TongTien != 0)
+            {
+                PayEnabled = true;
+            }
+            else
+            {
+                PayEnabled = false;
             }
         }
     }

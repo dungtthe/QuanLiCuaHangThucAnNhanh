@@ -198,7 +198,7 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <Border
-                                        Width="249"
+                                        Width="229"
                                         Height="290"
                                         Margin="0,5,0,0"
                                         Background="White"
@@ -270,11 +270,11 @@
                                                         TextWrapping="Wrap" />
                                                     <TextBlock
                                                         x:Name="PriceSP"
-                                                        Margin="0,0,0,0"
+                                                        Margin="0,10,10,0"
                                                         HorizontalAlignment="Right"
                                                         VerticalAlignment="Center"
                                                         FontFamily="Poppins"
-                                                        FontSize="16"
+                                                        FontSize="14"
                                                         FontWeight="Bold"
                                                         Foreground="#EA6A12"
                                                         Text="{Binding GiaBan, StringFormat={}{0:N0} VNĐ}" />
@@ -689,7 +689,7 @@
                             Margin="0,0,5,0"
                             VerticalAlignment="Top"
                             Style="{DynamicResource TextBlock}"
-                            Text="{Binding TotalBillValue, Converter={StaticResource PriceConverter}}" />
+                            Text="{Binding TongTien, Converter={StaticResource PriceConverter}}" />
                         <TextBlock
                             VerticalAlignment="Top"
                             FontSize="20"
@@ -698,58 +698,7 @@
                     </StackPanel>
 
 
-                    <StackPanel
-                        Grid.Row="3"
-                        Height="33"
-                        Margin="450,30,0,0"
-                        VerticalAlignment="Top"
-                        Orientation="Horizontal">
-                        <TextBlock
-                            Margin="0,0,15,0"
-                            VerticalAlignment="Top"
-                            FontSize="20"
-                            Style="{DynamicResource TextBlock}"
-                            Text="Số tiền đã trả:" />
-                        <TextBox
-                            x:Name="SoTienDaTra"
-                            MaxWidth="170"
-                            Margin="0,0,5,0"
-                            VerticalAlignment="Top"
-                            FontSize="20"
-                            FontWeight="Bold"
-                            Foreground="#29FF24"
-                            Text="{Binding PaidBillValue, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock
-                            VerticalAlignment="Top"
-                            FontSize="20"
-                            Style="{DynamicResource TextBlock}"
-                            Text="đ" />
-                    </StackPanel>
-                    <StackPanel
-                        Grid.Row="3"
-                        Height="34"
-                        Margin="510,65,0,0"
-                        VerticalAlignment="Top"
-                        Orientation="Horizontal">
-                        <TextBlock
-                            Margin="0,0,15,0"
-                            VerticalAlignment="Top"
-                            FontSize="20"
-                            Style="{DynamicResource TextBlock}"
-                            Text="Còn lại:" />
-                        <TextBlock
-                            MaxWidth="170"
-                            Margin="0,0,5,0"
-                            VerticalAlignment="Top"
-                            Foreground="Red"
-                            Style="{DynamicResource TextBlock}"
-                            Text="{Binding Debt, Converter={StaticResource PriceConverter}}" />
-                        <TextBlock
-                            VerticalAlignment="Top"
-                            FontSize="20"
-                            Style="{DynamicResource TextBlock}"
-                            Text="đ" />
-                    </StackPanel>
+
                     <StackPanel
                         Grid.Row="4"
                         Margin="360,0,0,0"
@@ -779,7 +728,7 @@
                             BorderThickness="0"
                             Command="{Binding PayBill}"
                             CommandParameter="{Binding ElementName=TabFrame}"
-                            Content="{Binding PayContent}"
+                            Content="Thanh toán"
                             FontSize="24"
                             FontWeight="Bold"
                             IsEnabled="{Binding PayEnabled}" />

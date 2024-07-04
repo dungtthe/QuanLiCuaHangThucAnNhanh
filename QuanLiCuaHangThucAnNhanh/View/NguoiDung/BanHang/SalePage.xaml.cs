@@ -49,30 +49,7 @@ namespace QuanLiCuaHangThucAnNhanh.View.NguoiDung.BanHang
         }
         private void TextBox_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                if (!string.IsNullOrEmpty(SoTienDaTra.Text))
-                {
-                    System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("vi-VN");
-                    string textBefore = SoTienDaTra.Text.ToString();
-                    string textAfter = "";
-                    for (int i = 0; i < textBefore.Length; i++)
-                    {
-                        if (textBefore[i] != '.')
-                        {
-                            textAfter += textBefore[i];
-                        }
-                    }
-                    int value = Int32.Parse(textAfter);
-                    string formattedValue = value.ToString("#,##0", culture);
-                    SoTienDaTra.Text = formattedValue;
-                    SoTienDaTra.Select(SoTienDaTra.Text.Length, 0);
-                }
-            }
-            catch (Exception)
-            {
-                MessageBoxCustom.Show(MessageBoxCustom.Error, "Không hợp lệ");
-            }
+            
         }
     }
 }

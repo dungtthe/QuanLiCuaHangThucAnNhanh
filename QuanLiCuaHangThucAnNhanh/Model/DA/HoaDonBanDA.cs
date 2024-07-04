@@ -7,6 +7,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Automation.Peers;
 
 namespace QuanLiCuaHangThucAnNhanh.Model.DA
 {
@@ -88,6 +89,67 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
             {
                 return -1;
             }
+        }
+
+
+
+        public async Task<bool> AddNewBill(HoaDonBanDTO newBill)
+        {
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+
+                    int? maxID = await context.HoaDonBans.MaxAsync(b => (int?)b.ID);
+                    int curID = 0;
+                    if (maxID.HasValue)
+                    {
+                        curID = (int)maxID + 1;
+                    }
+                    else
+                    {
+                        curID = 1;
+                    }
+
+                    newBill.ID = curID;
+
+
+                    HoaDonBan hoaDonBan = new HoaDonBan {
+                        ID = newBill.ID,
+                        NgayTao = newBill.NgayTao,
+                        TongTienBan = newBill.TongTienBan,
+                        NguoiDungID = newBill.NguoiDungID,
+                        KhachHangID = newBill.KhachHangID,
+                        IsDeleted = false
+                    };
+
+
+                    List<ChiTietHoaDonBan> listChiTiet = new List<ChiTietHoaDonBan>();
+                    foreach (var item in newBill.ListChiTietHoaDonBanDTO)
+                    {
+                        ChiTietHoaDonBan chiTietHoaDonBan = new ChiTietHoaDonBan
+                        {
+                            HoaDonBanID = curID,
+                            SanPhamID=item.SanPhamID,
+                            SoLuong=item.SoLuong,
+                            DonGia=item.DonGia,
+                            IsDeleted=false
+                        };
+                    }
+
+
+
+                    context.ChiTietHoaDonBans.AddRange(listChiTiet);
+                    context.HoaDonBans.Add(hoaDonBan);
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
         }
     }
 }
