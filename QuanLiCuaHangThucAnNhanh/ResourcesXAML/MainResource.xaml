@@ -7,7 +7,8 @@
     xmlns:viewmodel4="clr-namespace:QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM"
     xmlns:viewmodel5="clr-namespace:QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.KhachHangVM"
     xmlns:viewmodel6="clr-namespace:QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM"
-    xmlns:viewmodel7="clr-namespace:QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM">
+    xmlns:viewmodel7="clr-namespace:QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM"
+    xmlns:viewmodel8="clr-namespace:QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.HeThongVM">
 
     <viewmodel1:MainNguoiDungVM x:Key="MainNguoiDungVM" />
     <viewmodel2:LoginViewModel x:Key="LoginVM" />
@@ -16,5 +17,6 @@
     <viewmodel5:CustomerManagementViewModel x:Key="CustomerPageVM" />
     <viewmodel6:StaffManagementVM x:Key="StaffPageVM" />
     <viewmodel7:ProductViewModel x:Key="ProductVM" />
+    <viewmodel8:HeThongVM x:Key="HeThongVM" />
 
 </ResourceDictionary>

@@ -24,7 +24,7 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
         }
 
 
-        public async Task<List<DanhMucSanPham>> GetAllDanhMucSanPham()
+        public async Task<List<DanhMucSanPhamDTO>> GetAllDanhMucSanPham()
         {
             try
             {
@@ -32,7 +32,7 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
                 {
                     var danhMucList = (from c in context.DanhMucSanPhams
                                        where c.IsDeleted == false
-                                       select new DanhMucSanPham
+                                       select new DanhMucSanPhamDTO
                                        {
                                            ID = c.ID,
                                            TenDanhMuc = c.TenDanhMuc,
