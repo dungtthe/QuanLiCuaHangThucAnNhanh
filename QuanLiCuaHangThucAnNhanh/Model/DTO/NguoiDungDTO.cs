@@ -152,6 +152,7 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
                 OnPropertyChanged(nameof(ChucVu));
             }
         }
+       
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)

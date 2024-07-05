@@ -86,7 +86,7 @@
                                 BorderBrush="Transparent"
                                 FontFamily="Inter"
                                 FontSize="15"
-                                Text="{Binding DisplayName}" />
+                                Text="{Binding HoTen}" />
 
                         </StackPanel>
 
@@ -153,19 +153,15 @@
                                 VerticalAlignment="Center"
                                 FontSize="12.8"
                                 Text="Chức vụ" />
-                            <ComboBox
+                            <TextBlock
                                 Width="300"
                                 Height="30"
-                                Padding="12,0,5,0"
+                                Padding="12,8,5,0"
                                 materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                 materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
-                                Background="#D9D9D9"
-                                BorderThickness="0"
-                                FontSize="15"
-                                Text="{Binding Role}">
-                                <ComboBoxItem Content="Quản lí" />
-                                <ComboBoxItem Content="Nhân viên" />
-                            </ComboBox>
+                                Background="#D9D9D9" 
+                                Text="Nhân viên"
+                                FontSize="15"/>
                         </StackPanel>
 
                         <!--  Địa chỉ  -->
