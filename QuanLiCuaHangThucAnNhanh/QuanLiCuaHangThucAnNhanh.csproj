@@ -144,6 +144,7 @@
     <Compile Include="ViewModel\NguoiDungVM\QuanLi\HeThongVM\DanhMucSanPhamVM.cs" />
     <Compile Include="ViewModel\NguoiDungVM\QuanLi\HeThongVM\HeThongVM.cs" />
     <Compile Include="ViewModel\NguoiDungVM\QuanLi\HeThongVM\ThamSoVM.cs" />
+    <Compile Include="ViewModel\NguoiDungVM\QuanLi\ProductVM\EditProductViewModel.cs" />
     <Compile Include="ViewModel\NguoiDungVM\QuanLi\ProductVM\NhapKhoViewModel.cs" />
     <Compile Include="ViewModel\NguoiDungVM\QuanLi\ProductVM\ProductViewModel.cs" />
     <Compile Include="ViewModel\NguoiDungVM\SaleVM\SaleViewModel.cs" />

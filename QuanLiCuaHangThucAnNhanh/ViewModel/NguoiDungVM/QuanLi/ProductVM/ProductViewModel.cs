@@ -4,7 +4,9 @@ using OfficeOpenXml;
 using QuanLiCuaHangThucAnNhanh.Model;
 using QuanLiCuaHangThucAnNhanh.Model.DA;
 using QuanLiCuaHangThucAnNhanh.Model.DTO;
+using QuanLiCuaHangThucAnNhanh.Utils;
 using QuanLiCuaHangThucAnNhanh.View.MessageBox;
+using QuanLiCuaHangThucAnNhanh.View.NguoiDung.QuanLi.SanPhamManagement;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,7 +20,7 @@ using System.Windows.Input;
 
 namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
 {
-    public partial class ProductViewModel:BaseViewModel
+    public partial class ProductViewModel : BaseViewModel
     {
         private ThamSoDTO thamSoDTO;
 
@@ -64,9 +66,25 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
             }
         }
 
+
+        private SanPhamDTO selectedItem;
+        public SanPhamDTO SelectedItem
+        {
+            get => selectedItem;
+            set
+            {
+                selectedItem = value;
+                OnPropertyChanged(nameof(SelectedItem));
+            }
+        }
+
         public ICommand FirstLoadCM { get; set; }
         public ICommand NhapKhoCM { get; set; }
-        public ICommand Search {  get; set; }
+        public ICommand Search { get; set; }
+        public ICommand OpenEditWdCM { get; set; }
+        public ICommand CloseWdCM { get; set; }
+        public ICommand AcceptEditCM { get; set; }
+        public ICommand EditImageCM { get; set; }
 
 
         public ProductViewModel()
@@ -126,14 +144,14 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
                     {
                         List<SanPhamDTO> sanPhamDTOs = new List<SanPhamDTO>();
 
-                        List<SanPham> listSanPhamInsert= new List<SanPham>();
+                        List<SanPham> listSanPhamInsert = new List<SanPham>();
                         List<SanPham> listSanPhamUpdate = new List<SanPham>();
 
                         List<DanhMucSanPhamDTO> listDanhMuc = await DanhMucSanPhamDA.gI().GetAllDanhMucSanPham();
 
-                        if(listDanhMuc == null)
+                        if (listDanhMuc == null)
                         {
-                            MessageBoxCustom.Show(MessageBoxCustom.Error,"Có lỗi xảy ra!");
+                            MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra!");
                             return;
                         }
 
@@ -147,7 +165,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
                                 string tenDanhMuc = worksheet.Cells[row, 4].Value.ToString();
 
                                 int idDanhMucSP = GetIdDanhMucSanPhamByTenDanhMuc(tenDanhMuc, listDanhMuc);
-                                if (idDanhMucSP==-1)
+                                if (idDanhMucSP == -1)
                                 {
                                     MessageBoxCustom.Show(MessageBoxCustom.Error, $"Không tồn tại danh mục sản phẩm có tên {tenDanhMuc}");
                                     return;
@@ -159,8 +177,8 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
                                     SoLuongTon = int.Parse(worksheet.Cells[row, 2].Value.ToString()),
                                     GiaNhap = decimal.Parse(worksheet.Cells[row, 3].Value.ToString()),
                                     DanhMucSanPhamID = idDanhMucSP,
-                                    Image=null,
-                                    IsDeleted=false,
+                                    Image = null,
+                                    IsDeleted = false,
                                 };
 
                                 int idProductOld = IsSanPhamOld(sanPham);
@@ -180,7 +198,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
 
                             foreach (var item in listSanPhamInsert)
                             {
-                               await SanPhamDA.gI().AddNewProduct(item);
+                                await SanPhamDA.gI().AddNewProduct(item);
                             }
 
                             foreach (var item in listSanPhamUpdate)
@@ -207,7 +225,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
                             UpdateCb();
                         }
                     }
-                    catch 
+                    catch
                     {
                         MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra!");
                     }
@@ -240,6 +258,83 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
 
             });
             #endregion
+
+
+            #region edit sản phẩm
+            OpenEditWdCM = new RelayCommand<SanPhamDTO>((p) => { return true; }, (p) =>
+            {
+                SelectedItem = p;
+                if (p == null)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra!");
+                    return;
+                }
+                ComboList.RemoveAt(0);
+                ProductEditingView wd = new ProductEditingView();
+                wd.ShowDialog();
+            });
+            #endregion
+
+            #region close window
+            CloseWdCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
+            {
+                CloseEditWindow(p);
+            });
+            #endregion
+
+            #region chấp nhận edit
+            AcceptEditCM = new RelayCommand<Window>((p) => { return true; }, async (p) =>
+            {
+                if (p != null && SelectedItem != null)
+                {
+                    List<DanhMucSanPhamDTO> listDanhMuc = await DanhMucSanPhamDA.gI().GetAllDanhMucSanPham();
+
+
+                    SanPham sanPham = new SanPham()
+                    {
+                        ID=SelectedItem.ID,
+                        TenSP = SelectedItem.TenSP,
+                        DanhMucSanPhamID = GetIdDanhMucSanPhamByTenDanhMuc(SelectedItem.DanhMucSanPhamDTO.TenDanhMuc, listDanhMuc),
+                        Image = SelectedItem.Image,
+                    };
+
+                    await SanPhamDA.gI().UpdateProduct(sanPham);
+                    MessageBoxCustom.Show(MessageBoxCustom.Success, "Cập nhật sản phẩm thành công!");
+
+                }
+                else
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra!");
+                }
+
+                CloseEditWindow(p);
+
+
+            });
+            #endregion
+
+
+            #region chỉnh sửa hình ảnh
+            EditImageCM = new RelayCommand<object>((p) => { return true; }, (p) =>
+            {
+
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Image Files|*.jpg;*.png;*.jpeg;*.webp;*.gif|All Files|*.*";
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    string path = openFileDialog.FileName;
+                    if (path != null)
+                    {
+                        SelectedItem.Image = MotSoPhuongThucBoTro.ImagePathToByteArray(path);
+                    }
+                    else
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Tải ảnh lên thất bại!");
+                    }
+                }
+            });
+            #endregion
+
         }
 
 
