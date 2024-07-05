@@ -34,10 +34,6 @@
         <converters:ByteArrayToImageSourceConverter x:Key="ByteArrayToImageSourceConverter" />
         <BitmapImage x:Key="DefaultImage" UriSource="pack://application:,,,/QuanLiCuaHangThucAnNhanh;component/Resources/Image/logo_cua_hang_login.jpg" />
     </Page.Resources>
-
-
-
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="53" />
@@ -359,9 +355,10 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="45" />
+                        <RowDefinition Height="45" />
+                        <RowDefinition Height="45" />
                         <RowDefinition Height="Auto" MinHeight="465" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" MinHeight="100" />
+                        <RowDefinition Height="50" />
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal">
@@ -439,10 +436,87 @@
                                 TextWrapping="NoWrap" />
 
                         </StackPanel>
-
                     </StackPanel>
+
+                    <!--Hiển thị điểm tích lũy của khách hàng-->
+                    <StackPanel Orientation="Horizontal"
+                                Margin="30,0,0,0"
+                                Grid.Row="1">
+                        <TextBlock
+                            Margin="37,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="DemiBold"
+                            Foreground="#E0AE8A"
+                            Text="Điểm tích lũy của khách hàng: " />
+
+                        <!--Binding đtl-->
+                        <TextBlock
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="DemiBold"
+                            Text="100"
+                            TextWrapping="NoWrap" />
+
+                        <TextBlock
+                            Width="160"
+                            Margin="5,0,0,0"
+                            VerticalAlignment="Center"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="DemiBold"
+                            Text="điểm"
+                            TextWrapping="NoWrap" />
+                    </StackPanel>
+
+                    <!--Nhập điểm tích lũy để dùng-->
+                    <!--Hiển thị điểm tích lũy của khách hàng-->
+                    <StackPanel Orientation="Horizontal"
+                                Margin="30,0,0,0"
+                                Grid.Row="2">
+                        <TextBlock
+                            Margin="37,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="DemiBold"
+                            Foreground="#E0AE8A"
+                            Text="Số điểm dùng " />
+
+                        <!--Binding đtl-->
+                        <TextBox
+                            materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                            materialDesign:TextFieldAssist.TextFieldCornerRadius="10"
+                            Background="#D9D9D9"
+                            BorderBrush="Transparent"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
+                            TextAlignment="Right"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="DemiBold"
+                            Text="100"
+                            Width="100"
+                            TextWrapping="NoWrap" />
+
+                        <TextBlock
+                            Width="160"
+                            Margin="5,0,0,0"
+                            VerticalAlignment="Center"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            FontWeight="DemiBold"
+                            Text="điểm"
+                            TextWrapping="NoWrap" />
+                    </StackPanel>
+
                     <Grid
-                        Grid.Row="1"
+                        Grid.Row="3"
                         Height="450"
                         VerticalAlignment="Center">
                         <Border
@@ -672,8 +746,10 @@
                         </Border>
 
                     </Grid>
+
+                    <!--Tồng tiền-->
                     <StackPanel
-                        Grid.Row="3"
+                        Grid.Row="4"
                         Height="26"
                         Margin="525,0,0,0"
                         VerticalAlignment="Top"
@@ -697,11 +773,9 @@
                             Text="đ" />
                     </StackPanel>
 
-
-
                     <StackPanel
-                        Grid.Row="4"
-                        Margin="360,0,0,0"
+                        Grid.Row="5"
+                        Margin="360,10,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Orientation="Horizontal">
