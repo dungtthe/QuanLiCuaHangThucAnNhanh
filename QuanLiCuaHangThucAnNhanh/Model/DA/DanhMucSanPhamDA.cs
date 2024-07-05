@@ -66,5 +66,22 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
         }
 
 
+        public async Task<bool> AddNewDanhMuc(DanhMucSanPham danhMucSanPham)
+        {
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    context.DanhMucSanPhams.Add(danhMucSanPham);
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
+        }
     }
 }

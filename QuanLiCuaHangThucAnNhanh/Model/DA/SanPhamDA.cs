@@ -111,5 +111,34 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
             }
         }
 
+        public async Task<bool> UpdateProduct(SanPham sanPhamNew)
+        {
+            try
+            {
+                int productId = sanPhamNew.ID;
+
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    var sanPham = await context.SanPhams.FindAsync(productId);
+
+                    if (sanPham == null)
+                    {
+                        return false;
+                    }
+
+                    sanPham.TenSP = sanPhamNew.TenSP;
+                    sanPham.DanhMucSanPhamID = sanPhamNew.DanhMucSanPhamID;
+                    sanPham.Image = sanPhamNew.Image;
+
+                    await context.SaveChangesAsync();
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
     }
 }

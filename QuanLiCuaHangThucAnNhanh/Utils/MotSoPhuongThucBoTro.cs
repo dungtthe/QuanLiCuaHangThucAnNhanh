@@ -62,6 +62,12 @@ namespace QuanLiCuaHangThucAnNhanh.Utils
             }
         }
 
+        // Phương thức chuyển đổi đường dẫn ảnh thành mảng byte
+        public static byte[] ImagePathToByteArray(string imagePath)
+        {
+            BitmapImage bitmapImage = new BitmapImage(new Uri(imagePath));
+            return BitmapImageToByteArray(bitmapImage);
+        }
 
         //phương thức tạo tên file ngẫu nhiên
         public static string RandomFileName(string type)

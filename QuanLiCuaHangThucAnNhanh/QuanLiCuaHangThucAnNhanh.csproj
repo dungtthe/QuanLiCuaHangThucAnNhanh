@@ -144,6 +144,7 @@
     <Compile Include="ViewModel\NguoiDungVM\QuanLi\HeThongVM\DanhMucSanPhamVM.cs" />
     <Compile Include="ViewModel\NguoiDungVM\QuanLi\HeThongVM\HeThongVM.cs" />
     <Compile Include="ViewModel\NguoiDungVM\QuanLi\HeThongVM\ThamSoVM.cs" />
+    <Compile Include="ViewModel\NguoiDungVM\QuanLi\ProductVM\EditProductViewModel.cs" />
     <Compile Include="ViewModel\NguoiDungVM\QuanLi\ProductVM\NhapKhoViewModel.cs" />
     <Compile Include="ViewModel\NguoiDungVM\QuanLi\ProductVM\ProductViewModel.cs" />
     <Compile Include="ViewModel\NguoiDungVM\SaleVM\SaleViewModel.cs" />
@@ -192,6 +193,9 @@
     </Compile>
     <Compile Include="View\NguoiDung\MainNguoiDungView.xaml.cs">
       <DependentUpon>MainNguoiDungView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NguoiDung\QuanLi\HeThong\AddDanhMuc.xaml.cs">
+      <DependentUpon>AddDanhMuc.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\NguoiDung\QuanLi\HeThong\SystemPage.xaml.cs">
       <DependentUpon>SystemPage.xaml</DependentUpon>
@@ -297,6 +301,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NguoiDung\MainNguoiDungView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NguoiDung\QuanLi\HeThong\AddDanhMuc.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
