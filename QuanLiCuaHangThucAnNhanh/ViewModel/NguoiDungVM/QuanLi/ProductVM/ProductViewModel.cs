@@ -19,7 +19,13 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
     public partial class ProductViewModel:BaseViewModel
     {
         private ThamSoDTO thamSoDTO;
+        private SanPhamDTO _selectedItem;
 
+        public SanPhamDTO SelectedItem
+        {
+            get { return _selectedItem; }
+            set { _selectedItem = value; OnPropertyChanged(); }
+        }
 
         //danh sách sản phẩm 
         private List<SanPhamDTO> prdList;
@@ -50,7 +56,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
 
         public ICommand FirstLoadCM { get; set; }
         public ICommand NhapKhoCM { get; set; }
-
+        public ICommand DeleteSanPhamListCM;
 
         public ProductViewModel()
         {
@@ -83,8 +89,6 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
                 DanhMucSelect = "Tất cả thể loại";
             });
             #endregion
-
-
 
             #region nhập kho
             NhapKhoCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
@@ -183,6 +187,33 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
             });
             #endregion
 
+            #region xóa sản phẩm
+            DeleteSanPhamListCM = new RelayCommand<SanPhamDTO>((p) => { return true; }, async (p) =>
+            {
+                SelectedItem = p;
+                SanPhamDTO a = new SanPhamDTO();
+                a = SelectedItem;
+
+                Warning wd = new Warning();
+                wd.ShowDialog();
+                if (wd.DialogResult == true)
+                {
+                    //string deleteImg = SelectedItem.Image;
+                    //await CloudService.Ins.DeleteImage(deleteImg);
+                    (bool sucess, string messageDelete) = await SanPhamDA.Ins.DeletePrD(SelectedItem.ID);
+                    if (sucess)
+                    {
+                        ProductList.Remove(SelectedItem);
+                        prdList = new List<SanPhamDTO>(ProductList);
+                        MessageBoxCustom.Show(MessageBoxCustom.Success, "Bạn đã xóa thành công");
+                    }
+                    else
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, messageDelete);
+                    }
+                }
+            });
+            #endregion
         }
 
 
