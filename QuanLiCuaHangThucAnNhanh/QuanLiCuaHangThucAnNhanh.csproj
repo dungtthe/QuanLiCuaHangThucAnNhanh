@@ -199,6 +199,9 @@
     <Compile Include="View\NguoiDung\QuanLi\SanPhamManagement\ChiTietHoaDon.xaml.cs">
       <DependentUpon>ChiTietHoaDon.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\NguoiDung\QuanLi\SanPhamManagement\ProductEditingView.xaml.cs">
+      <DependentUpon>ProductEditingView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\NguoiDung\QuanLi\SanPhamManagement\ProductMain.xaml.cs">
       <DependentUpon>ProductMain.xaml</DependentUpon>
     </Compile>
@@ -302,6 +305,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NguoiDung\QuanLi\SanPhamManagement\ChiTietHoaDon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NguoiDung\QuanLi\SanPhamManagement\ProductEditingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
