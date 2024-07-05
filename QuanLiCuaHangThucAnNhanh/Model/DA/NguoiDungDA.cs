@@ -22,7 +22,6 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
             return instance;
         }
 
-
         public async Task<NguoiDungDTO> FindNguoiDungByUsernameAndPassword(string username, string password)
         {
 
@@ -49,7 +48,7 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
                 using (var context = new QuanLiCuaHangThucAnNhanhEntities())
                 {
                     var staffList = (from s in context.NguoiDungs
-                                   where s.IsDeleted == false
+                                   where s.IsDeleted == false && s.Loai == 0
                                    select new NguoiDungDTO
                                    {
                                        ID = s.ID,
