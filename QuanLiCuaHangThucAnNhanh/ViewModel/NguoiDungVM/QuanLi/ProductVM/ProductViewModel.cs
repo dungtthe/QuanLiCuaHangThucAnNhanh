@@ -1,11 +1,13 @@
 ﻿using Microsoft.Win32;
 using OfficeOpenXml;
+using QuanLiCuaHangThucAnNhanh.Model;
 using QuanLiCuaHangThucAnNhanh.Model.DA;
 using QuanLiCuaHangThucAnNhanh.Model.DTO;
 using QuanLiCuaHangThucAnNhanh.View.MessageBox;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -95,18 +97,78 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
 
                 if (openFileDialog.ShowDialog() == false) return;
 
-                string FilePath = openFileDialog.FileName;
+                string filePath = openFileDialog.FileName;
 
                 Warning wd = new Warning("Vui lòng xác nhận lại!");
                 wd.ShowDialog();
                 if (wd.DialogResult == true)
                 {
+                    try
+                    {
+                        List<SanPhamDTO> sanPhamDTOs = new List<SanPhamDTO>();
 
+                        List<SanPham> listSanPhamInsert= new List<SanPham>();
+                        List<SanPham> listSanPhamUpdate = new List<SanPham>();
+
+                        List<DanhMucSanPhamDTO> listDanhMuc = await DanhMucSanPhamDA.gI().GetAllDanhMucSanPham();
+
+                        if(listDanhMuc == null)
+                        {
+                            MessageBoxCustom.Show(MessageBoxCustom.Error,"Có lỗi xảy ra!");
+                            return;
+                        }
+
+                        using (var package = new ExcelPackage(new FileInfo(filePath)))
+                        {
+                            ExcelWorksheet worksheet = package.Workbook.Worksheets[0]; // dữ liệu nằm ở worksheet đầu tiên
+                            int rowCount = worksheet.Dimension.Rows;
+
+                            for (int row = 2; row <= rowCount; row++)
+                            {
+                                string tenDanhMuc = worksheet.Cells[row, 4].Value.ToString();
+
+                                int idDanhMucSP = GetIdDanhMucSanPhamByTenDanhMuc(tenDanhMuc, listDanhMuc);
+                                if (idDanhMucSP==-1)
+                                {
+                                    MessageBoxCustom.Show(MessageBoxCustom.Error, $"Không tồn tại danh mục sản phẩm có tên {tenDanhMuc}");
+                                    return;
+                                }
+
+                                SanPham sanPham = new SanPham
+                                {
+                                    TenSP = worksheet.Cells[row, 1].Value.ToString(),
+                                    SoLuongTon = int.Parse(worksheet.Cells[row, 2].Value.ToString()),
+                                    GiaNhap = decimal.Parse(worksheet.Cells[row, 3].Value.ToString()),
+                                    DanhMucSanPhamID = idDanhMucSP,
+                                    Image=null,
+                                    IsDeleted=false,
+                                };
+
+                                int idProductOld = IsSanPhamOld(sanPham);
+                                if (idProductOld == -1)
+                                {
+                                    listSanPhamInsert.Add(sanPham);
+                                    MessageBox.Show("vao day 1");
+                                }
+                                else
+                                {
+                                    sanPham.ID = idProductOld;
+                                    listSanPhamUpdate.Add(sanPham);
+                                    MessageBox.Show("vao day 2");
+
+                                }
+
+                            }
+                        }
+                    }
+                    catch 
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra!");
+                    }
                 }
-               
-
             });
             #endregion
+
         }
 
 

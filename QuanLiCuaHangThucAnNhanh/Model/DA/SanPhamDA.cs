@@ -49,6 +49,7 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
                         TenSP = c.TenSP,
                         GiaNhap = c.GiaNhap,
                         SoLuongTon = c.SoLuongTon,
+                        DanhMucSanPhamID = c.DanhMucSanPham.ID,
                         DanhMucSanPhamDTO = DanhMucSanPhamMapper.MapToDTO(c.DanhMucSanPham),
                         Image = c.Image,
                         IsDeleted = c.IsDeleted,
