@@ -5,6 +5,7 @@
     xmlns:converters="clr-namespace:QuanLiCuaHangThucAnNhanh.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="systemPage"
     Title="SystemPage"
@@ -40,42 +41,138 @@
             <ColumnDefinition Width="60*" />
         </Grid.ColumnDefinitions>
 
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <!--  TextBoxes for numbering cells  -->
+            <TextBlock
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="150,0,0,0"
+                HorizontalAlignment="Left"
+                FontSize="35"
+                FontWeight="Bold"
+                Foreground="#E0AE8A"
+                Text="Thiết lập quy định"
+                TextAlignment="Center" />
+
+            <!--Hệ số bán-->
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBlock
+                    Height="35"
+                    VerticalAlignment="Center"
+                    FontSize="30"
+                    Margin="20,0,0,0"
+                    Text="Hệ số bán:" />
+                <TextBox
+                    Width="250"
+                    Height="53.6"
+                    Margin="99,0,0,0"
+                    Padding="12,2.4"
+                    HorizontalAlignment="Left"
+                    VerticalContentAlignment="Center"
+                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                    materialDesign:TextFieldAssist.TextFieldCornerRadius="24"
+                    Background="#D9D9D9"
+                    BorderBrush="Transparent"
+                    BorderThickness="0.5"
+                    FontFamily="Inter"
+                    FontSize="14"
+                    Text="{Binding ThamSoDTO.HeSoBan, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
 
 
-        <!--  TextBoxes for numbering cells  -->
-        <TextBlock
-            Grid.Row="0"
-            Grid.Column="0"
-            Grid.ColumnSpan="2"
-            Margin="150,0,0,0"
-            HorizontalAlignment="Left"
-            FontSize="35"
-            FontWeight="Bold"
-            Foreground="#E0AE8A"
-            Text="Thiết lập hệ số bán"
-            TextAlignment="Center" />
+            <!--Quy đổi điểm tích lũy sang tiền-->
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <TextBlock
+                    Height="35"
+                    VerticalAlignment="Center"
+                    FontSize="30"
+                    Margin="20,0,0,0"
+                    Text="100đ tích lũy = " />
+                <TextBox
+                    Width="250"
+                    Height="53.6"
+                    Margin="36,0,0,0"
+                    Padding="12,2.4"
+                    HorizontalAlignment="Left"
+                    VerticalContentAlignment="Center"
+                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                    materialDesign:TextFieldAssist.TextFieldCornerRadius="24"
+                    Background="#D9D9D9"
+                    BorderBrush="Transparent"
+                    BorderThickness="0.5"
+                    FontFamily="Inter"
+                    FontSize="14"
+                    Text="{Binding ThamSoDTO.HeSoBan, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock
+                    Height="35"
+                    VerticalAlignment="Center"
+                    FontSize="30"
+                    Margin="20,0,0,0"
+                    Text="VNĐ"/>
+            </StackPanel>
+
+            <!--Quy đổi điểm tiền sang điểm tích lũy-->
+            <StackPanel Grid.Row="3" Orientation="Horizontal">
+                <TextBlock
+                    Height="35"
+                    VerticalAlignment="Center"
+                    FontSize="30"
+                    Margin="20,0,0,0"
+                    Text="10.000 VNĐ  = " />
+                <TextBox
+                    Width="250"
+                    Height="53.6"
+                    Margin="36,0,0,0"
+                    Padding="12,2.4"
+                    HorizontalAlignment="Left"
+                    VerticalContentAlignment="Center"
+                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                    materialDesign:TextFieldAssist.TextFieldCornerRadius="24"
+                    Background="#D9D9D9"
+                    BorderBrush="Transparent"
+                    BorderThickness="0.5"
+                    FontFamily="Inter"
+                    FontSize="14"
+                    Text="{Binding ThamSoDTO.HeSoBan, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock
+                    Height="35"
+                    VerticalAlignment="Center"
+                    FontSize="30"
+                    Margin="20,0,0,0"
+                    Text="điểm"/>
+            </StackPanel>
+
+            <StackPanel
+                Grid.Row="4">
+
+                <Button
+                    x:Name="SaveButton"
+                    Width="200"
+                    Height="50"
+                    Margin="0,40,30,0"
+                    Background="#FFE0AE8A"
+                    BorderThickness="0"
+                    materialDesign:ButtonAssist.CornerRadius="24"
+                    Command="{Binding SavingCMD}"
+                    Content="Lưu thiết lập"
+                    HorizontalAlignment="Right"
+                    FontSize="25"
+                    Foreground="Black" />
+            </StackPanel>
+
+        </Grid>
 
 
-        <TextBox
-            Height="50"
-            Margin="100,0,100,400"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            FontSize="25"
-            Text="{Binding ThamSoDTO.HeSoBan, UpdateSourceTrigger=PropertyChanged}" />
 
-
-        <Button
-            x:Name="SaveButton"
-            Width="200"
-            Height="50"
-            Margin="0,100,0,200"
-            Background="#FFE0AE8A"
-            BorderThickness="0"
-            Command="{Binding SavingCMD}"
-            Content="Lưu thiết lập"
-            FontSize="25"
-            Foreground="Black" />
 
 
 
