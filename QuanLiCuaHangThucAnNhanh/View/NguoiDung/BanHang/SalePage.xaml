@@ -10,7 +10,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="salePgae"
     Title="SalePage"
-    d:DesignHeight="800"
+    d:DesignHeight="778.4"
     d:DesignWidth="1536"
     Background="#ffecde"
     DataContext="{StaticResource SaleVM}"
@@ -357,8 +357,8 @@
                         <RowDefinition Height="45" />
                         <RowDefinition Height="45" />
                         <RowDefinition Height="45" />
-                        <RowDefinition Height="Auto" MinHeight="465" />
-                        <RowDefinition Height="50" />
+                        <RowDefinition Height="Auto" MinHeight="350" />
+                        <RowDefinition Height="30" />
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <StackPanel Orientation="Horizontal">
@@ -775,7 +775,7 @@
 
                     <StackPanel
                         Grid.Row="5"
-                        Margin="360,10,0,0"
+                        Margin="360,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Orientation="Horizontal">
