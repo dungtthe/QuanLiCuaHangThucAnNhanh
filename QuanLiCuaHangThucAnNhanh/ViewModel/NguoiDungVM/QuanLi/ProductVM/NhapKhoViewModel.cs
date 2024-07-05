@@ -27,7 +27,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
 
         private int IsSanPhamOld(SanPham sanPham)
         {
-            foreach(var item in ProductList)
+            foreach(var item in listSanPhamAll)
             {
                 if (item.TenSP == sanPham.TenSP)
                 {
@@ -53,6 +53,18 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
             }
 
             return int.Parse(s.Split('.')[0]);
+        }
+
+        private byte[] GetImage(int idProduct)
+        {
+            foreach(var item in listSanPhamAll)
+            {
+                if (item.ID == idProduct)
+                {
+                    return item.Image;
+                }
+            }
+            return null;
         }
     }
 }

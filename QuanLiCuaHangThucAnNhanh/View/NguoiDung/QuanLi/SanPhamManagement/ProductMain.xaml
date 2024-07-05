@@ -93,7 +93,8 @@
                                 materialDesign:HintAssist.Hint="Tìm kiếm"
                                 materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                                 BorderThickness="0"
-                                FontSize="17.6">
+                                FontSize="17.6"
+                                Text="{Binding ChuoiSearch}">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="TextChanged">
                                         <i:InvokeCommandAction Command="{Binding Search}" CommandParameter="{Binding ElementName=searchBox}" />

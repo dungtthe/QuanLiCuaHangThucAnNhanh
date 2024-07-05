@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using MaterialDesignColors;
+using Microsoft.Win32;
 using OfficeOpenXml;
 using QuanLiCuaHangThucAnNhanh.Model;
 using QuanLiCuaHangThucAnNhanh.Model.DA;
@@ -12,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
@@ -21,7 +23,11 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
         private ThamSoDTO thamSoDTO;
 
 
+
         //danh sách sản phẩm 
+
+        private List<SanPhamDTO> listSanPhamAll;
+
         private List<SanPhamDTO> prdList;
         private ObservableCollection<SanPhamDTO> _productList;
 
@@ -48,8 +54,19 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
             set { _danhMucSelect = value; OnPropertyChanged(); UpdateCb(); }
         }
 
+        private string chuoiSearch;
+        public string ChuoiSearch
+        {
+            get => chuoiSearch;
+            set
+            {
+                chuoiSearch = value; OnPropertyChanged(nameof(ChuoiSearch));
+            }
+        }
+
         public ICommand FirstLoadCM { get; set; }
         public ICommand NhapKhoCM { get; set; }
+        public ICommand Search {  get; set; }
 
 
         public ProductViewModel()
@@ -69,6 +86,8 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
 
 
                 List<SanPhamDTO> sanPhams = await SanPhamDA.gI().GetAllSanPham();
+                listSanPhamAll = new List<SanPhamDTO>(sanPhams);
+
                 SetGia(sanPhams);
 
                 ProductList = new ObservableCollection<SanPhamDTO>(sanPhams);
@@ -152,6 +171,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
                                 else
                                 {
                                     sanPham.ID = idProductOld;
+                                    sanPham.Image = GetImage(sanPham.ID);
                                     listSanPhamUpdate.Add(sanPham);
 
                                 }
@@ -170,7 +190,19 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
 
 
                             MessageBoxCustom.Show(MessageBoxCustom.Success, "Nhập kho thành công!");
-                            
+
+
+                            List<SanPhamDTO> sanPhams = await SanPhamDA.gI().GetAllSanPham();
+                            listSanPhamAll = new List<SanPhamDTO>(sanPhams);
+
+                            SetGia(sanPhams);
+
+                            ProductList = new ObservableCollection<SanPhamDTO>(sanPhams);
+                            if (ProductList != null)
+                            {
+                                prdList = new List<SanPhamDTO>(ProductList);
+                            }
+
                             DanhMucSelect = "Tất cả thể loại";
                             UpdateCb();
                         }
@@ -183,6 +215,31 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
             });
             #endregion
 
+
+            #region tìm kiếm sản phẩm
+            Search = new RelayCommand<TextBox>((p) => { return true; }, async (p) =>
+            {
+                ChuoiSearch = p.Text;
+                if (p.Text == "")
+                {
+                    UpdateCb();
+                }
+                else
+                {
+                    ProductList = new ObservableCollection<SanPhamDTO>(listSanPhamAll);
+                    prdList = new List<SanPhamDTO>(ProductList);
+                    if (DanhMucSelect != "Tất cả thể loại")
+                    {
+                        ProductList = new ObservableCollection<SanPhamDTO>(prdList.FindAll(x => x.TenSP.ToLower().Contains(p.Text.ToLower()) && x.DanhMucSanPhamDTO.TenDanhMuc == DanhMucSelect));
+                    }
+                    else
+                    {
+                        ProductList = new ObservableCollection<SanPhamDTO>(prdList.FindAll(x => x.TenSP.ToLower().Contains(p.Text.ToLower())));
+                    }
+                }
+
+            });
+            #endregion
         }
 
 
@@ -206,16 +263,16 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
         }
 
 
-        async void UpdateCb()
+        void UpdateCb()
         {
-            List<SanPhamDTO> sanPhams = await SanPhamDA.gI().GetAllSanPham();
-            SetGia(sanPhams);
+            List<SanPhamDTO> sanPhams = new List<SanPhamDTO>(listSanPhamAll);
             ProductList = new ObservableCollection<SanPhamDTO>(sanPhams);
             prdList = new List<SanPhamDTO>(ProductList);
             if (DanhMucSelect != "Tất cả thể loại")
             {
                 ProductList = new ObservableCollection<SanPhamDTO>(prdList.FindAll(x => (x.DanhMucSanPhamDTO.TenDanhMuc == DanhMucSelect)));
             }
+            ChuoiSearch = "";
         }
 
     }
