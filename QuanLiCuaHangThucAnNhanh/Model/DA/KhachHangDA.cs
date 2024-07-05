@@ -1,5 +1,6 @@
 ﻿using QuanLiCuaHangThucAnNhanh.Model.DTO;
 using QuanLiCuaHangThucAnNhanh.Model.Mapper;
+using QuanLiCuaHangThucAnNhanh.View.MessageBox;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -21,6 +22,20 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
             }
             return instance;
         }
+        private static KhachHangDA _ins;
+
+        public static KhachHangDA Ins
+        {
+            get
+            {
+                if (_ins == null)
+                {
+                    _ins = new KhachHangDA();
+                }
+                return _ins;
+            }
+            private set { _ins = value; }
+        }// test
 
         public async Task<List<KhachHangDTO>> GetAllCus()
         {
@@ -86,6 +101,102 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
             {
                 return null;
             }
+        }
+
+        //Add cus
+        public async Task<(bool, string)> AddNewCus(KhachHang newCus)
+        {
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    bool IsEsixtEmail = await context.KhachHangs.AnyAsync(p => p.Email == newCus.Email);
+                    bool IsExistPhone = await context.KhachHangs.AnyAsync(p => p.SoDienThoai == newCus.SoDienThoai);
+
+                    var cus = await context.KhachHangs.Where(p => p.Email == newCus.Email || p.SoDienThoai == newCus.SoDienThoai).FirstOrDefaultAsync();
+                    if (cus != null)
+                    {
+                        if (cus.IsDeleted == true)
+                        {
+                            cus.HoTen = newCus.HoTen;
+                            cus.Email = newCus.Email;
+                            cus.SoDienThoai = newCus.SoDienThoai;
+                            cus.DiaChi = newCus.DiaChi;
+                            cus.NgaySinh = newCus.NgaySinh;
+                            cus.IsDeleted = false;
+                            await context.SaveChangesAsync();
+                            return (true, "Them thanh cong");
+                        }
+                        else
+                        {
+                            if (IsEsixtEmail)
+                            {
+                                return (false, "Email đã tồn tại");
+                            }
+                            if (IsExistPhone)
+                            {
+                                return (false, "Số điện thoại đã tồn tại");
+                            }
+
+                        }
+                    }
+                    context.KhachHangs.Add(newCus);
+                    await context.SaveChangesAsync();
+                    return (true, "Them thanh cong");
+                }
+
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
+                return (false, null);
+            }
+
+        }
+
+        public async Task<(bool, string)> EditCusList(KhachHang newCus, int ID)
+        {
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    var cus = await context.KhachHangs.Where(p => p.ID == ID).FirstOrDefaultAsync();
+                    if (cus == null) return (false, "Không tìm thấy ID");
+                    cus.Email = newCus.Email;
+                    cus.SoDienThoai = newCus.SoDienThoai;
+                    cus.HoTen = newCus.HoTen;
+                    cus.DiaChi = newCus.DiaChi;
+                    await context.SaveChangesAsync();
+                    return (true, "Chỉnh sửa thành công");
+                }
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi khi chỉnh sửa khách hàng");
+                return (false, null);
+            }
+
+
+        }
+        public async Task<(bool, string)> DeleteCustomer(int ID)
+        {
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    var cus = await context.KhachHangs.Where(p => p.ID == ID).FirstOrDefaultAsync();
+                    if (cus.IsDeleted == true) return (false, "Đã xóa khách hàng này rồi");
+                    cus.IsDeleted = true;
+                    await context.SaveChangesAsync();
+                    return (true, "Xóa thành công");
+                }
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
+                return (false, null);
+            }
+
         }
 
     }

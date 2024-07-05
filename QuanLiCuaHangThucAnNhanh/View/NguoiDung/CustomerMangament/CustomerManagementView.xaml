@@ -62,7 +62,7 @@
                                 FontSize="15">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="TextChanged">
-                                        <i:InvokeCommandAction Command="{Binding SearchCustomerCM}" CommandParameter="{Binding ElementName=searchBox}" />
+                                        <i:InvokeCommandAction Command="{Binding SearchCus}" CommandParameter="{Binding ElementName=searchBox}" />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </TextBox>
@@ -72,13 +72,15 @@
                     </Border>
                 </ControlTemplate>
             </StackPanel.Resources>
-            <TextBox Margin="59.2,23.39,19.2,29.6" Template="{StaticResource TextSearchCustomer}" />
+            <TextBox  Margin="59.2,23.39,19.2,29.6" Template="{StaticResource TextSearchCustomer}" >
+              
+            </TextBox>
             <Button
                 Width="40"
                 Height="40"
                 Margin="0,21.79,0,31.2"
                 BorderThickness="0"
-                Command="{Binding AddCusWdCM}">
+                Command="{Binding OpenAddWindowCommand}">
                 <Button.Background>
                     <ImageBrush ImageSource="/Resources/Icon/AddCusBtn.png" />
                 </Button.Background>
@@ -231,13 +233,13 @@
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
                                             <Border
-                                                Width="23.3"
-                                                Height="24.49"
-                                                Margin="0,0,0,0"
-                                                Background="Transparent"
-                                                BorderThickness="0"
-                                                Cursor="Hand">
-                                                <Image Source="/QuanLiNhaSach;component/Resources/Icon/ChangeBrown_Icon.png" />
+                                                    Width="23.3"
+                                                    Height="24.49"
+                                                    Margin="0,0,0,0"
+                                                    Background="Transparent"
+                                                    BorderThickness="0"
+                                                    Cursor="Hand">
+                                                <Image Source="/Resources/Icon/Edit.png" />
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseLeftButtonUp">
                                                         <i:InvokeCommandAction Command="{Binding ElementName=CusList, Path=DataContext.OpenEditWdCM}" />
@@ -245,30 +247,16 @@
                                                 </i:Interaction.Triggers>
                                             </Border>
                                             <Border
-                                                Width="23.3"
-                                                Height="24.49"
-                                                Margin="12,0,0,0"
-                                                Background="Transparent"
-                                                BorderThickness="0"
-                                                Cursor="Hand">
-                                                <Image Source="/QuanLiNhaSach;component/Resources/Icon/DeleteBlue_Icon.png" />
+                                                    Width="23.3"
+                                                    Height="24.49"
+                                                    Margin="12,0,0,0"
+                                                    Background="Transparent"
+                                                    BorderThickness="0"
+                                                    Cursor="Hand">
+                                                <Image Source="/Resources/Icon/DeleteBlue_Icon.png" />
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseLeftButtonUp">
                                                         <i:InvokeCommandAction Command="{Binding ElementName=CusList, Path=DataContext.DeleteCusListCM}" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                            </Border>
-                                            <Border
-                                                Width="23.3"
-                                                Height="24.49"
-                                                Margin="12,0,0,0"
-                                                Background="Transparent"
-                                                BorderThickness="0"
-                                                Cursor="Hand">
-                                                <Image Source="/QuanLiNhaSach;component/Resources/Icon/money_icon_green.png" />
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="MouseLeftButtonUp">
-                                                        <i:InvokeCommandAction Command="{Binding ElementName=CusList, Path=DataContext.DebtCusListCM}" />
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
                                             </Border>
