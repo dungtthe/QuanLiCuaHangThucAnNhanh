@@ -251,7 +251,7 @@
                                                 Background="Transparent"
                                                 BorderThickness="0"
                                                 Cursor="Hand">
-                                                <Image Source="/QuanLiNhaSach;component/Resources/Icon/DeleteBlue_Icon.png" />
+                                                <Image Source="/Resources/Icon/DeleteBlue_Icon.png" />
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseLeftButtonUp">
                                                         <i:InvokeCommandAction Command="{Binding ElementName=CusList, Path=DataContext.DeleteCusListCM}" />
@@ -265,7 +265,7 @@
                                                 Background="Transparent"
                                                 BorderThickness="0"
                                                 Cursor="Hand">
-                                                <Image Source="/QuanLiNhaSach;component/Resources/Icon/money_icon_green.png" />
+                                                <Image Source="/Resources/Icon/Edit.png" />
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="MouseLeftButtonUp">
                                                         <i:InvokeCommandAction Command="{Binding ElementName=CusList, Path=DataContext.DebtCusListCM}" />
