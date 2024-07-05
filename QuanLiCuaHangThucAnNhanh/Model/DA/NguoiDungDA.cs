@@ -6,6 +6,8 @@ using System.Text;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using QuanLiCuaHangThucAnNhanh.Model.Mapper;
+using QuanLiCuaHangThucAnNhanh.View.MessageBox;
+using System.Collections;
 namespace QuanLiCuaHangThucAnNhanh.Model.DA
 {
     public class NguoiDungDA
@@ -21,7 +23,20 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
             }
             return instance;
         }
+        private static NguoiDungDA _ins;
 
+        public static NguoiDungDA Ins
+        {
+            get
+            {
+                if (_ins == null)
+                {
+                    _ins = new NguoiDungDA();
+                }
+                return _ins;
+            }
+            private set { _ins = value; }
+        }// test
 
         public async Task<NguoiDungDTO> FindNguoiDungByUsernameAndPassword(string username, string password)
         {
@@ -67,6 +82,59 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
             catch
             {
                 return null;
+            }
+
+        }
+
+        //Add staff
+        public async Task<(bool, string)> AddNewStaff(NguoiDung newStaff)
+        {
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    bool IsEsixtEmail = await context.NguoiDungs.AnyAsync(p => p.Email == newStaff.Email);
+                    bool IsExistPhone = await context.NguoiDungs.AnyAsync(p => p.SoDienThoai == newStaff.SoDienThoai);
+                    
+                    var staff = await context.NguoiDungs.Where(p => p.Email == newStaff.Email || p.SoDienThoai == newStaff.SoDienThoai ).FirstOrDefaultAsync();
+                    if (staff != null)
+                    {
+                        if (staff.IsDeleted == true)
+                        {
+                            staff.HoTen = newStaff.HoTen;
+                            staff.Email = newStaff.Email;
+                            staff.SoDienThoai = newStaff.SoDienThoai;
+                            staff.DiaChi = newStaff.DiaChi;
+                            staff.NgaySinh = newStaff.NgaySinh;
+                            staff.Loai = 1;
+                            staff.Image = null;
+                            staff.IsDeleted = false;
+                            await context.SaveChangesAsync();
+                            return (true, "Them thanh cong");
+                        }
+                        else
+                        {
+                            if (IsEsixtEmail)
+                            {
+                                return (false, "Email đã tồn tại");
+                            }
+                            if (IsExistPhone)
+                            {
+                                return (false, "Số điện thoại đã tồn tại");
+                            }
+                           
+                        }
+                    }
+                    context.NguoiDungs.Add(newStaff);
+                    await context.SaveChangesAsync();
+                    return (true, "Them thanh cong");
+                }
+
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
+                return (false, null);
             }
 
         }

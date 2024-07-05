@@ -11,8 +11,10 @@
         AllowsTransparency="True"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
         WindowStyle="None"
         Icon="/Resources/Icon/icon_app.ico"
+        DataContext="{StaticResource StaffPageVM}"
         mc:Ignorable="d">
     <Window.Resources>
         <ResourceDictionary>
@@ -139,7 +141,7 @@
                                 BorderBrush="Transparent"
                                 FontFamily="Inter"
                                 FontSize="15"
-                                Text="{Binding PhoneNumber}" />
+                                Text="{Binding SoDienThoai}" />
                         </StackPanel>
 
                         <!--  Chức vụ  -->
@@ -188,7 +190,7 @@
                                 BorderBrush="Transparent"
                                 FontFamily="Inter"
                                 FontSize="15"
-                                Text="{Binding Wage, Mode=TwoWay, StringFormat=N0}"/>
+                                Text="{Binding DiaChi}"/>
                         </StackPanel>
 
                         <!--  Ngày sinh  -->
@@ -213,7 +215,7 @@
                                 Background="#D9D9D9"
                                 BorderThickness="0"
                                 FontSize="14"
-                                SelectedDate="{Binding BirthDay, Mode=TwoWay}" />
+                                SelectedDate="{Binding NgaySinh, Mode=TwoWay}" />
 
                         </StackPanel>
                     </StackPanel>

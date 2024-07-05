@@ -1,4 +1,5 @@
-﻿using QuanLiCuaHangThucAnNhanh.Model.DA;
+﻿using QuanLiCuaHangThucAnNhanh.Model;
+using QuanLiCuaHangThucAnNhanh.Model.DA;
 using QuanLiCuaHangThucAnNhanh.Model.DTO;
 using QuanLiCuaHangThucAnNhanh.View.MessageBox;
 using QuanLiCuaHangThucAnNhanh.View.NguoiDung.StaffManagement;
@@ -30,7 +31,16 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
             get { return _staffList; }
             set { _staffList = value; OnPropertyChanged(); }
         }
-
+        private ObservableCollection<NguoiDungDTO> staffObservation; //ListView source
+        public ObservableCollection<NguoiDungDTO> StaffObservation
+        {
+            get { return staffObservation; }
+            set
+            {
+                staffObservation = value; OnPropertyChanged(nameof(StaffObservation));
+                
+            }
+        }
         private int id;
         public int ID
         {
@@ -206,6 +216,67 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
                         StaffList = new ObservableCollection<NguoiDungDTO>(staffList.FindAll(x => x.HoTen.ToLower().Contains(p.Text.ToLower())));
                 }
             });
+            // Them NV
+
+            AddStaffCommand = new RelayCommand<Window>(null, async (p) =>
+            {
+                
+                if (HoTen == null || Email == null || SoDienThoai == null
+                || DiaChi == null || NgaySinh == null)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Bạn đang nhập thiếu hoặc sai thông tin");
+                }
+
+
+                else
+                {
+                    string mailPattern = @"^[a-zA-Z0-9._%+-]+@gmail\.com$";
+                    string phonePattern = @"^0\d{9}$";
+                    if (!Regex.IsMatch(Email, mailPattern))
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Email không hợp lệ (phải có dạng @gmail.com)");
+                        return;
+                    }
+                    if (!Regex.IsMatch(SoDienThoai, phonePattern))
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Số điện thoại không hợp lệ (phải có 10 chữ số và số bắt đầu là 0)");
+                        return;
+                    }
+
+                    if (NgaySinh.HasValue && (NgaySinh.Value < new DateTime(1900, 1, 1) || NgaySinh.Value > DateTime.Now))
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Ngày sinh không hợp lệ");
+                        return;
+                    }
+
+                    NguoiDung newStaff = new NguoiDung
+                    {
+                        HoTen = this.HoTen,
+                        Email = this.Email,
+                        SoDienThoai = this.SoDienThoai,
+                        DiaChi = this.DiaChi,
+                        NgaySinh = this.NgaySinh,
+                        Loai = 1,
+                        Image= null,
+                        TenTaiKhoan = "a",
+                        MatKhau = "a",
+                        IsDeleted = false
+                    };
+
+                    (bool IsAdded, string messageAdd) = await NguoiDungDA.Ins.AddNewStaff(newStaff);
+                    if (IsAdded)
+                    {
+                        StaffObservation = new ObservableCollection<NguoiDungDTO>(await NguoiDungDA.Ins.GetAllUser());
+                        MessageBoxCustom.Show(MessageBoxCustom.Success, "Bạn đã thêm thành công nhân viên");
+                        //p.Close();
+                    }
+                    else
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, messageAdd);
+                    }
+                }
+
+            });
             //đóng mở thêm nv
             OpenAddWindowCommand = new RelayCommand<Page>((mainStaffWindow) => { return true; }, (mainStaffWindow) =>
             {
@@ -222,7 +293,9 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
             {
                 mainStaffWindow.Close();
             });
+        
 
+         
         }
     }
 }
