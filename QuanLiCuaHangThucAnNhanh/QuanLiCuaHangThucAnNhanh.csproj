@@ -64,6 +64,7 @@
     <Compile Include="Converter\ByteArrayToImageSourceConverter.cs" />
     <Compile Include="Converter\CusNameConverter.cs" />
     <Compile Include="Converter\IndexConverter.cs" />
+    <Compile Include="Converter\IndexInvoiceConverter.cs" />
     <Compile Include="Converter\InputPriceConvert.cs" />
     <Compile Include="Converter\PriceConverter.cs" />
     <Compile Include="Converter\SalePriceConvert.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="ViewModel\NguoiDungVM\QuanLi\HeThongVM\DanhMucSanPhamVM.cs" />
     <Compile Include="ViewModel\NguoiDungVM\QuanLi\HeThongVM\HeThongVM.cs" />
     <Compile Include="ViewModel\NguoiDungVM\QuanLi\HeThongVM\ThamSoVM.cs" />
+    <Compile Include="ViewModel\NguoiDungVM\QuanLi\ProductVM\NhapKhoViewModel.cs" />
     <Compile Include="ViewModel\NguoiDungVM\QuanLi\ProductVM\ProductViewModel.cs" />
     <Compile Include="ViewModel\NguoiDungVM\SaleVM\SaleViewModel.cs" />
     <Compile Include="ViewModel\NguoiDungVM\StaffVM\StaffManagementVM.cs" />
@@ -193,6 +195,9 @@
     </Compile>
     <Compile Include="View\NguoiDung\QuanLi\HeThong\SystemPage.xaml.cs">
       <DependentUpon>SystemPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\NguoiDung\QuanLi\SanPhamManagement\ChiTietHoaDon.xaml.cs">
+      <DependentUpon>ChiTietHoaDon.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\NguoiDung\QuanLi\SanPhamManagement\ProductMain.xaml.cs">
       <DependentUpon>ProductMain.xaml</DependentUpon>
@@ -293,6 +298,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NguoiDung\QuanLi\HeThong\SystemPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NguoiDung\QuanLi\SanPhamManagement\ChiTietHoaDon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

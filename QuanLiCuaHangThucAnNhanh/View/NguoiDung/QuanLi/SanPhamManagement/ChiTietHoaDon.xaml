@@ -1,10 +1,10 @@
 ﻿<Window
-    x:Class="QuanLiCuaHangThucAnNhanh.View.NguoiDung.ThongKe.LichSuNhap.ChiTietHoaDon"
+    x:Class="QuanLiCuaHangThucAnNhanh.View.NguoiDung.QuanLi.SanPhamManagement.ChiTietHoaDon"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="clr-namespace:QuanLiCuaHangThucAnNhanh.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:QuanLiCuaHangThucAnNhanh.View.NguoiDung.ThongKe.LichSuNhap"
+    xmlns:local="clr-namespace:QuanLiCuaHangThucAnNhanh.View.NguoiDung.QuanLi.SanPhamManagement"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="BillInfoWd"
@@ -15,7 +15,7 @@
     Background="Transparent"
     BorderBrush="Transparent"
     BorderThickness="0"
-    DataContext="{StaticResource ThongKeVM}"
+    DataContext="{StaticResource ProductVM}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     ResizeMode="NoResize"
     TextElement.FontSize="13"
@@ -265,9 +265,6 @@
                             Text="đ" />
                     </DockPanel>
                 </Grid>
-
-
-
 
 
                 <!--  Nút đóng  -->

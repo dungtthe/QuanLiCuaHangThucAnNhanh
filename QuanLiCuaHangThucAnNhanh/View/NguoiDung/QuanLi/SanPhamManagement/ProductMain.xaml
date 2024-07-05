@@ -141,7 +141,7 @@
                             Padding="0"
                             Background="{x:Null}"
                             BorderBrush="{x:Null}"
-                            Command="{Binding OpenImportGoods}"
+                            Command="{Binding NhapKhoCM}"
                             Foreground="{x:Null}">
                             <StackPanel Width="135" Orientation="Horizontal">
                                 <Image

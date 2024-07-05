@@ -1,4 +1,6 @@
-﻿using QuanLiCuaHangThucAnNhanh.Model.DA;
+﻿using Microsoft.Win32;
+using OfficeOpenXml;
+using QuanLiCuaHangThucAnNhanh.Model.DA;
 using QuanLiCuaHangThucAnNhanh.Model.DTO;
 using QuanLiCuaHangThucAnNhanh.View.MessageBox;
 using System;
@@ -7,11 +9,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
 {
-    public class ProductViewModel:BaseViewModel
+    public partial class ProductViewModel:BaseViewModel
     {
         private ThamSoDTO thamSoDTO;
 
@@ -44,10 +47,12 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
         }
 
         public ICommand FirstLoadCM { get; set; }
+        public ICommand NhapKhoCM { get; set; }
 
 
         public ProductViewModel()
         {
+            #region load list product
             FirstLoadCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
 
@@ -75,7 +80,33 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
                 ComboList.Insert(0, "Tất cả thể loại");
                 DanhMucSelect = "Tất cả thể loại";
             });
+            #endregion
 
+
+
+            #region nhập kho
+            NhapKhoCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Excel Files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == false) return;
+
+                string FilePath = openFileDialog.FileName;
+
+                Warning wd = new Warning("Vui lòng xác nhận lại!");
+                wd.ShowDialog();
+                if (wd.DialogResult == true)
+                {
+
+                }
+               
+
+            });
+            #endregion
         }
 
 
