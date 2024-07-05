@@ -148,17 +148,31 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
                                 if (idProductOld == -1)
                                 {
                                     listSanPhamInsert.Add(sanPham);
-                                    MessageBox.Show("vao day 1");
                                 }
                                 else
                                 {
                                     sanPham.ID = idProductOld;
                                     listSanPhamUpdate.Add(sanPham);
-                                    MessageBox.Show("vao day 2");
 
                                 }
 
                             }
+
+                            foreach (var item in listSanPhamInsert)
+                            {
+                               await SanPhamDA.gI().AddNewProduct(item);
+                            }
+
+                            foreach (var item in listSanPhamUpdate)
+                            {
+                                await SanPhamDA.gI().UpdateProductQuantity(item);
+                            }
+
+
+                            MessageBoxCustom.Show(MessageBoxCustom.Success, "Nhập kho thành công!");
+                            
+                            DanhMucSelect = "Tất cả thể loại";
+                            UpdateCb();
                         }
                     }
                     catch 

@@ -64,5 +64,52 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
             }
         }
 
+
+        public async Task<bool> AddNewProduct(SanPham sanPham)
+        {
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    context.SanPhams.Add(sanPham);
+                    await context.SaveChangesAsync();
+                }
+                return true;
+            }
+            catch 
+            {
+                return false;
+            }
+        }
+
+
+        public async Task<bool> UpdateProductQuantity(SanPham sanPhamNew)
+        {
+            try
+            {
+                int productId = sanPhamNew.ID;
+                int quantityAdd = sanPhamNew.SoLuongTon;
+
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    var sanPham = await context.SanPhams.FindAsync(productId);
+
+                    if (sanPham == null)
+                    {
+                        return false;
+                    }
+
+                    sanPham.SoLuongTon = quantityAdd + sanPham.SoLuongTon;
+
+                    await context.SaveChangesAsync();
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
     }
 }
