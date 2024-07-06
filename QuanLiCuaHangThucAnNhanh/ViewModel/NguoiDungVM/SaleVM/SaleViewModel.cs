@@ -4,6 +4,7 @@ using QuanLiCuaHangThucAnNhanh.Model.DA;
 using QuanLiCuaHangThucAnNhanh.Model.DTO;
 using QuanLiCuaHangThucAnNhanh.Utils;
 using QuanLiCuaHangThucAnNhanh.View.MessageBox;
+using QuanLiCuaHangThucAnNhanh.View.NguoiDung.BanHang;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -212,7 +213,16 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
             }
         }
 
-
+        private HoaDonBanDTO hoaDonThanhToan;
+        public HoaDonBanDTO HoaDonThanhToan
+        {
+            get => hoaDonThanhToan;
+            set
+            {
+                hoaDonThanhToan = value;
+                OnPropertyChanged(nameof(HoaDonThanhToan));
+            }
+        }
 
 
 
@@ -317,6 +327,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
                     hoaDonBanDTO.NguoiDungID = MainNguoiDungVM.nguoiDungDTOCur.ID;
                     hoaDonBanDTO.KhachHangID = KhachHangForBill.ID;
                     hoaDonBanDTO.IsDeleted = false;
+                    HoaDonThanhToan = hoaDonBanDTO;
 
                     bool flag = false;
                     if (KhachHangForBill.ID != 1)
@@ -338,8 +349,22 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
 
                     if (flag)
                     {
-                        MessageBoxCustom.Show(MessageBoxCustom.Success, "Thanh toán đơn hàng thành công!");
-                      
+                     MessageBoxCustom.Show(MessageBoxCustom.Success, "Thanh toán đơn hàng thành công!");
+
+
+                        List<SanPhamDTO> listTemp = new List<SanPhamDTO>(listSanPhamAll);
+                        foreach(var item in ListChiTietHoaDonBan)
+                        {
+                            foreach(SanPhamDTO sanPhamDTO in listTemp)
+                            {
+                                if (sanPhamDTO.ID == item.SanPhamID)
+                                {
+                                    item.SanPhamDTO = sanPhamDTO;
+                                }
+                            }
+                        }
+
+                        new InvoicePrint().ShowDialog();
 
                     }
                     else
