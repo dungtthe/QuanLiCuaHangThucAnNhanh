@@ -23,13 +23,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
     public partial class ProductViewModel : BaseViewModel
     {
         private ThamSoDTO thamSoDTO;
-        private SanPhamDTO _selectedItem;
-
-        public SanPhamDTO SelectedItem
-        {
-            get { return _selectedItem; }
-            set { _selectedItem = value; OnPropertyChanged(); }
-        }
+    
 
 
         //danh sách sản phẩm 
@@ -91,6 +85,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
         public ICommand CloseWdCM { get; set; }
         public ICommand AcceptEditCM { get; set; }
         public ICommand EditImageCM { get; set; }
+        public ICommand DeleteSanPhamListCM {  get; set; }
 
         public ProductViewModel()
         {
