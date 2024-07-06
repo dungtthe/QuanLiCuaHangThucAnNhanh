@@ -27,30 +27,32 @@
     mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="380.08" />
+            <ColumnDefinition Width="490" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Image
             Grid.Column="0"
-            Width="846"
+           
             Source="/QuanLiCuaHangThucAnNhanh;component/Resources/Image/logo_cua_hang_login.jpg"
-            Stretch="Uniform" />
+            Stretch="Fill"  />
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="88.352" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Rectangle Grid.RowSpan="2" Margin="362,0,0,374">
+            <!--<Rectangle Grid.RowSpan="2" Margin="362,0,0,374">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="/QuanLiCuaHangThucAnNhanh;component/Resources/Icon/icon_app.jpg" />
                 </Rectangle.Fill>
-            </Rectangle>
-            <StackPanel Grid.Row="1" Margin="83.2,32,83.2,96.8">
+            </Rectangle>-->
+            <StackPanel Grid.Row="0" Background="#25555A"></StackPanel>
+            <StackPanel Background="#25555A" Margin="0,70,0,0" Grid.RowSpan="2">
                 <TextBlock
                     HorizontalAlignment="Center"
                     FontFamily="Inter"
                     FontSize="28.8"
                     FontWeight="Bold"
+                    Foreground="Wheat"
                     Text="Đăng Nhập" />
                 <materialDesign:Card
                     Width="332"
