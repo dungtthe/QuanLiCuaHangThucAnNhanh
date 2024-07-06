@@ -124,5 +124,18 @@ namespace QuanLiCuaHangThucAnNhanh.Utils
             }
             return null;
         }
+
+
+        public static bool IsNumeric(string str)
+        {
+            foreach (char c in str)
+            {
+                if (!char.IsDigit(c))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

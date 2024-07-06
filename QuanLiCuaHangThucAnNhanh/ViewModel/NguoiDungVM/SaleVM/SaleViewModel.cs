@@ -1,6 +1,8 @@
 ﻿using MaterialDesignColors;
+using QuanLiCuaHangThucAnNhanh.Model;
 using QuanLiCuaHangThucAnNhanh.Model.DA;
 using QuanLiCuaHangThucAnNhanh.Model.DTO;
+using QuanLiCuaHangThucAnNhanh.Utils;
 using QuanLiCuaHangThucAnNhanh.View.MessageBox;
 using System;
 using System.Collections.Generic;
@@ -56,12 +58,78 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
             {
                 khachHangForBill = value;
                 OnPropertyChanged(nameof(KhachHangForBill));
+                UpdateInfoKhachHang();
             }
         }
 
         private KhachHangDTO khachVangLai;
 
 
+        private int pointKhachHang;
+        public int PointKhachHang
+        {
+            get => pointKhachHang;
+            set
+            {
+                pointKhachHang = value;
+                OnPropertyChanged(nameof(PointKhachHang));
+            }
+        }
+
+        private string pointUse;
+        public string PointUse
+        {
+            get => pointUse;
+            set
+            {
+                try
+                {
+                    //if (string.IsNullOrEmpty(value))
+                    //{
+                    //    MsgErrorUsePoint = "Không hợp lệ!";
+                    //    return;
+                    //}
+                    //MsgErrorUsePoint = "";
+                    pointUse = value;
+
+
+
+                    if (!string.IsNullOrEmpty(pointUse))
+                    {
+                        if (int.Parse(pointUse) > PointKhachHang)
+                        {
+                            pointUse = pointKhachHang + "";
+                        }
+                    }
+
+                    OnPropertyChanged(nameof(PointUse));
+                    SetTongTien();
+                }
+                catch { }
+            }
+        }
+
+        private bool canUsePoint;
+        public bool CanUsePoint
+        {
+            get => canUsePoint;
+            set
+            {
+                canUsePoint = value;
+                OnPropertyChanged(nameof(CanUsePoint));
+            }
+        }
+
+        private string msgErrorUsePoint;
+        public string MsgErrorUsePoint
+        {
+            get => msgErrorUsePoint;
+            set
+            {
+                msgErrorUsePoint = value;
+                OnPropertyChanged(nameof(MsgErrorUsePoint));
+            }
+        }
 
         //text tìm kiếm khách hàng
         private string _cusInfo;
@@ -144,6 +212,11 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
             }
         }
 
+
+
+
+
+
         public ICommand FirstLoadCM { get; set; }
         public ICommand SearchCusCM { get; set; }
 
@@ -152,7 +225,8 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
         public ICommand PayBill { get; set; }
         public ICommand Search { get; set; }
         public ICommand RemoveSanPhamDTOCM { get; set; }
-        
+        public ICommand EndBill {  get; set; }
+
         public SaleViewModel()
         {
             khachVangLai = new KhachHangDTO(1, "Khách vãng lai");
@@ -217,6 +291,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
 
                 }
                 KhachHangForBill = temp;
+                SetTongTien();
             });
 
 
@@ -243,20 +318,51 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
                     hoaDonBanDTO.KhachHangID = KhachHangForBill.ID;
                     hoaDonBanDTO.IsDeleted = false;
 
-                    bool flag = await HoaDonBanDA.gI().AddNewBill(hoaDonBanDTO);
+                    bool flag = false;
+                    if (KhachHangForBill.ID != 1)
+                    {
+                        KhachHang khachHang = new KhachHang();
+                        khachHang.ID = khachHangForBill.ID;
+                        int point = 0;
+
+                        try
+                        {
+                            point = int.Parse(PointUse);
+                        }
+                        catch { }
+                        khachHang.DiemTichLuy = (int)(TongTien / thamSoDTO.MoneyToOnePoint.Value) + khachHangForBill.DiemTichLuy - point;
+                         flag = await KhachHangDA.gI().EditCusBySell(khachHang);
+                    }
+
+                    flag = await HoaDonBanDA.gI().AddNewBill(hoaDonBanDTO);
 
                     if (flag)
                     {
                         MessageBoxCustom.Show(MessageBoxCustom.Success, "Thanh toán đơn hàng thành công!");
+                      
+
                     }
                     else
                     {
                         MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra!");
                     }
 
-
+                    KhachHangForBill = khachVangLai;
+                    ListChiTietHoaDonBan = new ObservableCollection<ChiTietHoaDonBanDTO>();
+                    TongTien = 0;
+                    CusInfo = "";
+                    PayEnabled = false;
                 }
 
+            });
+
+
+            EndBill = new RelayCommand<Frame>((p) => { return true; }, async (p) =>
+            {
+                KhachHangForBill = khachVangLai;
+                ListChiTietHoaDonBan = new ObservableCollection<ChiTietHoaDonBanDTO>();
+                TongTien = 0;
+                CusInfo = "";
             });
 
             #region tìm kiếm sản phẩm
@@ -299,9 +405,9 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
         {
 
             bool flag = false;
-            foreach(var item in ListChiTietHoaDonBan)
+            foreach (var item in ListChiTietHoaDonBan)
             {
-                if(item.SanPhamDTO.ID == sanPhamDTO.ID)
+                if (item.SanPhamDTO.ID == sanPhamDTO.ID)
                 {
                     flag = true;
                     if (item.SoLuong >= sanPhamDTO.SoLuongTon)
@@ -338,7 +444,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
         {
             ListChiTietHoaDonBan.Remove(chiTietHoaDonBanDTO);
             List<ChiTietHoaDonBanDTO> listTemp = new List<ChiTietHoaDonBanDTO>();
-            foreach(var item in ListChiTietHoaDonBan)
+            foreach (var item in ListChiTietHoaDonBan)
             {
                 if (item != chiTietHoaDonBanDTO)
                 {
@@ -383,13 +489,29 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
 
         void SetTongTien()
         {
+            if (ListChiTietHoaDonBan == null) return;
             TongTien = 0;
-            foreach(var item in ListChiTietHoaDonBan)
+            foreach (var item in ListChiTietHoaDonBan)
             {
-                TongTien +=item.ThanhTien;
+                TongTien += item.ThanhTien;
             }
 
-            if (TongTien != 0)
+
+            if (thamSoDTO.OnePointToMoney.HasValue)
+            {
+                try
+                {
+                    if (CanUsePoint )
+                    {
+                       TongTien = TongTien - thamSoDTO.OnePointToMoney.Value * int.Parse(PointUse);
+                    }
+                    
+                }
+                catch{ }
+
+            }
+
+            if (TongTien > 0)
             {
                 PayEnabled = true;
             }
@@ -397,6 +519,42 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
             {
                 PayEnabled = false;
             }
+
+            if (CanUsePoint)
+            {
+                if (string.IsNullOrEmpty(PointUse))
+                {
+                    PayEnabled = false;
+                }
+            }
+        }
+
+        void UpdateInfoKhachHang()
+        {
+            PointKhachHang = 0;
+            PointUse = "0";
+            if (khachHangForBill == khachVangLai)
+            {
+                CanUsePoint = false;
+            }
+            else
+            {
+                if (khachHangForBill.DiemTichLuy == 0)
+                {
+                    CanUsePoint = false;
+                }
+                else
+                {
+                    CanUsePoint = true;
+
+                    if (KhachHangForBill.DiemTichLuy.HasValue)
+                    {
+                        PointKhachHang = KhachHangForBill.DiemTichLuy.Value;
+                    }
+                }
+            }
+
+
         }
     }
 }

@@ -442,7 +442,8 @@
                     <StackPanel
                         Grid.Row="1"
                         Margin="30,0,0,0"
-                        Orientation="Horizontal">
+                        Orientation="Horizontal"
+                        Visibility="{Binding CanUsePoint, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <TextBlock
                             Margin="37,0,0,0"
                             HorizontalAlignment="Left"
@@ -460,7 +461,7 @@
                             FontFamily="Roboto Condensed"
                             FontSize="17"
                             FontWeight="DemiBold"
-                            Text="100"
+                            Text="{Binding PointKhachHang, UpdateSourceTrigger=PropertyChanged}"
                             TextWrapping="NoWrap" />
 
                         <TextBlock
@@ -479,7 +480,8 @@
                     <StackPanel
                         Grid.Row="2"
                         Margin="30,0,0,0"
-                        Orientation="Horizontal">
+                        Orientation="Horizontal"
+                        Visibility="{Binding CanUsePoint, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <TextBlock
                             Margin="37,0,0,0"
                             HorizontalAlignment="Left"
@@ -492,6 +494,7 @@
 
                         <!--  Binding đtl  -->
                         <TextBox
+                            Name="NumericTextBox"
                             Width="100"
                             Margin="10,0,0,0"
                             VerticalAlignment="Center"
@@ -502,8 +505,11 @@
                             FontFamily="Roboto Condensed"
                             FontSize="17"
                             FontWeight="DemiBold"
-                            Text="100"
+                            PreviewTextInput="NumericTextBox_PreviewTextInput"
+                            Text="{Binding PointUse, UpdateSourceTrigger=PropertyChanged}"
                             TextAlignment="Right"
+                            TextChanged="NumericTextBox_TextChanged"
+                            LostFocus="NumericTextBox_LostFocus"
                             TextWrapping="NoWrap" />
 
                         <TextBlock
@@ -524,7 +530,7 @@
                             FontSize="17"
                             FontWeight="DemiBold"
                             Foreground="Red"
-                            Text="Complete"
+                            Text="{Binding MsgErrorUsePoint, UpdateSourceTrigger=PropertyChanged}"
                             TextWrapping="NoWrap" />
                     </StackPanel>
 
@@ -810,7 +816,7 @@
                         FontSize="20"
                         FontWeight="DemiBold"
                         Foreground="Red"
-                        Text="Complete"
+                        Text=""
                         TextWrapping="NoWrap" />
 
                     <StackPanel
