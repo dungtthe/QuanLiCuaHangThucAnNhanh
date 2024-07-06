@@ -23,5 +23,9 @@ namespace QuanLiCuaHangThucAnNhanh.View.NguoiDung
         {
             InitializeComponent();
         }
+        private void HuyButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }
