@@ -15,7 +15,10 @@ GO
 
 CREATE TABLE THAMSO (
     ID INT IDENTITY(1,1) PRIMARY KEY,
-    HeSoBan FLOAT DEFAULT 1.2
+    HeSoBan FLOAT DEFAULT 1.2,
+	OnePointToMoney MONEY DEFAULT(100), --1 điểm được 100đ
+	MoneyToOnePoint INT DEFAULT(10000), -- 10000đ được 1 điểm
+
 );
 GO
 
