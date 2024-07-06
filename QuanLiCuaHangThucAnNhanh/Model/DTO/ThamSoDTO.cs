@@ -32,6 +32,29 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DTO
         }
 
 
+        private Nullable<decimal> onePointToMoney;
+        public Nullable<decimal> OnePointToMoney
+        {
+            get => onePointToMoney;
+            set
+            {
+                onePointToMoney = value;
+                OnPropertyChanged(nameof(OnePointToMoney));
+            }
+        }
+
+        private Nullable<int> moneyToOnePoint;
+
+        public Nullable<int> MoneyToOnePoint
+        {
+            get => moneyToOnePoint;
+            set
+            {
+                moneyToOnePoint = value;
+                OnPropertyChanged(nameof(MoneyToOnePoint));
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)
         {

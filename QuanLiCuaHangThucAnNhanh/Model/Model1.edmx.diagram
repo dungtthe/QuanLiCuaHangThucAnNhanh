@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fb16b7d0f52f4335b188736ece08aa6d" Name="Diagram1">
+      <Diagram DiagramId="951ef8fd9d3a43f19aac2fada39f24b8" Name="Diagram1">
         <EntityTypeShape EntityType="QuanLiCuaHangThucAnNhanhModel.ChiTietHoaDonBan" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLiCuaHangThucAnNhanhModel.ChiTietHoaDonNhap" Width="1.5" PointX="8.25" PointY="2.625" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLiCuaHangThucAnNhanhModel.DanhMucSanPham" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
@@ -14,14 +14,14 @@
         <EntityTypeShape EntityType="QuanLiCuaHangThucAnNhanhModel.NguoiDung" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLiCuaHangThucAnNhanhModel.SanPham" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLiCuaHangThucAnNhanhModel.THAMSO" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
-        <AssociationConnector Association="QuanLiCuaHangThucAnNhanhModel.FK__ChiTietHo__HoaDo__5FB337D6" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLiCuaHangThucAnNhanhModel.FK__ChiTietHo__SanPh__60A75C0F" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLiCuaHangThucAnNhanhModel.FK__ChiTietHo__HoaDo__5441852A" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLiCuaHangThucAnNhanhModel.FK__ChiTietHo__SanPh__5535A963" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLiCuaHangThucAnNhanhModel.FK__SanPham__DanhMuc__4AB81AF0" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLiCuaHangThucAnNhanhModel.FK__HoaDonBan__Khach__5BE2A6F2" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLiCuaHangThucAnNhanhModel.FK__HoaDonBan__Nguoi__5AEE82B9" ManuallyRouted="false" />
-        <AssociationConnector Association="QuanLiCuaHangThucAnNhanhModel.FK__HoaDonNha__Nguoi__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiCuaHangThucAnNhanhModel.FK__ChiTietHo__HoaDo__619B8048" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiCuaHangThucAnNhanhModel.FK__ChiTietHo__SanPh__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiCuaHangThucAnNhanhModel.FK__ChiTietHo__HoaDo__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiCuaHangThucAnNhanhModel.FK__ChiTietHo__SanPh__571DF1D5" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiCuaHangThucAnNhanhModel.FK__SanPham__DanhMuc__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiCuaHangThucAnNhanhModel.FK__HoaDonBan__Khach__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiCuaHangThucAnNhanhModel.FK__HoaDonBan__Nguoi__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiCuaHangThucAnNhanhModel.FK__HoaDonNha__Nguoi__52593CB8" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

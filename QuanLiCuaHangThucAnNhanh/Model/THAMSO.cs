@@ -16,5 +16,7 @@ namespace QuanLiCuaHangThucAnNhanh.Model
     {
         public int ID { get; set; }
         public Nullable<double> HeSoBan { get; set; }
+        public Nullable<decimal> OnePointToMoney { get; set; }
+        public Nullable<int> MoneyToOnePoint { get; set; }
     }
 }

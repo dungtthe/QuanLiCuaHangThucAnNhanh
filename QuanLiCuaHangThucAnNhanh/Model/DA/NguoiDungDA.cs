@@ -36,7 +36,7 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
                 return _ins;
             }
             private set { _ins = value; }
-        }/
+        }
 
         public async Task<NguoiDungDTO> FindNguoiDungByUsernameAndPassword(string username, string password)
         {
@@ -82,6 +82,30 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
             catch
             {
                 return null;
+            }
+
+        }
+
+        public async Task<(bool, string)> EditStaff(NguoiDung newStaff)
+        {
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    var staff = await context.NguoiDungs.Where(p => p.ID == newStaff.ID).FirstOrDefaultAsync();
+                    staff.HoTen = newStaff.HoTen;
+                    staff.SoDienThoai = newStaff.SoDienThoai;
+                    staff.NgaySinh = newStaff.NgaySinh;
+                    staff.Email = newStaff.Email;
+                    staff.DiaChi = newStaff.DiaChi;
+                    await context.SaveChangesAsync();
+                    return (true, "Cap that thanh cong");
+                }
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
+                return (false, null);
             }
 
         }
