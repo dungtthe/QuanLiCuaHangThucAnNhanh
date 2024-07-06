@@ -17,15 +17,15 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.HeThongVM
             set { combogenrelist = value; OnPropertyChanged(nameof(ComboList)); }
         }
 
-        private DanhMucSanPhamDTO selectedItem;
-        public DanhMucSanPhamDTO SelectedItem
-        {
-            get => selectedItem;
-            set
-            {
-                SelectedItem = value; OnPropertyChanged(nameof(SelectedItem));
-            }
-        }
+        //private DanhMucSanPhamDTO selectedItem;
+        //public DanhMucSanPhamDTO SelectedItem
+        //{
+        //    //get => selectedItem;
+        //    //set
+        //    //{
+        //    //    SelectedItem = value; OnPropertyChanged(nameof(SelectedItem));
+        //    //}
+        //}
 
 
        

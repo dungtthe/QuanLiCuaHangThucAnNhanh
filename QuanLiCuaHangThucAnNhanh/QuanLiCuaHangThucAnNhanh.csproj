@@ -197,6 +197,9 @@
     <Compile Include="View\NguoiDung\QuanLi\HeThong\AddDanhMuc.xaml.cs">
       <DependentUpon>AddDanhMuc.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\NguoiDung\QuanLi\HeThong\EditDanhMuc.xaml.cs">
+      <DependentUpon>EditDanhMuc.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\NguoiDung\QuanLi\HeThong\SystemPage.xaml.cs">
       <DependentUpon>SystemPage.xaml</DependentUpon>
     </Compile>
@@ -305,6 +308,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NguoiDung\QuanLi\HeThong\AddDanhMuc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NguoiDung\QuanLi\HeThong\EditDanhMuc.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
