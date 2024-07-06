@@ -1,11 +1,14 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media.Imaging;
+using static System.Windows.Forms;
 
 namespace QuanLiCuaHangThucAnNhanh.Utils
 {
@@ -101,6 +104,29 @@ namespace QuanLiCuaHangThucAnNhanh.Utils
             }
             return new string(password);
         }
+
+
+
+        public static string SelectFolder()
+        {
+            var dialog = new OpenFileDialog
+            {
+                Title = "Select a folder",
+                Filter = "Folders|*.none",
+                CheckFileExists = false,
+                CheckPathExists = true,
+                FileName = "Select Folder"
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                return Path.GetDirectoryName(dialog.FileName);
+            }
+
+            return null;
+        }
+
+
 
     }
 }
