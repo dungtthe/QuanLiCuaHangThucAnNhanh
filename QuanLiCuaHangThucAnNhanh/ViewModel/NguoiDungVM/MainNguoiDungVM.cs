@@ -232,7 +232,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM
                     string path = openFileDialog.FileName;
                     if (path != null)
                     {
-                        nguoiDungDTOCur.Image = MotSoPhuongThucBoTro.ImagePathToByteArray(path);
+                        Image = MotSoPhuongThucBoTro.ImagePathToByteArray(path);
                     }
                     else
                     {
@@ -294,12 +294,14 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM
                             SoDienThoai = this.SDT,
                             Loai = nguoiDungDTOCur.Loai,
                             DiaChi = this.DiaChi,
-                            IsDeleted = false
+                            IsDeleted = false,
+                            Image=this.Image
                         };
                         (bool success, string messageEdit) = await NguoiDungDA.gI().EditStaff(newStaff);
                         if (success)
                         {
                             MessageBoxCustom.Show(MessageBoxCustom.Success, "Bạn đã chỉnh sửa thành công");
+                            nguoiDungDTOCur.Image= this.Image;
                             p?.Close();
                         }
                         else

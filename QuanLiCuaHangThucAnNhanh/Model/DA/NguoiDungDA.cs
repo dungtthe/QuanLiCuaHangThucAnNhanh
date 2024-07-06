@@ -153,8 +153,9 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
                     staff.NgaySinh = newStaff.NgaySinh;
                     staff.Email = newStaff.Email;
                     staff.DiaChi = newStaff.DiaChi;
+                    staff.Image= newStaff.Image;
                     await context.SaveChangesAsync();
-                    return (true, "Cap that thanh cong");
+                    return (true, "Cập nhật thành công!");
                 }
             }
             catch
