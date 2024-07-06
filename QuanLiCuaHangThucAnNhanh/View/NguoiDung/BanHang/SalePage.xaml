@@ -505,13 +505,24 @@
                             TextWrapping="NoWrap" />
 
                         <TextBlock
-                            Width="160"
+                            Width="50"
                             Margin="5,0,0,0"
                             VerticalAlignment="Center"
                             FontFamily="Roboto Condensed"
                             FontSize="17"
                             FontWeight="DemiBold"
                             Text="điểm"
+                            TextWrapping="NoWrap" />
+
+                        <TextBlock
+                            Width="auto"
+                            Margin="5,0,0,0"
+                            VerticalAlignment="Center"
+                            FontFamily="Roboto Condensed"
+                            FontSize="17"
+                            Foreground="Red"
+                            FontWeight="DemiBold"
+                            Text="Complete"
                             TextWrapping="NoWrap" />
                     </StackPanel>
 
@@ -773,12 +784,26 @@
                             Text="đ" />
                     </StackPanel>
 
+                    <TextBlock
+                        Grid.Row="5"
+                        Width="auto"
+                        VerticalAlignment="Center"
+                        FontFamily="Roboto Condensed"
+                        FontSize="20"
+                        Foreground="Red"
+                        Margin="5,0,0,40"
+                        FontWeight="DemiBold"
+                        Text="Complete"
+                        TextWrapping="NoWrap" />
+
                     <StackPanel
                         Grid.Row="5"
                         Margin="360,0,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Orientation="Horizontal">
+
+
                         <Button
                             Name="EndBillButton"
                             Width="155"
