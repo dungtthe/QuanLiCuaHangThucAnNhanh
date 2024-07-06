@@ -4,6 +4,7 @@ using QuanLiCuaHangThucAnNhanh.Model.DTO;
 using QuanLiCuaHangThucAnNhanh.Utils;
 using QuanLiCuaHangThucAnNhanh.View.MessageBox;
 using QuanLiCuaHangThucAnNhanh.View.NguoiDung;
+using QuanLiCuaHangThucAnNhanh.View.NguoiDung.Login;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -40,6 +41,8 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.LoginVM
 
         public ICommand LoginCommand { get; set; }
         public ICommand PasswordChangedCommand { get; set; }
+        public ICommand ForgotPasswordCM { get; set; }
+
 
         private bool IsLogin = false;
 
@@ -71,6 +74,12 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.LoginVM
             }, (p) =>
             {
                Password = p.Password;
+            });
+
+            ForgotPasswordCM = new RelayCommand<TextBlock>((p) => { return true; }, async (p) =>
+            {
+                ForgetPassword wd = new ForgetPassword();
+                wd.ShowDialog();
             });
         }
 
