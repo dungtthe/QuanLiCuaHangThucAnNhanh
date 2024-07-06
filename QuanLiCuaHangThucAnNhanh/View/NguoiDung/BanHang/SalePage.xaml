@@ -505,11 +505,11 @@
                             FontFamily="Roboto Condensed"
                             FontSize="17"
                             FontWeight="DemiBold"
+                            LostFocus="NumericTextBox_LostFocus"
                             PreviewTextInput="NumericTextBox_PreviewTextInput"
                             Text="{Binding PointUse, UpdateSourceTrigger=PropertyChanged}"
                             TextAlignment="Right"
                             TextChanged="NumericTextBox_TextChanged"
-                            LostFocus="NumericTextBox_LostFocus"
                             TextWrapping="NoWrap" />
 
                         <TextBlock
@@ -686,7 +686,7 @@
                                                             HorizontalAlignment="Center"
                                                             VerticalAlignment="Center"
                                                             Orientation="Horizontal">
-                                                            <Button
+                                                            <!--<Button
                                                                 Padding="0"
                                                                 Background="{x:Null}"
                                                                 BorderBrush="{x:Null}"
@@ -699,20 +699,23 @@
                                                                     HorizontalAlignment="Center"
                                                                     VerticalAlignment="Center"
                                                                     Source="/QuanLiCuaHangThucAnNhanh;component/Resources/Icon/SubtractBlack_Icon.png" />
-                                                            </Button>
+                                                            </Button>-->
                                                             <TextBox
+                                                                Name="txtSl"
                                                                 Width="32"
                                                                 MaxWidth="32"
                                                                 Margin="10,0,10,0"
                                                                 FontSize="17"
-                                                                Text="{Binding SoLuong, UpdateSourceTrigger=PropertyChanged}">
+                                                                PreviewTextInput="TextBox_PreviewTextInput"
+                                                                Text="{Binding SoLuong, UpdateSourceTrigger=PropertyChanged}"
+                                                                TextChanged="txtSl_TextChanged">
                                                                 <i:Interaction.Triggers>
                                                                     <i:EventTrigger EventName="TextChanged">
                                                                         <i:InvokeCommandAction Command="{Binding DataContext.ChangeCountCM, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}" />
                                                                     </i:EventTrigger>
                                                                 </i:Interaction.Triggers>
                                                             </TextBox>
-                                                            <Button
+                                                            <!--<Button
                                                                 Width="15"
                                                                 Height="15"
                                                                 Padding="0"
@@ -727,7 +730,7 @@
                                                                     HorizontalAlignment="Center"
                                                                     VerticalAlignment="Center"
                                                                     Source="/QuanLiCuaHangThucAnNhanh;component/Resources/Icon/AddBlack_Icon.png" />
-                                                            </Button>
+                                                            </Button>-->
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
@@ -840,7 +843,7 @@
                             Content="Kết thúc"
                             FontSize="24"
                             FontWeight="Bold"
-                            IsEnabled="{Binding PayEnabled}" />
+                            IsEnabled="{Binding PayEnabled, UpdateSourceTrigger=PropertyChanged}" />
                         <Button
                             x:Name="Pay_btn"
                             Width="175"
@@ -853,7 +856,7 @@
                             Content="Thanh toán"
                             FontSize="24"
                             FontWeight="Bold"
-                            IsEnabled="{Binding PayEnabled}" />
+                            IsEnabled="{Binding PayEnabled, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
 
                 </Grid>

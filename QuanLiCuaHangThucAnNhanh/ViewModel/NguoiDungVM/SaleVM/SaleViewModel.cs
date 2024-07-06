@@ -236,7 +236,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
         public ICommand Search { get; set; }
         public ICommand RemoveSanPhamDTOCM { get; set; }
         public ICommand EndBill {  get; set; }
-
+        public ICommand ChangeCountCM {  get; set; }
         public SaleViewModel()
         {
             khachVangLai = new KhachHangDTO(1, "Khách vãng lai");
@@ -352,17 +352,17 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
                      MessageBoxCustom.Show(MessageBoxCustom.Success, "Thanh toán đơn hàng thành công!");
 
 
-                        List<SanPhamDTO> listTemp = new List<SanPhamDTO>(listSanPhamAll);
-                        foreach(var item in ListChiTietHoaDonBan)
-                        {
-                            foreach(SanPhamDTO sanPhamDTO in listTemp)
-                            {
-                                if (sanPhamDTO.ID == item.SanPhamID)
-                                {
-                                    item.SanPhamDTO = sanPhamDTO;
-                                }
-                            }
-                        }
+                        //List<SanPhamDTO> listTemp = new List<SanPhamDTO>(listSanPhamAll);
+                        //foreach(var item in ListChiTietHoaDonBan)
+                        //{
+                        //    foreach(SanPhamDTO sanPhamDTO in listTemp)
+                        //    {
+                        //        if (sanPhamDTO.ID == item.SanPhamID)
+                        //        {
+                        //            item.SanPhamDTO = sanPhamDTO;
+                        //        }
+                        //    }
+                        //}
 
                         new InvoicePrint().ShowDialog();
 
@@ -422,9 +422,39 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
                     RemoveSanPhamDTOFromDonHang(SelectedItemChiTietHoaDonBan);
                 }
             });
+
+
+            ChangeCountCM = new RelayCommand<ChiTietHoaDonBanDTO>((p) => { return true; }, (p) =>
+            {
+                if (p == null) return;
+
+                SelectedItemChiTietHoaDonBan = p;
+
+                try
+                {
+                    if (SelectedItemChiTietHoaDonBan.SoLuong < 0)
+                    {
+                        SelectedItemChiTietHoaDonBan.SoLuong = 0;
+                    }
+                    else
+                    {
+                        if (SelectedItemChiTietHoaDonBan.SoLuong > SelectedItemChiTietHoaDonBan.SanPhamDTO.SoLuongTon)
+                        {
+                            SelectedItemChiTietHoaDonBan.SoLuong = SelectedItemChiTietHoaDonBan.SanPhamDTO.SoLuongTon;
+                        }
+                    }
+                    SetTongTien();
+                }
+                catch
+                {
+                }
+
+            });
         }
 
 
+
+       
 
         private void AddSanPhamDTOToListChiTietHoaDon(SanPhamDTO sanPhamDTO)
         {
