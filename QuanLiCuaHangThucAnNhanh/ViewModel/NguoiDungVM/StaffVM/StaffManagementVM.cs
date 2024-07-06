@@ -207,7 +207,6 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
                         p.Close();
                         return;
                     }
-
                     if (DateTime.Compare(tempBirthDay, new DateTime(1900, 1, 1)) < 0 || DateTime.Compare(tempBirthDay, DateTime.Now) > 0)
                         MessageBoxCustom.Show(MessageBoxCustom.Error, "Ngày sinh không hợp lệ");
 

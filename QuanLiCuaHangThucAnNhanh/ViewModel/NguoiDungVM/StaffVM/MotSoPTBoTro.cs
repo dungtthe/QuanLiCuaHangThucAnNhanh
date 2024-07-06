@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,5 +23,13 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
                 return DateTime.MinValue;
             }
         }
+       /* public static bool dinhDangNgay(DateTime date) {
+            DateTime tempDate;
+            string format = "MM/dd/yyyy";
+            CultureInfo provider = CultureInfo.InvariantCulture;
+
+            bool isValid = DateTime.TryParseExact(date, format, provider, DateTimeStyles.None, out tempDate);
+            return isValid;
+        }*/
     }
 }
