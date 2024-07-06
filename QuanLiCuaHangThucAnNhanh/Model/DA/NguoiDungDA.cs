@@ -56,6 +56,61 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
                 return null;
             }
         }
+        //Add staff
+        public async Task<(bool, string)> AddNewStaff(NguoiDung newStaff)
+        {
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    bool IsEsixtEmail = await context.NguoiDungs.AnyAsync(p => p.Email == newStaff.Email);
+                    bool IsExistPhone = await context.NguoiDungs.AnyAsync(p => p.SoDienThoai == newStaff.SoDienThoai);
+                    bool IsExistUsername = await context.NguoiDungs.AnyAsync(p => p.TenTaiKhoan == newStaff.TenTaiKhoan);
+                    var staff = await context.NguoiDungs.Where(p => p.Email == newStaff.Email || p.SoDienThoai == newStaff.SoDienThoai || p.TenTaiKhoan == newStaff.TenTaiKhoan).FirstOrDefaultAsync();
+                    if (staff != null)
+                    {
+                        if (staff.IsDeleted == true)
+                        {
+                            staff.HoTen = newStaff.HoTen;
+                            staff.TenTaiKhoan = newStaff.TenTaiKhoan;
+                            staff.MatKhau = newStaff.MatKhau;
+                            staff.SoDienThoai = newStaff.SoDienThoai;
+                            staff.NgaySinh = newStaff.NgaySinh;
+                            staff.Email = newStaff.Email;
+                            staff.Loai = newStaff.Loai;
+                            staff.IsDeleted = false;
+                            await context.SaveChangesAsync();
+                            return (true, "Them thanh cong");
+                        }
+                        else
+                        {
+                            if (IsEsixtEmail)
+                            {
+                                return (false, "Email đã tồn tại");
+                            }
+                            if (IsExistPhone)
+                            {
+                                return (false, "Số điện thoại đã tồn tại");
+                            }
+                            if (IsExistUsername)
+                            {
+                                return (false, "Tài khoản đã tồn tại");
+                            }
+                        }
+                    }
+                    context.NguoiDungs.Add(newStaff);
+                    await context.SaveChangesAsync();
+                    return (true, "Them thanh cong");
+                }
+
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
+                return (false, null);
+            }
+
+        }
 
         public async Task<List<NguoiDungDTO>> GetAllUser()
         {
@@ -100,6 +155,25 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
                     staff.DiaChi = newStaff.DiaChi;
                     await context.SaveChangesAsync();
                     return (true, "Cap that thanh cong");
+                }
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
+                return (false, null);
+            }
+
+        }
+        public async Task<(bool, string)> DeleteStaff(int ID)
+        {
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    var staff = await context.NguoiDungs.Where(p => p.ID == ID).FirstOrDefaultAsync();
+                    if (staff.IsDeleted == false) staff.IsDeleted = true;
+                    await context.SaveChangesAsync();
+                    return (true, "Da xoa");
                 }
             }
             catch

@@ -88,7 +88,7 @@
                                 BorderBrush="Transparent"
                                 FontFamily="Inter"
                                 FontSize="15"
-                                Text="{Binding HoTen}" />
+                                Text="{Binding DisplayName}" />
 
                         </StackPanel>
 
@@ -141,7 +141,7 @@
                                 BorderBrush="Transparent"
                                 FontFamily="Inter"
                                 FontSize="15"
-                                Text="{Binding SoDienThoai}" />
+                                Text="{Binding PhoneNumber}" />
                         </StackPanel>
 
                         <!--  Chức vụ  -->
@@ -190,7 +190,7 @@
                                 BorderBrush="Transparent"
                                 FontFamily="Inter"
                                 FontSize="15"
-                                Text="{Binding DiaChi}"/>
+                                Text="{Binding Address}"/>
                         </StackPanel>
 
                         <!--  Ngày sinh  -->
@@ -215,7 +215,7 @@
                                 Background="#D9D9D9"
                                 BorderThickness="0"
                                 FontSize="14"
-                                SelectedDate="{Binding NgaySinh, Mode=TwoWay}" />
+                                SelectedDate="{Binding BirthDay, Mode=TwoWay}" />
 
                         </StackPanel>
                     </StackPanel>

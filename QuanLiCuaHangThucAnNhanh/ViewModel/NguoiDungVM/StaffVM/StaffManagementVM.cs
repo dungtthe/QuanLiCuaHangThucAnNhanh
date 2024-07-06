@@ -8,7 +8,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -39,6 +42,77 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
                 OnPropertyChanged(nameof(Count));
             }
         }
+
+        //Add Staff
+        private string displayName;
+
+        public string DisplayName
+        {
+            get { return displayName; }
+            set { displayName = value; }
+        }
+
+
+        private string userName;
+
+        public string UserName
+        {
+            get { return userName; }
+            set { userName = value; }
+        }
+
+        private string passWord;
+
+        public string PassWord
+        {
+            get { return passWord; }
+            set { passWord = value; }
+        }
+
+        private string confirmPassWord;
+
+        public string ConfirmPassWord
+        {
+            get { return confirmPassWord; }
+            set { confirmPassWord = value; }
+        }
+
+        private string phoneNumber;
+
+        public string PhoneNumber
+        {
+            get { return phoneNumber; }
+            set { phoneNumber = value; }
+        }
+
+        private DateTime birthDay;
+        public DateTime BirthDay
+        {
+            get { return birthDay; }
+            set { birthDay = value; }
+        }
+
+        private string email;
+
+        public string Email
+        {
+            get { return email; }
+            set { email = value; }
+        }
+
+        private string role;
+
+        public string Role
+        {
+            get { return role; }
+            set { role = value; }
+        }
+        private string address;
+        public string Address
+        {
+            get { return address; }
+            set { address = value; }
+        }
         private NguoiDungDTO selectedItem;
 
         public NguoiDungDTO SelectedItem
@@ -46,6 +120,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
             get { return selectedItem; }
             set { selectedItem = value; }
         }
+
         // Edit Staff
         private string editDisplayName;
 
@@ -121,6 +196,9 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
         public ICommand EditStaffCommand { get; }
         public ICommand OpenEditStaffCommand { get; }
         public ICommand CloseEditStaffCommand { get; }
+        public ICommand OpenAddWindowCommand { get; }
+        public ICommand CloseAddWindowCommand { get; }
+        public ICommand AddStaffCommand { get; }
 
 
         public StaffManagementVM()
@@ -145,6 +223,85 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
                     if (staffList != null)
                         StaffList = new ObservableCollection<NguoiDungDTO>(staffList.FindAll(x => x.HoTen.ToLower().Contains(p.Text.ToLower())));
                 }
+            });
+            OpenAddWindowCommand = new RelayCommand<Page>((mainStaffWindow) => { return true; }, (mainStaffWindow) =>
+            {
+                DisplayName = null;
+                UserName = null;
+                PassWord = null;
+                PhoneNumber = null;
+                BirthDay = DateTime.Now;
+                Email = null;
+                Role = "Nhân viên";
+                ConfirmPassWord = null;
+                Address = null;
+                StaffAddingView addStaffWindow = new StaffAddingView();
+                addStaffWindow.ShowDialog();
+            });
+            CloseAddWindowCommand = new RelayCommand<Window>((mainStaffWindow) => { return true; }, (mainStaffWindow) =>
+            {
+                mainStaffWindow.Close();
+            });
+            AddStaffCommand = new RelayCommand<Window>(null, async (p) =>
+            {
+                if (DisplayName == null  || PhoneNumber == null  || Email == null
+                || Role == null|| Address == null || DisplayName == ""|| PhoneNumber == "" || Email == ""
+                || Role == ""||Address == "")
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Bạn đang nhập thiếu hoặc sai thông tin");
+                }
+
+
+                else
+                {
+                    string mailPattern = @"^[a-zA-Z0-9._%+-]+@gmail\.com$";
+                    string phonePattern = @"^0\d{9}$";
+                    if (!Regex.IsMatch(Email, mailPattern))
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Email không hợp lệ (phải có dạng @gmail.com)");
+                        return;
+                    }
+                    if (!Regex.IsMatch(PhoneNumber, phonePattern))
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Số điện thoại không hợp lệ (phải có 10 chữ số và số bắt đầu là 0)");
+                        return;
+                    }
+                    if (DateTime.Compare(BirthDay, new DateTime(1900, 1, 1)) < 0 || DateTime.Compare(BirthDay, DateTime.Now) > 0)
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Ngày sinh không hợp lệ");
+                        return;
+                    }
+                    else if (DateTime.Now.Year - (BirthDay).Year < 16)
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Đảm bảo nhân viên vào làm trên 16 tuổi");
+                        return;
+                    }
+                    string pass = MotSoPhuongThucBoTro.MD5Hash(this.PassWord);
+
+                    NguoiDung newStaff = new NguoiDung
+                    {
+                        HoTen = this.DisplayName,
+                        TenTaiKhoan = this.UserName,
+                        MatKhau = pass,
+                        SoDienThoai = this.PhoneNumber,
+                        NgaySinh = this.BirthDay,
+                        Email = this.Email,
+                        Loai = Int32.Parse( this.Role),
+                        IsDeleted = false
+                    };
+                    (bool IsAdded, string messageAdd) = await NguoiDungDA.Ins.AddNewStaff(newStaff);
+                    if (IsAdded)
+                    {
+                        StaffObservation = new ObservableCollection<NguoiDungDTO>(await NguoiDungDA.Ins.GetAllUser());
+                        MessageBoxCustom.Show(MessageBoxCustom.Success, "Bạn đã thêm thành công nhân viên");
+                        p.Close();
+                    }
+                    else
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, messageAdd);
+                    }
+                }
+
             });
             OpenEditStaffCommand = new RelayCommand<object>(null, (p) =>
             {
@@ -207,7 +364,6 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
                         p.Close();
                         return;
                     }
-
                     if (DateTime.Compare(tempBirthDay, new DateTime(1900, 1, 1)) < 0 || DateTime.Compare(tempBirthDay, DateTime.Now) > 0)
                         MessageBoxCustom.Show(MessageBoxCustom.Error, "Ngày sinh không hợp lệ");
 
@@ -248,8 +404,22 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
                     }
 
                 }
-
-
+            });
+            DeleteStaffCommand = new RelayCommand<object>(null, async (p) =>
+            {
+                DeleteMessage deleteMessage = new DeleteMessage("Bạn có chắc chắn muốn xóa không?");
+                deleteMessage.ShowDialog();
+                if (deleteMessage.DialogResult == true)
+                {
+                    (bool IsDeleted, string messageDelete) = await NguoiDungDA.Ins.DeleteStaff(selectedItem.ID);
+                    if (IsDeleted)
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Success, "Bạn đã xóa thành công nhân viên");
+                        StaffList = new ObservableCollection<NguoiDungDTO>(await NguoiDungDA.Ins.GetAllUser());
+                    }
+                    else
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, messageDelete);
+                }
             });
         }
     }
