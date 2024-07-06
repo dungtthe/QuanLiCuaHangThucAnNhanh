@@ -16,10 +16,12 @@
     ResizeMode="NoResize"
     TextElement.FontSize="13"
     TextElement.FontWeight="Regular"
+    DataContext="{StaticResource CustomerPageVM}"
     TextElement.Foreground="{DynamicResource MaterialDesignBody}"
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     WindowStartupLocation="CenterScreen"
+    x:Name="AddCusPage"
     WindowStyle="None"
     mc:Ignorable="d">
     <Window.Resources>
@@ -80,7 +82,7 @@
                                 BorderThickness="0.5"
                                 FontFamily="Inter"
                                 FontSize="14"
-                                Text="{Binding Name}" />
+                                Text="{Binding HoTen}" />
                             <TextBlock
                                 Margin="73.6,20.8,0,20.8"
                                 VerticalAlignment="Top"
@@ -101,6 +103,22 @@
                                 FontFamily="Inter"
                                 FontSize="14"
                                 Text="{Binding Email}" />
+                            <TextBlock
+                                Margin="73.6,20.8,0,5"
+                                VerticalAlignment="Top"
+                                Style="{DynamicResource TextBlockLogin}"
+                                Text="Ngày sinh" />
+                            <DatePicker
+                                 Width="300"
+                                 Height="48"
+                                 Padding="12,2.4"
+                                 HorizontalAlignment="Center"
+                                 materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                 materialDesign:TextFieldAssist.TextFieldCornerRadius="15"
+                                 Background="#D9D9D9"
+                                 BorderThickness="0"
+                                 FontSize="14"
+                                 SelectedDate="{Binding NgaySinh, Mode=TwoWay}" />
 
                         </StackPanel>
                         <StackPanel Grid.Column="1">
@@ -122,7 +140,7 @@
                                 BorderThickness="0.5"
                                 FontFamily="Inter"
                                 FontSize="14"
-                                Text="{Binding PhoneNumber}" />
+                                Text="{Binding SoDienThoai}" />
                             <TextBlock
                                 Margin="40.8,34.6,0,14.6"
                                 VerticalAlignment="Top"
@@ -142,7 +160,7 @@
                                 BorderThickness="0.5"
                                 FontFamily="Inter"
                                 FontSize="14"
-                                Text="{Binding Address}" />
+                                Text="{Binding DiaChi}" />
                         </StackPanel>
 
 
@@ -156,7 +174,7 @@
                             materialDesign:ButtonAssist.CornerRadius="24"
                             Background="#F0BD70"
                             BorderThickness="0"
-                            Command="{Binding AddCusListCM}"
+                            Command="{Binding AddCusCommand}"
                             CommandParameter="{Binding ElementName=AddCusPage}"
                             Content="Thêm khách hàng"
                             FontSize="24"
@@ -168,7 +186,7 @@
                             materialDesign:ButtonAssist.CornerRadius="24"
                             Background="#EFD8B4"
                             BorderThickness="0"
-                            Command="{Binding CloseWdCM}"
+                            Command="{Binding CloseAddWindowCommand}"
                             CommandParameter="{Binding ElementName=AddCusPage}"
                             Content="Bỏ qua"
                             FontSize="24"

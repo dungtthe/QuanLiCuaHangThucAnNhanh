@@ -22,7 +22,20 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
             }
             return instance;
         }
+        private static SanPhamDA _ins;
 
+        public static SanPhamDA Ins
+        {
+            get
+            {
+                if (_ins == null)
+                {
+                    _ins = new SanPhamDA();
+                }
+                return _ins;
+            }
+            private set { _ins = value; }
+        }
 
         public async Task<List<SanPhamDTO>> GetAllSanPham()
         {
@@ -109,6 +122,27 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
             {
                 return false;
             }
+        }
+
+        //Delete product
+        public async Task<(bool, string)> DeletePrD(int ID)
+        {
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    var prD = await context.SanPhams.Where(p => p.ID == ID).FirstOrDefaultAsync();
+                    if (prD.IsDeleted == false) prD.IsDeleted = true;
+                    await context.SaveChangesAsync();
+                    return (true, "Xóa thành công");
+                }
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
+                return (false, null);
+            }
+
         }
 
         public async Task<bool> UpdateProduct(SanPham sanPhamNew)
