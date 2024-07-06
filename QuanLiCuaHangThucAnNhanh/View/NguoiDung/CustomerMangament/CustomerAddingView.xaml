@@ -21,6 +21,7 @@
     TextOptions.TextFormattingMode="Ideal"
     TextOptions.TextRenderingMode="Auto"
     WindowStartupLocation="CenterScreen"
+    x:Name="AddCusPage"
     WindowStyle="None"
     mc:Ignorable="d">
     <Window.Resources>
