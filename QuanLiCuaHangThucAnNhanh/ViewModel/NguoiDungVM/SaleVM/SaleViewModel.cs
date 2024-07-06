@@ -150,8 +150,8 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
         //chọn item cho sản phẩm 
         public ICommand SelectSanPhamDTOCM { get; set; }
         public ICommand PayBill { get; set; }
-
         public ICommand Search { get; set; }
+        public ICommand RemoveSanPhamDTOCM { get; set; }
         
         public SaleViewModel()
         {
@@ -283,6 +283,14 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
 
             });
             #endregion
+
+            RemoveSanPhamDTOCM = new RelayCommand<ChiTietHoaDonBanDTO>((p) => { return true; }, (p) =>
+            {
+                if (SelectedItemChiTietHoaDonBan != null)
+                {
+                    RemoveSanPhamDTOFromDonHang(SelectedItemChiTietHoaDonBan);
+                }
+            });
         }
 
 
@@ -323,6 +331,23 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
             SetTongTien();
         }
 
+
+
+
+        private void RemoveSanPhamDTOFromDonHang(ChiTietHoaDonBanDTO chiTietHoaDonBanDTO)
+        {
+            ListChiTietHoaDonBan.Remove(chiTietHoaDonBanDTO);
+            List<ChiTietHoaDonBanDTO> listTemp = new List<ChiTietHoaDonBanDTO>();
+            foreach(var item in ListChiTietHoaDonBan)
+            {
+                if (item != chiTietHoaDonBanDTO)
+                {
+                    listTemp.Add(item);
+                }
+            }
+            ListChiTietHoaDonBan = new ObservableCollection<ChiTietHoaDonBanDTO>(listTemp);
+            SetTongTien();
+        }
 
         async void UpdateCb()
         {

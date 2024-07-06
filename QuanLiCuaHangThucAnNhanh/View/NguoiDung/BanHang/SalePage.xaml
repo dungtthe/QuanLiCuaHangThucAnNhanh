@@ -438,10 +438,11 @@
                         </StackPanel>
                     </StackPanel>
 
-                    <!--Hiển thị điểm tích lũy của khách hàng-->
-                    <StackPanel Orientation="Horizontal"
-                                Margin="30,0,0,0"
-                                Grid.Row="1">
+                    <!--  Hiển thị điểm tích lũy của khách hàng  -->
+                    <StackPanel
+                        Grid.Row="1"
+                        Margin="30,0,0,0"
+                        Orientation="Horizontal">
                         <TextBlock
                             Margin="37,0,0,0"
                             HorizontalAlignment="Left"
@@ -452,7 +453,7 @@
                             Foreground="#E0AE8A"
                             Text="Điểm tích lũy của khách hàng: " />
 
-                        <!--Binding đtl-->
+                        <!--  Binding đtl  -->
                         <TextBlock
                             Margin="10,0,0,0"
                             VerticalAlignment="Center"
@@ -473,11 +474,12 @@
                             TextWrapping="NoWrap" />
                     </StackPanel>
 
-                    <!--Nhập điểm tích lũy để dùng-->
-                    <!--Hiển thị điểm tích lũy của khách hàng-->
-                    <StackPanel Orientation="Horizontal"
-                                Margin="30,0,0,0"
-                                Grid.Row="2">
+                    <!--  Nhập điểm tích lũy để dùng  -->
+                    <!--  Hiển thị điểm tích lũy của khách hàng  -->
+                    <StackPanel
+                        Grid.Row="2"
+                        Margin="30,0,0,0"
+                        Orientation="Horizontal">
                         <TextBlock
                             Margin="37,0,0,0"
                             HorizontalAlignment="Left"
@@ -488,20 +490,20 @@
                             Foreground="#E0AE8A"
                             Text="Số điểm dùng " />
 
-                        <!--Binding đtl-->
+                        <!--  Binding đtl  -->
                         <TextBox
+                            Width="100"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                             materialDesign:TextFieldAssist.TextFieldCornerRadius="10"
                             Background="#D9D9D9"
                             BorderBrush="Transparent"
-                            Margin="10,0,0,0"
-                            VerticalAlignment="Center"
-                            TextAlignment="Right"
                             FontFamily="Roboto Condensed"
                             FontSize="17"
                             FontWeight="DemiBold"
                             Text="100"
-                            Width="100"
+                            TextAlignment="Right"
                             TextWrapping="NoWrap" />
 
                         <TextBlock
@@ -520,8 +522,8 @@
                             VerticalAlignment="Center"
                             FontFamily="Roboto Condensed"
                             FontSize="17"
-                            Foreground="Red"
                             FontWeight="DemiBold"
+                            Foreground="Red"
                             Text="Complete"
                             TextWrapping="NoWrap" />
                     </StackPanel>
@@ -562,14 +564,14 @@
                                                 </GridViewColumn.HeaderContainerStyle>
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <Button
+                                                        <!--<Button
                                                             Width="18"
                                                             Height="18"
                                                             Margin="0,5,0,0"
                                                             Padding="0"
                                                             Background="{x:Null}"
                                                             BorderBrush="{x:Null}"
-                                                            Command="{Binding DataContext.DeleteBillInfoCM, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                                            Command="{Binding DataContext.RemoveSanPhamDTOCM, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
                                                             CommandParameter="{Binding}"
                                                             Foreground="{x:Null}">
                                                             <Image
@@ -578,7 +580,22 @@
                                                                 HorizontalAlignment="Center"
                                                                 VerticalAlignment="Center"
                                                                 Source="/QuanLiCuaHangThucAnNhanh;component/Resources/Icon/DeleteGray_Icon.png" />
-                                                        </Button>
+                                                        </Button>-->
+
+                                                        <Border
+                                                            Width="18"
+                                                            Height="18"
+                                                            Margin="0,5,0,0"
+                                                            Background="Transparent"
+                                                            BorderThickness="0"
+                                                            Cursor="Hand">
+                                                            <Image Source="/QuanLiCuaHangThucAnNhanh;component/Resources/Icon/DeleteGray_Icon.png" />
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                                    <i:InvokeCommandAction Command="{Binding ElementName=BillInfoList, Path=DataContext.RemoveSanPhamDTOCM}" />
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
+                                                        </Border>
 
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
@@ -758,7 +775,7 @@
 
                     </Grid>
 
-                    <!--Tồng tiền-->
+                    <!--  Tồng tiền  -->
                     <StackPanel
                         Grid.Row="4"
                         Height="26"
@@ -787,12 +804,12 @@
                     <TextBlock
                         Grid.Row="5"
                         Width="auto"
+                        Margin="5,0,0,40"
                         VerticalAlignment="Center"
                         FontFamily="Roboto Condensed"
                         FontSize="20"
-                        Foreground="Red"
-                        Margin="5,0,0,40"
                         FontWeight="DemiBold"
+                        Foreground="Red"
                         Text="Complete"
                         TextWrapping="NoWrap" />
 
