@@ -40,6 +40,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM
         public ICommand LoadThongKePage { get; set; }
         public ICommand LoadHeThongPage { get; set; }
         public ICommand LoadBanHangPage { get; set; }
+        public ICommand LogOutCommand { get; set; }
 
         #region Phần command và Prop của hiển thị thông tin cá nhân
         public ICommand OpenAccountWindow {  get; set; }
@@ -368,6 +369,17 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM
                 }
             });
 
+            //Log out
+            LogOutCommand = new RelayCommand<Window>(null, (p) =>
+            {
+                ConfirmLogout confirmLogOut = new ConfirmLogout();
+                confirmLogOut.ShowDialog();
+                if (confirmLogOut.DialogResult == true)
+                {
+                    p.Owner.Visibility = Visibility.Visible;
+                    p.Close();
+                }
+            });
         }
     }
 }
