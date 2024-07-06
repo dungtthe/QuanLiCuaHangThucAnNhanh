@@ -190,6 +190,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
         }
 
         public int Count => StaffObservation?.Count ?? 0;
+    /*    public int CCount => StaffList?.Count ?? 0;*/
         public ICommand FirstLoadCM { get; set; }
         public ICommand SearchStaff { get; }
         public ICommand DeleteStaffCommand { get; }
