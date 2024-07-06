@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,13 @@ namespace QuanLiCuaHangThucAnNhanh.View.NguoiDung.Login
         public ForgetPassword()
         {
             InitializeComponent();
+            ForgetPasswordVM vm = new ForgetPasswordVM();
+            this.DataContext = vm;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
