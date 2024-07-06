@@ -1,4 +1,5 @@
-﻿using QuanLiCuaHangThucAnNhanh.Model.DA;
+﻿using MaterialDesignColors;
+using QuanLiCuaHangThucAnNhanh.Model.DA;
 using QuanLiCuaHangThucAnNhanh.Model.DTO;
 using QuanLiCuaHangThucAnNhanh.View.MessageBox;
 using System;
@@ -16,7 +17,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
     public class SaleViewModel : BaseViewModel
     {
         private ThamSoDTO thamSoDTO;
-
+        private List<SanPhamDTO> listSanPhamAll;
         //danh sách sản phẩm 
         private List<SanPhamDTO> prdList;
         private ObservableCollection<SanPhamDTO> _productList;
@@ -123,6 +124,25 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
             get { return _payEnabled; }
             set { _payEnabled = value; OnPropertyChanged(); }
         }
+        private SanPhamDTO selectedItem;
+        public SanPhamDTO SelectedItem
+        {
+            get => selectedItem;
+            set
+            {
+                selectedItem = value;
+                OnPropertyChanged(nameof(SelectedItem));
+            }
+        }
+        private string chuoiSearch;
+        public string ChuoiSearch
+        {
+            get => chuoiSearch;
+            set
+            {
+                chuoiSearch = value; OnPropertyChanged(nameof(ChuoiSearch));
+            }
+        }
 
         public ICommand FirstLoadCM { get; set; }
         public ICommand SearchCusCM { get; set; }
@@ -131,7 +151,8 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
         public ICommand SelectSanPhamDTOCM { get; set; }
         public ICommand PayBill { get; set; }
 
-
+        public ICommand Search { get; set; }
+        
         public SaleViewModel()
         {
             khachVangLai = new KhachHangDTO(1, "Khách vãng lai");
@@ -151,6 +172,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
 
 
                 List<SanPhamDTO> sanPhams = await SanPhamDA.gI().GetAllSanPham();
+                listSanPhamAll = new List<SanPhamDTO>(sanPhams);
                 SetGia(sanPhams);
 
                 ProductList = new ObservableCollection<SanPhamDTO>(sanPhams);
@@ -236,6 +258,31 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
                 }
 
             });
+
+            #region tìm kiếm sản phẩm
+            Search = new RelayCommand<TextBox>((p) => { return true; }, async (p) =>
+            {
+                ChuoiSearch = p.Text;
+                if (p.Text == "")
+                {
+                    UpdateCb();
+                }
+                else
+                {
+                    ProductList = new ObservableCollection<SanPhamDTO>(listSanPhamAll);
+                    prdList = new List<SanPhamDTO>(ProductList);
+                    if (DanhMucSelect != "Tất cả thể loại")
+                    {
+                        ProductList = new ObservableCollection<SanPhamDTO>(prdList.FindAll(x => x.TenSP.ToLower().Contains(p.Text.ToLower()) && x.DanhMucSanPhamDTO.TenDanhMuc == DanhMucSelect));
+                    }
+                    else
+                    {
+                        ProductList = new ObservableCollection<SanPhamDTO>(prdList.FindAll(x => x.TenSP.ToLower().Contains(p.Text.ToLower())));
+                    }
+                }
+
+            });
+            #endregion
         }
 
 
