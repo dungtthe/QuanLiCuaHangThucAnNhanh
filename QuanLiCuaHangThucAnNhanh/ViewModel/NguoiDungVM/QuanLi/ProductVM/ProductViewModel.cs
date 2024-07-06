@@ -363,12 +363,12 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
                 }
             });
             #endregion
-            ExportExcel = new RelayCommand<Window>((p) => { return true; },  (p) =>
+            ExportExcel = new RelayCommand<Window>((p) => { return true; }, async (p) =>
             {
 
 
 
-                string path = MotSoPhuongThucBoTro.SelectFolder();//hàm trả về thư mục chọn
+                string path = MotSoPhuongThucBoTro.SelectFolder();
 
 
 
