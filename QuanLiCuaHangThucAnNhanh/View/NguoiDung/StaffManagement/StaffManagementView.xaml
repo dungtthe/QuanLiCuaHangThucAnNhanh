@@ -311,7 +311,7 @@
                                             Height="24.8"
                                             Margin="12,0,0,0"
                                             BorderBrush="Transparent"
-                                            Click="Edit_Click">
+                                            Click="Delete_Click">
                                             <Button.Background>
                                                 <ImageBrush ImageSource="/Resources/Icon/DeleteBlue_Icon.png" />
                                             </Button.Background>
