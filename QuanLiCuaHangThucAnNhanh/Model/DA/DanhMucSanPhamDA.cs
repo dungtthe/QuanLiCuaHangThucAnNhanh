@@ -65,7 +65,24 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
             }
         }
 
-
+        public async Task<List<string>> GetAllGenreBook()
+        {
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    var productGenreList = await (from c in context.DanhMucSanPhams
+                                                  where c.IsDeleted != true
+                                                  select c.TenDanhMuc).ToListAsync();
+                    return productGenreList;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
+                return null;
+            }
+        }
         public async Task<bool> AddNewDanhMuc(DanhMucSanPham danhMucSanPham)
         {
             try
@@ -82,6 +99,53 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
                 return false;
             }
 
+        }
+
+        public async Task<(int, DanhMucSanPham)> FindGenrePrD(string name)
+        {
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    var prD = await context.DanhMucSanPhams.Where(p => p.TenDanhMuc == name && p.IsDeleted != true).FirstOrDefaultAsync();
+                    if (prD == null)
+                    {
+                        return (-1, null);
+                    }
+                    return ((int)prD.ID, prD);
+                }
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
+                return (-1, null);
+            }
+
+        }
+        public async Task<(bool, string)> EditGenre(DanhMucSanPham selectedGenre)
+        {
+
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    bool IsExistID = await context.DanhMucSanPhams.AnyAsync(p => p.TenDanhMuc == selectedGenre.TenDanhMuc && p.ID == selectedGenre.ID && p.IsDeleted != true);
+
+                    if (IsExistID)
+                    {
+                        return (false, "Danh mục đã tồn tại.");
+                    }
+                    var genre = await context.DanhMucSanPhams.Where(p => p.ID == selectedGenre.ID).FirstOrDefaultAsync();
+                    genre.TenDanhMuc = selectedGenre.TenDanhMuc;
+                    await context.SaveChangesAsync();
+                    return (true, "Cập nhật thành công.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi!");
+                return (false, null);
+            }
         }
     }
 }
