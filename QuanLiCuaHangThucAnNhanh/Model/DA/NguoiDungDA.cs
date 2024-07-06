@@ -109,5 +109,24 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
             }
 
         }
+        public async Task<(bool, string)> DeleteStaff(int ID)
+        {
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    var staff = await context.NguoiDungs.Where(p => p.ID == ID).FirstOrDefaultAsync();
+                    if (staff.IsDeleted == false) staff.IsDeleted = true;
+                    await context.SaveChangesAsync();
+                    return (true, "Da xoa");
+                }
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
+                return (false, null);
+            }
+
+        }
     }
 }

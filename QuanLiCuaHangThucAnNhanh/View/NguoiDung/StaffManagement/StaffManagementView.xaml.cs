@@ -34,5 +34,10 @@ namespace QuanLiCuaHangThucAnNhanh.View.NguoiDung.StaffManagement
         {
             (DataContext as StaffManagementVM).DeleteStaffCommand.Execute(new object());
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

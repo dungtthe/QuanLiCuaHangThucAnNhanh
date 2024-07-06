@@ -247,8 +247,22 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
                     }
 
                 }
-
-
+            });
+            DeleteStaffCommand = new RelayCommand<object>(null, async (p) =>
+            {
+                DeleteMessage deleteMessage = new DeleteMessage("Bạn có chắc chắn muốn xóa không?");
+                deleteMessage.ShowDialog();
+                if (deleteMessage.DialogResult == true)
+                {
+                    (bool IsDeleted, string messageDelete) = await NguoiDungDA.Ins.DeleteStaff(selectedItem.ID);
+                    if (IsDeleted)
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Success, "Bạn đã xóa thành công nhân viên");
+                        StaffList = new ObservableCollection<NguoiDungDTO>(await NguoiDungDA.Ins.GetAllUser());
+                    }
+                    else
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, messageDelete);
+                }
             });
         }
     }
