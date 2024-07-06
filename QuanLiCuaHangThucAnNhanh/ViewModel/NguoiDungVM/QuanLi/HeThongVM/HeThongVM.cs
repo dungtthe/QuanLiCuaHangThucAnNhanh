@@ -64,10 +64,12 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.HeThongVM
         public ICommand EditDanhMucCMD { get; set; }
         public ICommand OpenEditWidowCMD { get; set; }
         public ICommand CloseEditWindowCMD { get; set; }
+        public ICommand RemoveDanhMucCMD { get; set; }
         public HeThongVM()
         {
             FirstLoadCMD = new RelayCommand<object>(null, async (p) =>
             {
+                genreBookList = new List<string>(await DanhMucSanPhamDA.gI().GetAllGenreBook());
                 ThamSoDTO = await ThamSoDA.gI().GetThamSoCur();
                 if (ThamSoDTO == null)
                 {
@@ -204,6 +206,65 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.HeThongVM
                 MessageBoxCustom.Show(MessageBoxCustom.Success, "Thêm danh mục thành công!");
                 p.Close();
 
+            });
+
+            RemoveDanhMucCMD = new RelayCommand<DanhMucSanPhamDTO>((p) => { return true; }, async (p) =>
+            {
+                Warning wd = new Warning("Bạn có muốn xóa danh mục này?");
+                wd.ShowDialog();
+
+                try
+                {
+                    if (wd.DialogResult == true)
+                    {
+                        genreBookList.Remove(SelectedItem.TenDanhMuc);
+                        //if (SelectedItem.Quantity > 0)
+                        //{
+                        //    throw new Exception("Không thể xóa vì tồn tại sản phẩm thuộc danh mục");
+                        //}
+                        var newGenre = new DanhMucSanPham
+                        {
+                            ID = SelectedItem.ID,
+                            TenDanhMuc = SelectedItem.TenDanhMuc,
+                            IsDeleted = true
+                        };
+                        (bool success, string messageEdit) = await DanhMucSanPhamDA.gI().DeleteGenre(newGenre);
+                        if (success)
+                        {
+                            MessageBoxCustom.Show(MessageBoxCustom.Success, "Đã xóa thành công!");
+                            genreBookList = new List<string>(await DanhMucSanPhamDA.gI().GetAllGenreBook());
+                            // Create the observation collection of DTOs
+                            GenreBookObservation = new ObservableCollection<DanhMucSanPhamDTO>();
+
+                            var bookList = new List<SanPhamDTO>(await SanPhamDA.gI().GetAllSanPham());
+
+                            for (int i = 0; i < genreBookList.Count; i++)
+                            {
+                                // Create a new DTO instance
+                                (int _, DanhMucSanPham currentGenre) = await DanhMucSanPhamDA.gI().FindGenrePrD(genreBookList[i]);
+
+                                var genreDTO = new DanhMucSanPhamDTO
+                                {
+                                    ID = (int)currentGenre.ID,
+                                    TenDanhMuc = currentGenre.TenDanhMuc,
+                                };
+
+                                // Add the DTO to the observation collection
+                                GenreBookObservation.Add(genreDTO);
+                            }
+
+                        }
+                        else
+                        {
+                            MessageBoxCustom.Show(MessageBoxCustom.Error, messageEdit);
+                        }
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, ex.Message);
+                }
             });
 
         }

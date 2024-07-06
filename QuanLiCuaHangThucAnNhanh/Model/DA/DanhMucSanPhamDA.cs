@@ -23,7 +23,30 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
             return instance;
         }
 
+        public async Task<(bool, string)> DeleteGenre(DanhMucSanPham selectedGenre)
+        {
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    var genreToDelete = await context.DanhMucSanPhams.FirstOrDefaultAsync(g => g.ID == selectedGenre.ID && g.TenDanhMuc == selectedGenre.TenDanhMuc);
+                    if (genreToDelete == null)
+                    {
+                        return (false, "Không tìm thấy thể danh mục để xóa.");
+                    }
 
+                    // Perform soft delete (mark as deleted)
+                    genreToDelete.IsDeleted = true;
+
+                    await context.SaveChangesAsync();
+                    return (true, "Xóa thể danh mục thành công.");
+                }
+            }
+            catch (Exception)
+            {
+                return (false, "Xảy ra lỗi khi xóa thể danh mục.");
+            }
+        }
         public async Task<List<DanhMucSanPhamDTO>> GetAllDanhMucSanPham()
         {
             try
