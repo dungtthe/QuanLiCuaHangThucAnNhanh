@@ -365,20 +365,14 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
             #endregion
             ExportExcel = new RelayCommand<Window>((p) => { return true; }, async (p) =>
             {
-
-
-
                 string path = MotSoPhuongThucBoTro.SelectFolder();
-
-
-
-                /*var dialog = new System.Windows.Forms.FolderBrowserDialog();
-
-                // Hiển thị hộp thoại chọn thư mục và lấy kết quả
-                System.Windows.Forms.DialogResult result = dialog.ShowDialog();
-                if (result == System.Windows.Forms.DialogResult.OK)
+                if(path == null)
                 {
-                    string selectedFolderPath = dialog.SelectedPath;
+                    return;
+                }
+                else
+                {
+                    string selectedFolderPath = path;
                     // tạo excel
                     ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
                     using (ExcelPackage package = new ExcelPackage())
@@ -439,10 +433,91 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
                         Success wd = new Success($"Tệp Excel đã được lưu vào: {filePath}");
                         wd.ShowDialog();
                     }
+                    /*string selectedFolderPath = path;
 
-                }*/
-                //var dialog = new System.Windows.Forms.FolderBrowserDialog();
 
+                    string fileExcelName = "";//tên file export
+                    string pathFile = "";//đường dẫn tuyệt đối của file export
+
+                    bool check = false;
+                    while (true)
+                    {
+                        fileExcelName = "ListProduct_" + ".xlsx";
+                        pathFile = selectedFolderPath + @"\" + fileExcelName;
+                        if (!File.Exists(pathFile))
+                        {
+                            check = true;
+                            break;
+                        }
+                    }
+
+                    if (check)
+                    {
+                        DataTable table = new DataTable();
+                        table.Columns.Add("STT", typeof(string));
+                        table.Columns.Add("Tên sản phẩm", typeof(string));
+                        table.Columns.Add("Số lượng tồn", typeof(string));
+                        table.Columns.Add("Giá nhập", typeof(string));
+                        table.Columns.Add("Tên danh mục", typeof(string));
+
+
+                        int stt = 1;
+                        foreach (var item in listSanPhamAll)
+                        {
+                            if (item.TenSP != null && item.SoLuongTon.ToString() != null && item.GiaNhap.ToString() != null && item.DanhMucSanPhamDTO.TenDanhMuc != null)
+                            {
+                                table.Rows.Add(stt.ToString(), item.TenSP, item.SoLuongTon.ToString(), item.GiaNhap.ToString(), item.DanhMucSanPhamDTO.TenDanhMuc);
+                                stt++;
+                            }
+                        }
+
+
+                        try
+                        {
+                            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                            using (var package = new ExcelPackage())
+                            {
+                                var worksheet = package.Workbook.Worksheets.Add("Sheet1");
+
+                                // Thêm tiêu đề và tháng
+                                worksheet.Cells["A1:E1"].Merge = true;
+                                worksheet.Cells["A1:E1"].Value = "Danh sách sản phẩm";
+                                worksheet.Cells["A1:E1"].Style.Font.Size = 16;
+                                worksheet.Cells["A1:E1"].Style.Font.Bold = true;
+                                worksheet.Cells["A1:E1"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                                worksheet.Cells["A2:E2"].Merge = true;
+                                worksheet.Cells["A2:E2"].Value = "Tháng " + DateTime.Now.Month + " năm " + DateTime.Now.Year;
+                                worksheet.Cells["A2:E2"].Style.Font.Size = 12;
+                                worksheet.Cells["A2:E2"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                                // Load dữ liệu từ DataTable vào Excel, bắt đầu từ dòng thứ 4
+                                worksheet.Cells["A4"].LoadFromDataTable(table, true);
+
+                                worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
+
+                                File.WriteAllBytes(pathFile, package.GetAsByteArray());
+
+                                MessageBoxCustom.Show(MessageBoxCustom.Success, "Thành công!");
+
+                                checkThaoTac = true;
+                            }
+                        }
+                        catch
+                        {
+                            MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra!");
+                            checkThaoTac = true;
+
+                        }
+
+                    }
+                    else
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra!");
+                        checkThaoTac = true;
+
+                    }*/
+                }
                 //// Hiển thị hộp thoại chọn thư mục và lấy kết quả
                 //System.Windows.Forms.DialogResult result = dialog.ShowDialog();
                 //if (result == System.Windows.Forms.DialogResult.OK)

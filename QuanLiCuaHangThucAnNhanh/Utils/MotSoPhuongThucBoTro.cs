@@ -122,11 +122,7 @@ namespace QuanLiCuaHangThucAnNhanh.Utils
             {
                 return Path.GetDirectoryName(dialog.FileName);
             }
-
             return null;
         }
-
-
-
     }
 }
