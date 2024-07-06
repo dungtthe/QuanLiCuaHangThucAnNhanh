@@ -148,6 +148,7 @@
     <Compile Include="ViewModel\NguoiDungVM\QuanLi\ProductVM\NhapKhoViewModel.cs" />
     <Compile Include="ViewModel\NguoiDungVM\QuanLi\ProductVM\ProductViewModel.cs" />
     <Compile Include="ViewModel\NguoiDungVM\SaleVM\SaleViewModel.cs" />
+    <Compile Include="ViewModel\NguoiDungVM\StaffVM\MotSoPTBoTro.cs" />
     <Compile Include="ViewModel\NguoiDungVM\StaffVM\StaffManagementVM.cs" />
     <Compile Include="ViewModel\NguoiDungVM\ThongKeVM\DoanhThu.cs" />
     <Compile Include="ViewModel\NguoiDungVM\ThongKeVM\LichSuBan.cs" />

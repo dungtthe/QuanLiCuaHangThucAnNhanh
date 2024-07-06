@@ -298,7 +298,8 @@
                                         <Button
                                             Width="25.8"
                                             Height="25.8"
-                                            BorderBrush="Transparent">
+                                            BorderBrush="Transparent"
+                                            Click="Edit_Click">
                                             <Button.Background>
                                                 <ImageBrush ImageSource="/Resources/Icon/Edit.png" />
                                             </Button.Background>
@@ -309,7 +310,8 @@
                                             Width="24.8"
                                             Height="24.8"
                                             Margin="12,0,0,0"
-                                            BorderBrush="Transparent">
+                                            BorderBrush="Transparent"
+                                            Click="Edit_Click">
                                             <Button.Background>
                                                 <ImageBrush ImageSource="/Resources/Icon/DeleteBlue_Icon.png" />
                                             </Button.Background>

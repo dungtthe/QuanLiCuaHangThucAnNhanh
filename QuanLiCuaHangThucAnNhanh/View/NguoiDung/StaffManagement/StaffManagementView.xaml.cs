@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,15 @@ namespace QuanLiCuaHangThucAnNhanh.View.NguoiDung.StaffManagement
         public StaffManagementView()
         {
             InitializeComponent();
+        }
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as StaffManagementVM).OpenEditStaffCommand.Execute(new object());
+        }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            (DataContext as StaffManagementVM).DeleteStaffCommand.Execute(new object());
         }
     }
 }

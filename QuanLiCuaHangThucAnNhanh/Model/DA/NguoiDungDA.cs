@@ -6,6 +6,8 @@ using System.Text;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using QuanLiCuaHangThucAnNhanh.Model.Mapper;
+using QuanLiCuaHangThucAnNhanh.View.MessageBox;
+using System.Collections;
 namespace QuanLiCuaHangThucAnNhanh.Model.DA
 {
     public class NguoiDungDA
@@ -66,6 +68,29 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
             catch
             {
                 return null;
+            }
+
+        }
+        public async Task<(bool, string)> EditStaff(NguoiDung newStaff)
+        {
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    var staff = await context.NguoiDung.Where(p => p.ID == newStaff.ID).FirstOrDefaultAsync();
+                    staff.HoTen = newStaff.HoTen;
+                    staff.SoDienThoai = newStaff.SoDienThoai;
+                    staff.NgaySinh = newStaff.NgaySinh;
+                    staff.Email = newStaff.Email;
+                    staff.DiaChi = newStaff.DiaChi;
+                    await context.SaveChangesAsync();
+                    return (true, "Cap that thanh cong");
+                }
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
+                return (false, null);
             }
 
         }

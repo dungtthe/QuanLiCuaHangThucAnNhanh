@@ -32,6 +32,7 @@ namespace QuanLiCuaHangThucAnNhanh.Model
         public virtual DbSet<HoaDonNhap> HoaDonNhaps { get; set; }
         public virtual DbSet<KhachHang> KhachHangs { get; set; }
         public virtual DbSet<NguoiDung> NguoiDungs { get; set; }
+        public virtual DbSet<NguoiDung> NguoiDung { get; set; }
         public virtual DbSet<SanPham> SanPhams { get; set; }
         public virtual DbSet<THAMSO> THAMSOes { get; set; }
     }
