@@ -88,7 +88,7 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
             }
         }
 
-        public async Task<List<string>> GetAllGenreBook()
+        public async Task<List<string>> GetAllGenreDanhMucc()
         {
             try
             {
