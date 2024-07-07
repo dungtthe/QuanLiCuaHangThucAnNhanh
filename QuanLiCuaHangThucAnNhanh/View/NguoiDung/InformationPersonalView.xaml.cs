@@ -22,6 +22,7 @@ namespace QuanLiCuaHangThucAnNhanh.View.NguoiDung
         public InformationPersonalView()
         {
             InitializeComponent();
+            DataContext = MainNguoiDungView.mainNguoiDungVM;
         }
         private void HuyButton_Click(object sender, RoutedEventArgs e)
         {
