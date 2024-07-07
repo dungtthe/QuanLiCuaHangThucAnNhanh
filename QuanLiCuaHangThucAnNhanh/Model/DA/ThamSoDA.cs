@@ -36,7 +36,7 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
                     return ThamSoMapper.MapToDTO(t);
                 }
             }
-            catch
+            catch(Exception e)
             {
                 return null;
             }
