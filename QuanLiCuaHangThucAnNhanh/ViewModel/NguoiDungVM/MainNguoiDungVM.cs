@@ -32,6 +32,16 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM
     public class MainNguoiDungVM : BaseViewModel
     {
         public static NguoiDungDTO nguoiDungDTOCur;
+        private bool isNhanVien;
+        public bool IsNhanVien
+        {
+            get => isNhanVien;
+            set
+            {
+                isNhanVien = value;
+                OnPropertyChanged(nameof(IsNhanVien));
+            }
+        }
 
         public ICommand FirstLoadCM { get; set; }
         public ICommand LoadNhanVienPage { get; }
@@ -168,6 +178,17 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM
         #endregion
         public MainNguoiDungVM()
         {
+
+            if (nguoiDungDTOCur.Loai == 0)
+            {
+                IsNhanVien = false;
+            }
+            else
+            {
+                IsNhanVien = true;
+            }
+
+
             LoadThongKePage = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
                 p.Content = new ThongKeMainPage();
