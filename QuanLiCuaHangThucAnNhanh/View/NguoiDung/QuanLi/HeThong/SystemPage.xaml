@@ -67,6 +67,7 @@
             <StackPanel Grid.Row="1" Orientation="Horizontal">
                 <TextBlock
                     Height="35"
+                    Width="200"
                     Margin="20,0,0,0"
                     VerticalAlignment="Center"
                     FontSize="30"
@@ -74,7 +75,7 @@
                 <TextBox
                     Width="250"
                     Height="53.6"
-                    Margin="99,0,0,0"
+                    Margin="36,0,0,0"
                     Padding="12,2.4"
                     HorizontalAlignment="Left"
                     VerticalContentAlignment="Center"
@@ -94,6 +95,8 @@
                 <TextBlock
                     Height="35"
                     Margin="20,0,0,0"
+                    Width="200"
+
                     VerticalAlignment="Center"
                     FontSize="30"
                     Text="1đ tích lũy = " />
@@ -127,6 +130,7 @@
                     Margin="20,0,0,0"
                     VerticalAlignment="Center"
                     FontSize="30"
+                    Width="200"
                     Text="10.000 VNĐ  = " />
                 <TextBox
                     Width="250"
