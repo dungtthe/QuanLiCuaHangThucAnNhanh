@@ -366,6 +366,16 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
 
                         new InvoicePrint().ShowDialog();
 
+                        List<SanPhamDTO> sanPhams = await SanPhamDA.gI().GetAllSanPham();
+                        listSanPhamAll = new List<SanPhamDTO>(sanPhams);
+                        SetGia(sanPhams);
+
+                        ProductList = new ObservableCollection<SanPhamDTO>(sanPhams);
+                        if (ProductList != null)
+                        {
+                            prdList = new List<SanPhamDTO>(ProductList);
+                        }
+
                     }
                     else
                     {
