@@ -141,6 +141,7 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
 
                         }
                     }
+                    newCus.DiemTichLuy = 0;
                     context.KhachHangs.Add(newCus);
                     await context.SaveChangesAsync();
                     return (true, "Them thanh cong");

@@ -12,7 +12,6 @@
     Height="700"
     AllowsTransparency="True"
     Background="Transparent"
-    DataContext="{StaticResource MainNguoiDungVM}"
     Icon="/Resources/Icon/icon_app.ico"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
@@ -310,6 +309,7 @@
                                 FontSize="12.8"
                                 Text="Mật khẩu cũ" />
                             <PasswordBox
+                                Name="passwordBox0"
                                 Width="300"
                                 Height="30"
                                 Padding="12,2.4"
@@ -324,7 +324,7 @@
                                 FontSize="15">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="PasswordChanged">
-                                        <i:InvokeCommandAction Command="{Binding PasswordChangedInformationCommand0}" CommandParameter="{Binding ElementName=passwordBox}" />
+                                        <i:InvokeCommandAction Command="{Binding PasswordChangedInformationCommand0}" CommandParameter="{Binding ElementName=passwordBox0}" />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </PasswordBox>
@@ -343,7 +343,7 @@
                                 FontSize="12.8"
                                 Text="Mật khẩu mới" />
                             <PasswordBox
-                                Name="passwordBox"
+                                Name="passwordBox1"
                                 Width="300"
                                 Height="30"
                                 Padding="12,2.4"
@@ -358,7 +358,7 @@
                                 FontSize="15">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="PasswordChanged">
-                                        <i:InvokeCommandAction Command="{Binding PasswordChangedInformationCommand1}" CommandParameter="{Binding ElementName=passwordBox}" />
+                                        <i:InvokeCommandAction Command="{Binding PasswordChangedInformationCommand1}" CommandParameter="{Binding ElementName=passwordBox1}" />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </PasswordBox>
@@ -378,6 +378,7 @@
                                 FontSize="12.8"
                                 Text="Mật khẩu mới" />
                             <PasswordBox
+                                Name="passwordBox2"
                                 Width="300"
                                 Height="30"
                                 Padding="12,2.4"
@@ -392,7 +393,7 @@
                                 FontSize="15">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="PasswordChanged">
-                                        <i:InvokeCommandAction Command="{Binding PasswordChangedInformationCommand2}" CommandParameter="{Binding ElementName=passwordBox}" />
+                                        <i:InvokeCommandAction Command="{Binding PasswordChangedInformationCommand2}" CommandParameter="{Binding ElementName=passwordBox2}" />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </PasswordBox>

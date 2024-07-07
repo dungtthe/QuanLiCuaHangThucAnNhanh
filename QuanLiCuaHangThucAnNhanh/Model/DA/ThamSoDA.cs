@@ -1,5 +1,6 @@
 ﻿using QuanLiCuaHangThucAnNhanh.Model.DTO;
 using QuanLiCuaHangThucAnNhanh.Model.Mapper;
+using QuanLiCuaHangThucAnNhanh.View.MessageBox;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -35,10 +36,31 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
                     return ThamSoMapper.MapToDTO(t);
                 }
             }
-            catch
+            catch(Exception e)
             {
                 return null;
             }
+        }
+        public async Task<(bool, string)> EditThamSo(THAMSO newTHAMSO)
+        {
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    var thamSo = await context.THAMSOes.Where(p => p.ID == 1).FirstOrDefaultAsync();
+                    thamSo.HeSoBan = newTHAMSO.HeSoBan;
+                    thamSo.OnePointToMoney = newTHAMSO.OnePointToMoney;
+                    thamSo.MoneyToOnePoint = newTHAMSO.MoneyToOnePoint;
+                    await context.SaveChangesAsync();
+                    return (true, "Cap that thanh cong");
+                }
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
+                return (false, null);
+            }
+
         }
 
     }

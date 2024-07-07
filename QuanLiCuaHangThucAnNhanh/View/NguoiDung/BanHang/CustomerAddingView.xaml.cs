@@ -12,21 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace QuanLiCuaHangThucAnNhanh.View.NguoiDung
+namespace QuanLiCuaHangThucAnNhanh.View.NguoiDung.BanHang
 {
     /// <summary>
-    /// Interaction logic for InformationPersonalView.xaml
+    /// Interaction logic for CustomerAddingView.xaml
     /// </summary>
-    public partial class InformationPersonalView : Window
+    public partial class CustomerAddingView : Window
     {
-        public InformationPersonalView()
+        public CustomerAddingView()
         {
             InitializeComponent();
-            DataContext = MainNguoiDungView.mainNguoiDungVM;
-        }
-        private void HuyButton_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
     }
 }

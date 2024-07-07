@@ -293,13 +293,15 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
                         NgaySinh = this.BirthDay,
                         Email = this.Email,
                         Loai = 0,
+                        DiaChi = this.Address,
                         IsDeleted = false
                     };
                     (bool IsAdded, string messageAdd) = await NguoiDungDA.Ins.AddNewStaff(newStaff);
                     if (IsAdded)
                     {
-                        StaffObservation = new ObservableCollection<NguoiDungDTO>(await NguoiDungDA.Ins.GetAllUser());
+                        StaffList = new ObservableCollection<NguoiDungDTO>(await NguoiDungDA.Ins.GetAllUser());
                         MessageBoxCustom.Show(MessageBoxCustom.Success, "Bạn đã thêm thành công nhân viên");
+                        p.Close();
                         //Gửi mail tài khoản                      
                             string email = "privateclinicse104@gmail.com";
                             string frompass = "ibap lpjv sqrf vrsq";

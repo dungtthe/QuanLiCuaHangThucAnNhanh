@@ -67,36 +67,11 @@
             <StackPanel Grid.Row="1" Orientation="Horizontal">
                 <TextBlock
                     Height="35"
+                    Width="200"
                     Margin="20,0,0,0"
                     VerticalAlignment="Center"
                     FontSize="30"
                     Text="Hệ số bán:" />
-                <TextBox
-                    Width="250"
-                    Height="53.6"
-                    Margin="99,0,0,0"
-                    Padding="12,2.4"
-                    HorizontalAlignment="Left"
-                    VerticalContentAlignment="Center"
-                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-                    materialDesign:TextFieldAssist.TextFieldCornerRadius="24"
-                    Background="#D9D9D9"
-                    BorderBrush="Transparent"
-                    BorderThickness="0.5"
-                    FontFamily="Inter"
-                    FontSize="14"
-                    Text="{Binding ThamSoDTO.HeSoBan, UpdateSourceTrigger=PropertyChanged}" />
-            </StackPanel>
-
-
-            <!--  Quy đổi điểm tích lũy sang tiền  -->
-            <StackPanel Grid.Row="2" Orientation="Horizontal">
-                <TextBlock
-                    Height="35"
-                    Margin="20,0,0,0"
-                    VerticalAlignment="Center"
-                    FontSize="30"
-                    Text="100đ tích lũy = " />
                 <TextBox
                     Width="250"
                     Height="53.6"
@@ -111,7 +86,35 @@
                     BorderThickness="0.5"
                     FontFamily="Inter"
                     FontSize="14"
-                    Text="{Binding ThamSoDTO.HeSoBan, UpdateSourceTrigger=PropertyChanged}" />
+                    Text="{Binding EditHeSoBan, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+
+
+            <!--  Quy đổi điểm tích lũy sang tiền  -->
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <TextBlock
+                    Height="35"
+                    Margin="20,0,0,0"
+                    Width="200"
+
+                    VerticalAlignment="Center"
+                    FontSize="30"
+                    Text="1đ tích lũy = " />
+                <TextBox
+                    Width="250"
+                    Height="53.6"
+                    Margin="36,0,0,0"
+                    Padding="12,2.4"
+                    HorizontalAlignment="Left"
+                    VerticalContentAlignment="Center"
+                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                    materialDesign:TextFieldAssist.TextFieldCornerRadius="24"
+                    Background="#D9D9D9"
+                    BorderBrush="Transparent"
+                    BorderThickness="0.5"
+                    FontFamily="Inter"
+                    FontSize="14"
+                    Text="{Binding EditOnePointToMoney, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock
                     Height="35"
                     Margin="20,0,0,0"
@@ -127,6 +130,7 @@
                     Margin="20,0,0,0"
                     VerticalAlignment="Center"
                     FontSize="30"
+                    Width="200"
                     Text="10.000 VNĐ  = " />
                 <TextBox
                     Width="250"
@@ -142,7 +146,7 @@
                     BorderThickness="0.5"
                     FontFamily="Inter"
                     FontSize="14"
-                    Text="{Binding ThamSoDTO.HeSoBan, UpdateSourceTrigger=PropertyChanged}" />
+                    Text="{Binding EditMoneyOneToPoint, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock
                     Height="35"
                     Margin="20,0,0,0"
@@ -162,7 +166,7 @@
                     materialDesign:ButtonAssist.CornerRadius="24"
                     Background="#FFE0AE8A"
                     BorderThickness="0"
-                    Command="{Binding SavingCMD}"
+                    Command="{Binding SaveCMD}"
                     Content="Lưu thiết lập"
                     FontSize="25"
                     Foreground="Black" />

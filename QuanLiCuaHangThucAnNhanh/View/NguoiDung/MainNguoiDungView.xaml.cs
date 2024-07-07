@@ -24,7 +24,9 @@ namespace QuanLiCuaHangThucAnNhanh.View.NguoiDung
         public MainNguoiDungView()
         {
             InitializeComponent();
-            DataContext = new MainNguoiDungVM();
+            MainNguoiDungVM m = new MainNguoiDungVM();
+            DataContext = m;
+            mainNguoiDungVM = m;
         }
         private void Overlay_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -35,5 +37,7 @@ namespace QuanLiCuaHangThucAnNhanh.View.NguoiDung
         {
             this.Owner.Visibility = Visibility.Visible;
         }
+
+        public static MainNguoiDungVM mainNguoiDungVM;
     }
 }
