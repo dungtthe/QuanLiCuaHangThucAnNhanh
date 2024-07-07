@@ -269,6 +269,104 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
         }
 
 
+        public async Task<bool> HandleProductImport(List<SanPham> listSanPhamInsert, List<SanPham> listSanPhamUpdate, int nguoiDungId)
+        {
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    using (var transaction = context.Database.BeginTransaction())
+                    {
+                        try
+                        {
+                            decimal tongTienNhap = 0;
+
+                            foreach (var sanPham in listSanPhamInsert)
+                            {
+                                context.SanPhams.Add(sanPham);
+                                tongTienNhap += sanPham.GiaNhap * sanPham.SoLuongTon;
+                            }
+                            await context.SaveChangesAsync();
+
+                            foreach (var sanPhamNew in listSanPhamUpdate)
+                            {
+                                var sanPham = await context.SanPhams.FindAsync(sanPhamNew.ID);
+                                if (sanPham == null)
+                                {
+                                    continue;
+                                }
+
+                                int soLuongAdd = sanPhamNew.SoLuongTon;
+                                sanPham.SoLuongTon += soLuongAdd;
+
+                                tongTienNhap += sanPham.GiaNhap * soLuongAdd;
+
+                                await context.SaveChangesAsync();
+                            }
+
+                            if (tongTienNhap > 0)
+                            {
+                                var hoaDonNhap = new HoaDonNhap
+                                {
+                                    NguoiDungID = nguoiDungId,
+                                    TongTienNhap = tongTienNhap,
+                                    NgayTao = DateTime.Now,
+                                    IsDeleted = false
+                                };
+                                context.HoaDonNhaps.Add(hoaDonNhap);
+                                await context.SaveChangesAsync();
+
+                                foreach (var sanPham in listSanPhamInsert)
+                                {
+                                    var chiTietHoaDonNhap = new ChiTietHoaDonNhap
+                                    {
+                                        HoaDonNhapID = hoaDonNhap.ID,
+                                        SanPhamID = sanPham.ID,
+                                        SoLuong = sanPham.SoLuongTon,
+                                        DonGia = sanPham.GiaNhap,
+                                        IsDeleted = false
+                                    };
+                                    context.ChiTietHoaDonNhaps.Add(chiTietHoaDonNhap);
+                                }
+
+                                foreach (var sanPhamNew in listSanPhamUpdate)
+                                {
+                                    var sanPham = await context.SanPhams.FindAsync(sanPhamNew.ID);
+                                    if (sanPham == null)
+                                    {
+                                        continue;
+                                    }
+
+                                    var chiTietHoaDonNhap = new ChiTietHoaDonNhap
+                                    {
+                                        HoaDonNhapID = hoaDonNhap.ID,
+                                        SanPhamID = sanPham.ID,
+                                        SoLuong = sanPhamNew.SoLuongTon,
+                                        DonGia = sanPham.GiaNhap,
+                                        IsDeleted = false
+                                    };
+                                    context.ChiTietHoaDonNhaps.Add(chiTietHoaDonNhap);
+                                }
+
+                                await context.SaveChangesAsync();
+                            }
+
+                            transaction.Commit();
+                            return true;
+                        }
+                        catch
+                        {
+                            transaction.Rollback();
+                            throw;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
 
 
