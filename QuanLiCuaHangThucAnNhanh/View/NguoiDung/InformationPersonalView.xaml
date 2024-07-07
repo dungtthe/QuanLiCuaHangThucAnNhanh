@@ -12,7 +12,6 @@
     Height="700"
     AllowsTransparency="True"
     Background="Transparent"
-    DataContext="{StaticResource MainNguoiDungVM}"
     Icon="/Resources/Icon/icon_app.ico"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"

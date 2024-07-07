@@ -176,6 +176,9 @@
     <Compile Include="View\MessageBox\Warning.xaml.cs">
       <DependentUpon>Warning.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\NguoiDung\BanHang\CustomerAddingView.xaml.cs">
+      <DependentUpon>CustomerAddingView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\NguoiDung\BanHang\InvoicePrint.xaml.cs">
       <DependentUpon>InvoicePrint.xaml</DependentUpon>
     </Compile>
@@ -285,6 +288,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\NguoiDung\BanHang\ButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\NguoiDung\BanHang\CustomerAddingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
