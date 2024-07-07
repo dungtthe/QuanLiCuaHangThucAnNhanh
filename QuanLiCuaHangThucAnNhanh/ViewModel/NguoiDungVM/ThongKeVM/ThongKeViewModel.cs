@@ -24,7 +24,10 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.ThongKeVM
             get => isLichSuBanOrLichSuNhap;
             set
             {
+
                 isLichSuBanOrLichSuNhap = value;
+                isLichSuBanOrLichSuNhap = false;
+
                 OnPropertyChanged(nameof(IsLichSuBanOrLichSuNhap));
             }
         }

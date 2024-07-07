@@ -32,14 +32,14 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM
     public class MainNguoiDungVM : BaseViewModel
     {
         public static NguoiDungDTO nguoiDungDTOCur;
-        private bool isNhanVien;
-        public bool IsNhanVien
+        private bool isQuanLi;
+        public bool IsQuanLi
         {
-            get => isNhanVien;
+            get => isQuanLi;
             set
             {
-                isNhanVien = value;
-                OnPropertyChanged(nameof(IsNhanVien));
+                isQuanLi = value;
+                OnPropertyChanged(nameof(IsQuanLi));
             }
         }
 
@@ -181,11 +181,19 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM
 
             if (nguoiDungDTOCur.Loai == 0)
             {
-                IsNhanVien = false;
+                IsQuanLi = false;
+                FirstLoadCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+                {
+                    p.Content = new SalePage();
+                });
             }
             else
             {
-                IsNhanVien = true;
+                IsQuanLi = true;
+                FirstLoadCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
+                {
+                    p.Content = new ProductMain();
+                });
             }
 
 
