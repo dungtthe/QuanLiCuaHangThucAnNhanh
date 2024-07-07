@@ -292,7 +292,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
                         SoDienThoai = this.PhoneNumber,
                         NgaySinh = this.BirthDay,
                         Email = this.Email,
-                        Loai = 1,
+                        Loai = 0,
                         IsDeleted = false
                     };
                     (bool IsAdded, string messageAdd) = await NguoiDungDA.Ins.AddNewStaff(newStaff);
