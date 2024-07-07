@@ -48,7 +48,7 @@
     </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadSanPhamPage}" CommandParameter="{Binding ElementName=MainFrame}" />
+            <i:InvokeCommandAction Command="{Binding FirstLoadCM}" CommandParameter="{Binding ElementName=MainFrame}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Window.Triggers>
@@ -302,7 +302,7 @@
                         CommandParameter="{Binding ElementName=MainFrame}"
                         Cursor="Hand"
                         IsChecked="True"
-                        Visibility="{Binding IsNhanVien, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        Visibility="{Binding IsQuanLi, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <RadioButton.Style>
                             <Style TargetType="RadioButton">
                                 <Setter Property="Height" Value="58" />
@@ -457,7 +457,7 @@
                         Command="{Binding LoadNhanVienPage}"
                         CommandParameter="{Binding ElementName=MainFrame}"
                         Cursor="Hand"
-                        Visibility="{Binding IsNhanVien, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        Visibility="{Binding IsQuanLi, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <RadioButton.Style>
                             <Style TargetType="RadioButton">
                                 <Setter Property="Height" Value="58" />
@@ -560,7 +560,7 @@
                         Command="{Binding LoadHeThongPage}"
                         CommandParameter="{Binding ElementName=MainFrame}"
                         Cursor="Hand"
-                        Visibility="{Binding IsNhanVien, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        Visibility="{Binding IsQuanLi, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <RadioButton.Style>
                             <Style TargetType="RadioButton">
                                 <Setter Property="Height" Value="58" />

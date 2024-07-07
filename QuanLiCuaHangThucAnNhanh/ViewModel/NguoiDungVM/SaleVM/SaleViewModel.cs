@@ -1,4 +1,5 @@
 ﻿using MaterialDesignColors;
+using OfficeOpenXml.FormulaParsing.LexicalAnalysis;
 using QuanLiCuaHangThucAnNhanh.Model;
 using QuanLiCuaHangThucAnNhanh.Model.DA;
 using QuanLiCuaHangThucAnNhanh.Model.DTO;
@@ -10,6 +11,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -245,11 +247,11 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
         public ICommand PayBill { get; set; }
         public ICommand Search { get; set; }
         public ICommand RemoveSanPhamDTOCM { get; set; }
-        public ICommand EndBill {  get; set; }
-        public ICommand ChangeCountCM {  get; set; }
-        public ICommand AddCustomerCM {  get; set; }
+        public ICommand EndBill { get; set; }
+        public ICommand ChangeCountCM { get; set; }
+        public ICommand AddCustomerCM { get; set; }
         public ICommand AcceptAddCusCM { get; set; }
-        public ICommand CloseAddCusCM {  get; set; }
+        public ICommand CloseAddCusCM { get; set; }
         public SaleViewModel()
         {
             khachVangLai = new KhachHangDTO(1, "Khách vãng lai");
@@ -355,14 +357,14 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
                         }
                         catch { }
                         khachHang.DiemTichLuy = (int)(TongTien / thamSoDTO.MoneyToOnePoint.Value) + khachHangForBill.DiemTichLuy - point;
-                         flag = await KhachHangDA.gI().EditCusBySell(khachHang);
+                        flag = await KhachHangDA.gI().EditCusBySell(khachHang);
                     }
 
                     flag = await HoaDonBanDA.gI().AddNewBill(hoaDonBanDTO);
 
                     if (flag)
                     {
-                     MessageBoxCustom.Show(MessageBoxCustom.Success, "Thanh toán đơn hàng thành công!");
+                        MessageBoxCustom.Show(MessageBoxCustom.Success, "Thanh toán đơn hàng thành công!");
 
 
                         //List<SanPhamDTO> listTemp = new List<SanPhamDTO>(listSanPhamAll);
@@ -508,28 +510,112 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
             AddCustomerCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
             {
 
+
+                KhachHangDTONew = new KhachHangDTO
+                {
+                    HoTen = "Unknown",
+                    NgaySinh = DateTime.Now,
+                    DiaChi = "Unknown",
+                    DiemTichLuy = 0,
+                    IsDelete = false,
+                };
+
+                CustomerAddingView customerAddingView = new CustomerAddingView();
+                customerAddingView.ShowDialog();
+
+            });
+
+
+            CloseAddCusCM = new RelayCommand<Window>((p) => { return true; }, async (p) =>
+            {
+                if (p == null)
+                {
+
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra!");
+                    return;
+                }
+                p.Close();
+
+
+            });
+
+            AcceptAddCusCM = new RelayCommand<Window>((p) => { return true; }, async (p) =>
+            {
                 if (p == null)
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra!");
                     return;
                 }
-                KhachHangDTONew = new KhachHangDTO
+
+                if (KhachHangDTONew.HoTen == null || KhachHangDTONew.Email == null || KhachHangDTONew.SoDienThoai == null
+                || KhachHangDTONew.DiaChi == null || KhachHangDTONew.NgaySinh == null)
                 {
-                    HoTen = "Unknown",
-                    NgaySinh=DateTime.Now,
-                    DiaChi = "Unknown",
-                    DiemTichLuy=0,
-                    IsDelete=false,
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Bạn đang nhập thiếu hoặc sai thông tin");
+                    return;
+                }
+
+
+                string mailPattern = @"^[a-zA-Z0-9._%+-]+@gmail\.com$";
+                string phonePattern = @"^0\d{9}$";
+                if (!Regex.IsMatch(KhachHangDTONew.Email, mailPattern))
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Email không hợp lệ (phải có dạng @gmail.com)");
+                    return;
+                }
+                if (!Regex.IsMatch(KhachHangDTONew.SoDienThoai, phonePattern))
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Số điện thoại không hợp lệ (phải có 10 chữ số và số bắt đầu là 0)");
+                    return;
+                }
+
+                KhachHang newCus = new KhachHang()
+                {
+                    HoTen = KhachHangDTONew.HoTen,
+                    DiaChi = KhachHangDTONew.DiaChi,
+                    Email = KhachHangDTONew.Email,
+                    SoDienThoai = KhachHangDTONew.SoDienThoai,
+                    IsDeleted = false,
+                    NgaySinh = DateTime.Now,
                 };
 
+                (bool IsAdded, string messageAdd) = await KhachHangDA.Ins.AddNewCus(newCus);
+                if (IsAdded)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Success, "Bạn đã thêm thành công khách hàng");
+                    CusInfo = newCus.SoDienThoai;
+                    KhachHangDTO temp = null;
+
+
+                    temp = await KhachHangDA.gI().FindNguoiDungBySoDienThoai(CusInfo);
+
+                    if (temp == null)
+                    {
+                        temp = await KhachHangDA.gI().FindNguoiDungByEmail(CusInfo);
+                    }
+
+                    if (temp == null)
+                    {
+                        temp = khachVangLai;
+                        CusInfo = "";
+
+                    }
+                    KhachHangForBill = temp;
+                    SetTongTien();
+                    p.Close();
+                }
+                else
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, messageAdd);
+                }
 
 
             });
+
         }
 
 
 
-       
+
 
         private void AddSanPhamDTOToListChiTietHoaDon(SanPhamDTO sanPhamDTO)
         {
@@ -631,13 +717,13 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
             {
                 try
                 {
-                    if (CanUsePoint )
+                    if (CanUsePoint)
                     {
-                       TongTien = TongTien - thamSoDTO.OnePointToMoney.Value * int.Parse(PointUse);
+                        TongTien = TongTien - thamSoDTO.OnePointToMoney.Value * int.Parse(PointUse);
                     }
-                    
+
                 }
-                catch{ }
+                catch { }
 
             }
 

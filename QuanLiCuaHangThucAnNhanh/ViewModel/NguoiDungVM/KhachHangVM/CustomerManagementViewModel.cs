@@ -243,6 +243,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.KhachHangVM
                     if (IsAdded)
                     {
                         CusObservation = new ObservableCollection<KhachHangDTO>(await KhachHangDA.Ins.GetAllCus());
+                        CustomerList = new ObservableCollection<KhachHangDTO>(await KhachHangDA.Ins.GetAllCus());
                         MessageBoxCustom.Show(MessageBoxCustom.Success, "Bạn đã thêm thành công khách hàng");
                         p.Close();
                     }
