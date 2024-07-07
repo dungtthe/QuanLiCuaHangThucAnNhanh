@@ -12,7 +12,6 @@
     d:DesignWidth="1536"
     Background="White"
     Closed="AdminWD_Closed"
-    DataContext="{StaticResource MainNguoiDungVM}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     Icon="/Resources/Icon/icon_app.ico"
     TextElement.FontFamily="Roboto Condensed"
