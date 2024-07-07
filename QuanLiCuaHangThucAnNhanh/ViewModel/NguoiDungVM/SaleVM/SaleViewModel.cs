@@ -224,6 +224,16 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
             }
         }
 
+        private KhachHangDTO khachHangDTONew;
+        public KhachHangDTO KhachHangDTONew
+        {
+            get => khachHangDTONew;
+            set
+            {
+                khachHangDTONew = value;
+                OnPropertyChanged(nameof(KhachHangDTONew));
+            }
+        }
 
 
 
@@ -237,6 +247,9 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
         public ICommand RemoveSanPhamDTOCM { get; set; }
         public ICommand EndBill {  get; set; }
         public ICommand ChangeCountCM {  get; set; }
+        public ICommand AddCustomerCM {  get; set; }
+        public ICommand AcceptAddCusCM { get; set; }
+        public ICommand CloseAddCusCM {  get; set; }
         public SaleViewModel()
         {
             khachVangLai = new KhachHangDTO(1, "Khách vãng lai");
@@ -458,6 +471,58 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.SaleVM
                 catch
                 {
                 }
+
+            });
+
+            SearchCusCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+
+                if (string.IsNullOrEmpty(CusInfo))
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Vui lòng nhập số điện thoại hoặc Email!");
+                    return;
+                }
+
+                KhachHangDTO temp = null;
+
+
+                temp = await KhachHangDA.gI().FindNguoiDungBySoDienThoai(CusInfo);
+
+                if (temp == null)
+                {
+                    temp = await KhachHangDA.gI().FindNguoiDungByEmail(CusInfo);
+                }
+
+                if (temp == null)
+                {
+                    Error wd1 = new Error("Khách hàng không tồn tại");
+                    temp = khachVangLai;
+                    CusInfo = "";
+                    wd1.ShowDialog();
+
+                }
+                KhachHangForBill = temp;
+                SetTongTien();
+            });
+
+            AddCustomerCM = new RelayCommand<object>((p) => { return true; }, async (p) =>
+            {
+
+                if (p == null)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra!");
+                    return;
+                }
+                KhachHangDTONew = new KhachHangDTO
+                {
+                    HoTen = "Unknown",
+                    NgaySinh=DateTime.Now,
+                    DiaChi = "Unknown",
+                    DiemTichLuy=0,
+                    IsDelete=false,
+                };
+
+
 
             });
         }
