@@ -186,5 +186,26 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
             }
 
         }
+
+        //Update mật khẩu
+        public async Task<(bool, string)> UpdateMK(NguoiDung newStaff)
+        {
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    var staff = await context.NguoiDungs.Where(p => p.ID == newStaff.ID).FirstOrDefaultAsync();
+                    staff.MatKhau = newStaff.MatKhau;
+                    await context.SaveChangesAsync();
+                    return (true, "Cập nhật thành công!");
+                }
+            }
+            catch
+            {
+                MessageBoxCustom.Show(MessageBoxCustom.Error, "Xảy ra lỗi");
+                return (false, null);
+            }
+
+        }
     }
 }

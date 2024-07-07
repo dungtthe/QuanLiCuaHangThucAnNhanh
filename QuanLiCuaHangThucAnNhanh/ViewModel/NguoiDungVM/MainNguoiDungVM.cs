@@ -362,26 +362,17 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM
                 }
 
                 // Hash mật khẩu mới
-                string hashedNewPassword = MotSoPhuongThucBoTro.MD5Hash(Password1);
+                string hashedNewPassword1 = MotSoPhuongThucBoTro.MD5Hash(Password1);
 
                 // Tạo đối tượng người dùng mới với mật khẩu đã thay đổi
                 NguoiDung newNguoiDung = new NguoiDung
                 {
                     ID = nguoiDungDTOCur.ID,
-                    HoTen = this.HoTen,
-                    Email = this.Email,
-                    TenTaiKhoan = nguoiDungDTOCur.TenTaiKhoan,
-                    MatKhau = hashedNewPassword, // Sử dụng mật khẩu mới đã hash
-                    NgaySinh = MotSoPTBoTro.formatDate(NgaySinh),
-                    SoDienThoai = this.SDT,
-                    Loai = nguoiDungDTOCur.Loai,
-                    DiaChi = this.DiaChi,
-                    IsDeleted = false,
-                    Image = nguoiDungDTOCur.Image
+                    MatKhau = hashedNewPassword1, // Sử dụng mật khẩu mới đã hash
                 };
 
                 // Gọi hàm chỉnh sửa thông tin người dùng với mật khẩu đã thay đổi
-                (bool success, string messageEdit) = await NguoiDungDA.gI().EditStaff(newNguoiDung);
+                (bool success, string messageEdit) = await NguoiDungDA.gI().UpdateMK(newNguoiDung);
                 if (success)
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Success, "Đổi mật khẩu thành công.");
