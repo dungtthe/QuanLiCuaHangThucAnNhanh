@@ -197,15 +197,19 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.ProductVM
 
                             }
 
-                            foreach (var item in listSanPhamInsert)
-                            {
-                                await SanPhamDA.gI().AddNewProduct(item);
-                            }
+                            //foreach (var item in listSanPhamInsert)
+                            //{
+                            //    await SanPhamDA.gI().AddNewProduct(item);
+                            //}
 
-                            foreach (var item in listSanPhamUpdate)
-                            {
-                                await SanPhamDA.gI().UpdateProductQuantity(item);
-                            }
+                            //foreach (var item in listSanPhamUpdate)
+                            //{
+                            //    await SanPhamDA.gI().UpdateProductQuantity(item);
+                            //}
+
+                            bool flag = await SanPhamDA.gI().AddNewProductsForNhapKho(listSanPhamInsert,MainNguoiDungVM.nguoiDungDTOCur.ID);
+                            flag = await SanPhamDA.gI().UpdateProductQuantitiesForNhapKho(listSanPhamUpdate, MainNguoiDungVM.nguoiDungDTOCur.ID);
+
 
 
                             MessageBoxCustom.Show(MessageBoxCustom.Success, "Nhập kho thành công!");
