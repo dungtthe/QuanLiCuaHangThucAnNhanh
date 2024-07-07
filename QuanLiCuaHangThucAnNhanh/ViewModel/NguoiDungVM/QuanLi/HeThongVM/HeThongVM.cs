@@ -56,7 +56,37 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.HeThongVM
                
             }
         }
+        private ThamSoDTO thamSoDTO;
+        public ThamSoDTO ThamSoDTO
+        {
+            get => thamSoDTO;
+            set
+            {
+                thamSoDTO = value;
+                OnPropertyChanged(nameof(ThamSoDTO));
+            }
+        }
+        private string editOnePointToMoney;
+        public string EditOnePointToMoney
+        {
+            get { return editOnePointToMoney; }
+            set { editOnePointToMoney = value; OnPropertyChanged(); }
+        }
 
+        private string editHeSoBan;
+        public string EditHeSoBan
+        {
+            get { return editHeSoBan; }
+            set { editHeSoBan = value; OnPropertyChanged(); }
+        }
+
+        private string editMoneyOneToPoint;
+        public string EditMoneyOneToPoint
+        {
+            get { return editMoneyOneToPoint; }
+            set { editMoneyOneToPoint = value; OnPropertyChanged(); }
+        }
+        public ICommand SaveCMD { get; set; }
         public ICommand FirstLoadCMD { get; set; }
         public ICommand OpenAddWindowCM { get; set; }
         public ICommand CloseAddWindowCM { get; set; }
@@ -76,7 +106,9 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.HeThongVM
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra!");
                     return;
                 }
-
+                EditHeSoBan = ThamSoDTO.HeSoBan.ToString();
+                EditOnePointToMoney = ThamSoDTO.OnePointToMoney.ToString();
+                EditMoneyOneToPoint = ThamSoDTO.MoneyToOnePoint.ToString();
                 ComboList = new ObservableCollection<DanhMucSanPhamDTO>(await DanhMucSanPhamDA.gI().GetAllDanhMucSanPham());
 
             });
@@ -86,6 +118,44 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.HeThongVM
 
                 AddDanhMuc addDanhMuc = new AddDanhMuc();
                 addDanhMuc.ShowDialog();
+            });
+            SaveCMD = new RelayCommand<Page>((p) => { return true; }, (p) =>
+            {   
+                
+                if (EditHeSoBan == null || EditOnePointToMoney == null
+                || EditMoneyOneToPoint == null || EditHeSoBan == "" || EditOnePointToMoney == ""
+                || EditMoneyOneToPoint == "")
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Bạn đang nhập thiếu hoặc sai thông tin");
+                }
+                else
+                {
+                    if(Double.Parse(EditHeSoBan) == thamSoDTO.HeSoBan && decimal.Parse(EditOnePointToMoney) == thamSoDTO.OnePointToMoney && Int32.Parse(EditMoneyOneToPoint) == thamSoDTO.MoneyToOnePoint)
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Success, "Không có gì mới để chỉnh sửa");
+                        return;
+                    }
+                    if(CheckValidation(EditHeSoBan)==false|| CheckValidation(EditOnePointToMoney) == false || CheckValidation(EditMoneyOneToPoint) == false)
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Hệ số bán,điểm quy đổi sang tiền và ngược lại không được là chuỗi");
+                        return;
+                    }
+                    if (Double.Parse(EditHeSoBan) < 1)
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Hệ số bán không được bé hơn 1");
+                        return;
+                    }
+                    if(Int32.Parse(EditMoneyOneToPoint) <= 0 || decimal.Parse(EditOnePointToMoney) <= 0)
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Điểm quy đổi sang tiền và ngược lại bắt buộc phải lớn hơn 0");
+                        return;
+                    }
+                    THAMSO tHAMSO = new THAMSO
+                    (Double.Parse(EditHeSoBan), decimal.Parse(EditOnePointToMoney), Int32.Parse(EditMoneyOneToPoint));
+                    ThamSoDA.gI().EditThamSo(tHAMSO);
+                    MessageBoxCustom.Show(MessageBoxCustom.Success, "Đã cập nhật thành công!");
+
+                }
             });
 
             CloseAddWindowCM = new RelayCommand<Window>((p) => { return true; }, (p) =>
@@ -277,5 +347,16 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.HeThongVM
 
         }
 
+        public static bool CheckValidation(string s)
+        {
+            for (int i = 0; i < s.Length; i++)
+            {
+                if ((s[i] < '0' || s[i] > '9') && s[i]!= '.')
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

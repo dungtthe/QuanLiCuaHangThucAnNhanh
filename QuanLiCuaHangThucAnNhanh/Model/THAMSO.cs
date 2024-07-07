@@ -14,6 +14,12 @@ namespace QuanLiCuaHangThucAnNhanh.Model
     
     public partial class THAMSO
     {
+        public THAMSO() { }
+        public THAMSO(double HeSoBan, decimal OnePointToMoney, int MoneyToOnePoint) {
+            this.HeSoBan = HeSoBan;
+            this.OnePointToMoney = OnePointToMoney;
+            this.MoneyToOnePoint = MoneyToOnePoint;
+        }
         public int ID { get; set; }
         public Nullable<double> HeSoBan { get; set; }
         public Nullable<decimal> OnePointToMoney { get; set; }
