@@ -15,7 +15,9 @@ namespace QuanLiCuaHangThucAnNhanh.Model.Mapper
             return new ThamSoDTO
             {
                 ID = ts.ID,
-                HeSoBan = ts.HeSoBan
+                HeSoBan = ts.HeSoBan,
+                OnePointToMoney = ts.OnePointToMoney,
+                MoneyToOnePoint = ts.MoneyToOnePoint,
             };
         }
     }
