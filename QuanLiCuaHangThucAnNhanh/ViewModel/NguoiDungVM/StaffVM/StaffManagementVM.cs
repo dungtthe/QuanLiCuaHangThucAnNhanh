@@ -21,6 +21,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.Win32;
+using OfficeOpenXml;
+using System.Globalization;
+using System.IO;
+using OfficeOpenXml.Style;
 
 namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
 {
@@ -32,7 +37,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
         public ObservableCollection<NguoiDungDTO> StaffList
         {
             get { return _staffList; }
-            set { _staffList = value; OnPropertyChanged(); }
+            set { _staffList = value; OnPropertyChanged(nameof(StaffList)); OnPropertyChanged(nameof(Count)); }
         }
         private ObservableCollection<NguoiDungDTO> staffObservation; //ListView source
         public ObservableCollection<NguoiDungDTO> StaffObservation
@@ -45,6 +50,12 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
             }
         }
 
+        private ObservableCollection<NguoiDungDTO> ListImportStaff; //ListView source
+        public ObservableCollection<NguoiDungDTO> listImportStaff
+        {
+            get { return ListImportStaff; }
+            set { ListImportStaff = value; OnPropertyChanged(); }
+        }
         //Add Staff
         private string displayName;
 
@@ -191,8 +202,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
             set { showEditRole = value; }
         }
 
-        public int Count => StaffObservation?.Count ?? 0;
-    /*    public int CCount => StaffList?.Count ?? 0;*/
+        public int Count => StaffList?.Count ?? 0;
         public ICommand FirstLoadCM { get; set; }
         public ICommand SearchStaff { get; }
         public ICommand DeleteStaffCommand { get; }
@@ -202,7 +212,8 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
         public ICommand OpenAddWindowCommand { get; }
         public ICommand CloseAddWindowCommand { get; }
         public ICommand AddStaffCommand { get; }
-
+        public ICommand ImportStaffCommand { get; }
+        public ICommand ExportStaffCommand { get; }
 
         public StaffManagementVM()
         {
@@ -214,7 +225,6 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
                 if (StaffList != null)
                 {
                     staffList = new List<NguoiDungDTO>(StaffList);
-                    soLuong = staffList.Count();
                 }
 
             });
@@ -303,7 +313,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
                         MessageBoxCustom.Show(MessageBoxCustom.Success, "Bạn đã thêm thành công nhân viên");
                         p.Close();
                         //Gửi mail tài khoản                      
-                            string email = "privateclinicse104@gmail.com";
+                        string email = "privateclinicse104@gmail.com";
                             string frompass = "ibap lpjv sqrf vrsq";
                             MailMessage mailMessage = new MailMessage();
                             try
@@ -446,6 +456,286 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
                         MessageBoxCustom.Show(MessageBoxCustom.Error, messageDelete);
                 }
             });
+            ImportStaffCommand = new RelayCommand<Page>((p) => { return true; }, async (p) =>
+            {
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    string filePath = openFileDialog.FileName;
+                    try
+                    {
+                        using (ExcelPackage package = new ExcelPackage(new FileInfo(filePath)))
+                        {
+                            ExcelWorksheet worksheet = package.Workbook.Worksheets[0]; // Lấy sheet đầu tiên
+                            int rowCount = worksheet.Dimension.Rows;
+                            int colCount = worksheet.Dimension.Columns;
+                            // Duyệt qua từng dòng để đọc dữ liệu
+                            listImportStaff = new ObservableCollection<NguoiDungDTO>();
+                            for (int row = 5; row <= rowCount; row++) // Bắt đầu từ hàng 5 để bỏ qua header
+                            {
+                                try
+                                {
+                                    NguoiDungDTO staff = new NguoiDungDTO();
+                                    staff.HoTen = worksheet.Cells[row, 2].Value?.ToString();
+                                    staff.Email = worksheet.Cells[row, 3].Value?.ToString();
+                                    staff.SoDienThoai = worksheet.Cells[row, 4].Value?.ToString();
+                                    string Date = worksheet.Cells[row, 5].Value?.ToString();
+                                    DateTime dateBirthDay;
+                                    String[] DateFormat = { "dd/MM/yyyy", "d/M/yyyy", "d/MM/yyyy", "dd/M/yyyy", "dd/MM/yyyy h:mm:ss tt", "d/M/yyyy h:mm:ss tt",
+                                    "d/MM/yyyy h:mm:ss tt", "dd/M/yyyy h:mm:ss tt","M/d/yyyy","M/dd/yyyy","MM/d/yyyy","MM/dd/yyyy","M/d/yyyy h:mm:ss tt"
+                                    ,"M/dd/yyyy h:mm:ss tt","MM/d/yyyy h:mm:ss tt","MM/dd/yyyy h:mm:ss tt"};
+                                    if (DateTime.TryParseExact(Date, DateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out dateBirthDay))
+                                    {
+                                        staff.NgaySinh = dateBirthDay;
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Invalid Birthday format");
+                                        return;
+                                    }
+                                    staff.DiaChi = worksheet.Cells[row, 6].Value?.ToString();
+                                    listImportStaff.Add(staff);
+                                }
+                                catch
+                                {
+                                    Error wd5 = new Error("Dữ liệu trong File tải lên không đúng");
+                                    wd5.ShowDialog();
+                                    listImportStaff = new ObservableCollection<NguoiDungDTO>();
+                                    return;
+                                }
+
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi khi import dữ liệu từ tệp Excel: " + ex.Message);
+                    }
+                    try
+                    {
+                        string EmailError = "Email đã tồn tại";
+                        string PhoneNumberError = "Số điện thoại đã tồn tại";
+                        string UserNameError = "Tài khoản đã tồn tại";
+                        for (int i = 0; i < listImportStaff.Count; i++)
+                        {
+                            //gan du lieu cho viewmodel bang null de dam bao k check sai
+                            DisplayName = null;
+                            UserName = null;
+                            PassWord = null;
+                            PhoneNumber = null;
+                            BirthDay = DateTime.Now;
+                            Email = null;
+                            Role = "Nhân viên";
+                            //gan du lieu tung phan tu vao de thao tac
+                            DisplayName = listImportStaff[i].HoTen;
+                            PhoneNumber = listImportStaff[i].SoDienThoai;
+                            try
+                            {
+                                if (listImportStaff[i].NgaySinh is DateTime date)
+                                {
+                                    BirthDay = date;
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Invalid date format or type. Please check the input data.");
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("An unexpected error occurred: " + ex.Message);
+                            }
+                            Email = listImportStaff[i].Email;
+                            Role = "Nhân viên";
+                            Address = listImportStaff[i].DiaChi;
+                            //check ngoai le
+                            int iWage = 0;
+                            if (DisplayName == null  || PhoneNumber == null  || Email == null
+                                || Role == null|| Address == null || DisplayName == ""|| PhoneNumber == "" || Email == ""
+                                || Role == ""||Address == "")
+                            {
+                                MessageBoxCustom.Show(MessageBoxCustom.Error, "Bạn đang nhập thiếu hoặc sai thông tin của nhân viên thứ " + (i + 1) + " trong file Excel");
+                                listImportStaff = new ObservableCollection<NguoiDungDTO>();
+                                return;
+                            }
+                            else
+                            {
+                                string mailPattern = @"^[a-zA-Z0-9._%+-]+@gmail\.com$";
+                                string phonePattern = @"^0\d{9}$";
+                                if (!Regex.IsMatch(Email, mailPattern))
+                                {
+                                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Email nhân viên thứ " + (i + 1) + " trong excel không hợp lệ (phải có dạng @gmail.com)");
+                                    return;
+                                }
+                                if (!Regex.IsMatch(PhoneNumber, phonePattern))
+                                {
+                                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Số điện thoại nhân viên thứ " + (i + 1) + " trong excel không hợp lệ (phải có 10 chữ số và số bắt đầu là 0)");
+                                    return;
+                                }
+                                if (DateTime.Compare(BirthDay, new DateTime(1900, 1, 1)) < 0 || DateTime.Compare(BirthDay, DateTime.Now) > 0)
+                                {
+                                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Ngày sinh không hợp lệ của nhân viên thứ " + (i + 1) + " trong file Excel");
+                                    listImportStaff = new ObservableCollection<NguoiDungDTO>();
+                                    return;
+                                }
+
+                                else if (DateTime.Now.Year - (BirthDay).Year < 16)
+                                {
+                                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Đảm bảo nhân viên thứ " + (i + 1) + " vào làm trên 16 tuổi");
+                                    listImportStaff = new ObservableCollection<NguoiDungDTO>();
+                                    return;
+                                }
+                                string passchuamahoa = MotSoPhuongThucBoTro.RandomPassword();
+                                string tentk = this.PhoneNumber;
+                                string pass = MotSoPhuongThucBoTro.MD5Hash(passchuamahoa);
+                                NguoiDung newStaff = new NguoiDung
+                                {
+                                    HoTen = this.DisplayName,
+                                    TenTaiKhoan = tentk,
+                                    MatKhau = pass,
+                                    SoDienThoai = this.PhoneNumber,
+                                    NgaySinh = this.BirthDay,
+                                    Email = this.Email,
+                                    Loai = 0,
+                                    DiaChi = this.Address,
+                                    IsDeleted = false
+                                };
+                                (bool IsAdded, string messageAdd) = await NguoiDungDA.Ins.AddNewStaff(newStaff);
+                                if (!IsAdded && messageAdd.Equals(EmailError))
+                                {
+                                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Nhân viên thứ " + (i + 1) + " trong file excel có " + messageAdd);
+                                    return;
+                                }
+                                else if (!IsAdded && messageAdd.Equals(PhoneNumberError))
+                                {
+                                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Nhân viên thứ " + (i + 1) + " trong file excel có " + messageAdd);
+                                    return;
+                                }
+                                else if (!IsAdded && messageAdd.Equals(UserNameError))
+                                {
+                                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Nhân viên thứ " + (i + 1) + " trong file excel có " + messageAdd);
+                                    return;
+                                }
+
+                                //Gửi mail tài khoản                      
+                                string email = "privateclinicse104@gmail.com";
+                                string frompass = "ibap lpjv sqrf vrsq";
+                                MailMessage mailMessage = new MailMessage();
+                                try
+                                {
+                                    mailMessage.From = new MailAddress(email);
+                                    mailMessage.Subject = "Tài khoản đăng nhập";
+                                    mailMessage.To.Add(new MailAddress(this.Email));
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show("Lỗi khi tạo thông tin email: " + ex.Message, "Thông báo");
+                                    return;
+                                }
+                                GuiTaiKhoan(tentk, passchuamahoa, mailMessage, email, frompass);
+                            }
+                        }
+                        StaffList = new ObservableCollection<NguoiDungDTO>(await NguoiDungDA.Ins.GetAllUser());
+                        MessageBoxCustom.Show(MessageBoxCustom.Success, "Bạn đã thêm danh sách thành công nhân viên từ Excel");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi khi import dữ liệu từ tệp Excel: " + ex.Message);
+                    }
+                }
+            });
+            ExportStaffCommand = new RelayCommand<Page>((p) => { return true; }, async (p) =>
+            {
+                string path = MotSoPhuongThucBoTro.SelectFolder();
+                if (path == null || StaffList.Count <=0)
+                {
+                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Bạn chưa chọn nơi lưu file hoặc danh sách nhân viên không có ai");
+                    return;
+                }
+                else
+                {
+                    string selectedFolderPath = path;
+                    // tạo excel
+                    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                    try
+                    {
+                        using (ExcelPackage package = new ExcelPackage())
+                        {
+                            // Tạo một worksheet mới
+                            ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Staff");
+
+                            // Merge hàng từ hàng 1,2 từ cột A -> L
+                            var mergedCells = worksheet.Cells["A1:F2"];
+                            mergedCells.Merge = true;
+                            //set text 
+                            mergedCells.Value = "Danh sách nhân viên";
+                            mergedCells.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                            mergedCells.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+
+                            // Thiết lập cỡ chữ và in đậm
+                            mergedCells.Style.Font.Size = 24;
+                            mergedCells.Style.Font.Bold = true;
+                            mergedCells.Style.Font.Color.SetColor(System.Drawing.Color.Red);
+
+                            //thiet lap mau nen
+                            mergedCells.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                            mergedCells.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.Yellow);
+
+                            //ghi tieu de cho cot
+                            string[] columnHeaders = { "ID", "Họ tên", "Email", "Số điện thoại", "Ngày sinh", "Địa chỉ" };
+                            for (int i = 0; i < columnHeaders.Length; i++)
+                            {
+                                worksheet.Cells[3, i + 1].Value = columnHeaders[i];
+                                worksheet.Cells[3, i + 1].Style.Font.Size = 14; // Thiết lập cỡ chữ 14
+                                worksheet.Cells[3, i + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                                worksheet.Cells[3, i + 1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightSkyBlue);
+                            }
+
+                            // Ghi dữ liệu từ danh sách vào worksheet
+                            for (int i = 0; i < StaffList.Count; i++)
+                            {
+                                var employee = StaffList[i];
+                                worksheet.Cells[i + 4, 1].Value = employee.ID;
+                                worksheet.Cells[i + 4, 2].Value = employee.HoTen;
+                                worksheet.Cells[i + 4, 3].Value = employee.Email;
+                                worksheet.Cells[i + 4, 4].Value = employee.SoDienThoai;
+                                DateTime? birthDate = employee.NgaySinh;
+                                if (birthDate.HasValue)
+                                {
+                                    worksheet.Cells[i + 4, 5].Value = birthDate.Value.ToString("dd/MM/yyyy");
+                                }
+                                else
+                                {
+                                    MessageBoxCustom.Show(MessageBoxCustom.Error, "Nhân viên có mã " + employee.ID + " không có ngày sinh");
+                                    return;
+                                }
+                                worksheet.Cells[i + 4, 6].Value = employee.DiaChi;
+
+                                //can trai cho all noi dung cua cot 
+                                for (int j = 1; j <= 6; j++)
+                                {
+                                    worksheet.Cells[i + 4, j].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+                                }
+                            }
+
+                            // Định dạng bảng
+                            worksheet.Cells.AutoFitColumns();
+
+                            DateTime date = DateTime.Now;
+                            string filePath = Path.Combine(selectedFolderPath, "ListStaff.xlsx");
+                            package.SaveAs(new FileInfo(filePath));
+                            Success wd = new Success($"Tệp Excel đã được lưu vào: {filePath}");
+                            wd.ShowDialog();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Error saving file: " + ex.Message);
+                    }
+                }
+            });
+
         }
         //Hàm tự động gửi mật khẩu qua email
         void GuiTaiKhoan(string tendangnhap, string matkhau,
