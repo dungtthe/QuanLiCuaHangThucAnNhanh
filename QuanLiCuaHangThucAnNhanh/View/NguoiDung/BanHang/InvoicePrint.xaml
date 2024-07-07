@@ -1,0 +1,301 @@
+﻿<Window
+    x:Class="QuanLiCuaHangThucAnNhanh.View.NguoiDung.BanHang.InvoicePrint"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:QuanLiCuaHangThucAnNhanh.Converter"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:QuanLiCuaHangThucAnNhanh.View.NguoiDung.BanHang"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Bill"
+    Width="820"
+    Height="auto"
+    DataContext="{StaticResource SaleVM}"
+    Icon="/Resources/Icon/icon_app.ico"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/View/NguoiDung/BanHang/ButtonStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converters:IndexConverter x:Key="IndexConverter" />
+            <converters:IndexInvoiceConverter x:Key="IndexInvoiceConverter" />
+            <converters:PriceConverter x:Key="PriceConverter" />
+        </ResourceDictionary>
+
+
+    </Window.Resources>
+    <Grid Name="invoiceGrid">
+        <StackPanel Orientation="Vertical">
+
+            <DockPanel Margin="10,20,10,0">
+                <Button
+                    Width="40"
+                    Height="36"
+                    materialDesign:ButtonAssist.CornerRadius="10"
+                    BorderBrush="Transparent"
+                    Click="Button_Click">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/QuanLiCuaHangThucAnNhanh;component/Resources/Icon/PrintIcon.png" />
+                    </Button.Background>
+                </Button>
+                <!--<Image Width="48"
+                       Height="36"
+                       HorizontalAlignment="Left"
+
+                       Source="/QuanLiCuaHangThucAnNhanh;component/Resources/Icon/AppIcon.png" />-->
+                <TextBlock
+                    HorizontalAlignment="Right"
+                    FontSize="25"
+                    Text="Food App" />
+            </DockPanel>
+
+            <Grid Margin="10,20,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock FontSize="10" Text="{Binding SelectedBill.Customer.PhoneNumber}" />
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Column="1"
+                    Margin="0,0,10,0"
+                    HorizontalAlignment="Right" />
+            </Grid>
+            <Border Background="White">
+
+                <StackPanel>
+                    <Border Width="800" Margin="0,20,0,0">
+                        <StackPanel>
+                            <Border
+                                Height="40"
+                                Background="#FFF2E9"
+                                BorderBrush="black"
+                                BorderThickness="1.5,2,1.5,1">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    FontSize="30"
+                                    Foreground="#E0AE8A">
+                                    Thông tin hóa đơn
+                                </TextBlock>
+                            </Border>
+                            <Border
+                                Height="35"
+                                BorderBrush="Black"
+                                BorderThickness="0.7">
+                                <DockPanel>
+                                    <TextBlock
+                                        Margin="7,0,0,0"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        FontSize="18"
+                                        Text="Họ tên khách hàng: " />
+                                    <TextBlock
+                                        Width="240"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        FontSize="18"
+                                        Text="{Binding KhachHangForBill.HoTen}" />
+                                    <Border
+                                        Width="1"
+                                        HorizontalAlignment="Left"
+                                        Background="Black" />
+                                    <TextBlock
+                                        Margin="10,0,0,0"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        FontSize="18"
+                                        Text="Ngày lập hóa đơn: " />
+                                    <TextBlock
+                                        Width="221"
+                                        VerticalAlignment="Center"
+                                        FontSize="18"
+                                        Text="{Binding HoaDonThanhToan.NgayTao, StringFormat='dd/MM/yyyy HH:mm'}" />
+
+                                </DockPanel>
+
+                            </Border>
+                            <Border
+                                Width="800"
+                                Margin="0"
+                                Background="White"
+                                BorderBrush="Black"
+                                BorderThickness="1"
+                                CornerRadius="0"
+                                Opacity="0.58">
+
+                                <ListView
+                                    x:Name="BillInfoList"
+                                    Width="800"
+                                    Margin="0,0,0,0"
+                                    ItemsSource="{Binding ListChiTietHoaDonBan}">
+                                    <ListView.ItemContainerStyle>
+                                        <Style TargetType="{x:Type ListViewItem}">
+                                            <Setter Property="Width" Value="795" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.Resources>
+                                        <Style TargetType="ScrollViewer">
+                                            <Setter Property="HorizontalScrollBarVisibility" Value="Visible" />
+                                        </Style>
+                                    </ListView.Resources>
+
+                                    <ListView.View>
+                                        <GridView>
+
+
+
+                                            <GridViewColumn Width="50" Header="STT">
+                                                <GridViewColumn.HeaderContainerStyle>
+                                                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Setter Property="BorderBrush" Value="Black" />
+                                                    </Style>
+                                                </GridViewColumn.HeaderContainerStyle>
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Orientation="Vertical">
+                                                            <TextBlock
+                                                                Padding="7,0,0,0"
+                                                                HorizontalAlignment="Center"
+                                                                FontSize="17"
+                                                                Text="{Binding Converter={StaticResource IndexConverter}, RelativeSource={RelativeSource AncestorType={x:Type ListViewItem}, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}" />
+
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                            <GridViewColumn Width="250" Header="Tên sản phẩm">
+                                                <GridViewColumn.HeaderContainerStyle>
+                                                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Setter Property="BorderBrush" Value="Black" />
+                                                        <Setter Property="Height" Value="47" />
+                                                    </Style>
+                                                </GridViewColumn.HeaderContainerStyle>
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Orientation="Vertical">
+                                                            <TextBlock
+                                                                HorizontalAlignment="Center"
+                                                                FontSize="17"
+                                                                Text="{Binding SanPhamDTO.TenSP}" />
+
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Width="235" Header="Loại">
+                                                <GridViewColumn.HeaderContainerStyle>
+                                                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Setter Property="BorderBrush" Value="Black" />
+                                                        <Setter Property="Height" Value="47" />
+                                                    </Style>
+                                                </GridViewColumn.HeaderContainerStyle>
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock
+                                                            HorizontalAlignment="Center"
+                                                            FontSize="17"
+                                                            Text="{Binding SanPhamDTO.DanhMucSanPhamDTO.TenDanhMuc}" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+
+                                            <GridViewColumn Width="100" Header="Số lượng">
+                                                <GridViewColumn.HeaderContainerStyle>
+                                                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Setter Property="BorderBrush" Value="Black" />
+                                                        <Setter Property="Height" Value="47" />
+                                                    </Style>
+                                                </GridViewColumn.HeaderContainerStyle>
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Center"
+                                                            Orientation="Horizontal">
+                                                            <TextBlock
+                                                                Padding="25,0,0,0"
+                                                                HorizontalAlignment="Center"
+                                                                FontSize="17"
+                                                                Text="{Binding SoLuong}" />
+
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+
+                                            </GridViewColumn>
+
+                                            <GridViewColumn Width="160" Header="Đơn giá">
+                                                <GridViewColumn.HeaderContainerStyle>
+                                                    <Style TargetType="{x:Type GridViewColumnHeader}">
+                                                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                                        <Setter Property="Background" Value="Transparent" />
+                                                        <Setter Property="BorderBrush" Value="Black" />
+                                                        <Setter Property="Height" Value="47" />
+                                                    </Style>
+                                                </GridViewColumn.HeaderContainerStyle>
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock
+                                                            Width="150"
+                                                            Margin="0,0,0,0"
+                                                            Padding="30,0,0,0"
+                                                            HorizontalAlignment="Center"
+                                                            FontSize="17"
+                                                            Text="{Binding DonGia, Converter={StaticResource PriceConverter}}" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+
+                                            </GridViewColumn>
+
+
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+
+                            </Border>
+
+
+                        </StackPanel>
+
+
+                    </Border>
+                </StackPanel>
+            </Border>
+
+
+
+            <TextBlock
+                Margin="0,20,10,0"
+                HorizontalAlignment="Right"
+                FontSize="20">
+                <Run Text="Giá trị hóa đơn: " />
+                <Run Text="{Binding HoaDonThanhToan.TongTienBan, StringFormat={}{0:N0}}" />
+            </TextBlock>
+
+            <TextBlock Margin="10,30,0,30" Text="Cám ơn quý khách!" />
+
+
+        </StackPanel>
+    </Grid>
+</Window>

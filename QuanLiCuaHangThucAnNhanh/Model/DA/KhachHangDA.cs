@@ -7,6 +7,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 
 namespace QuanLiCuaHangThucAnNhanh.Model.DA
 {
@@ -178,6 +179,29 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
 
 
         }
+
+
+        public async Task<bool> EditCusBySell(KhachHang newCus)
+        {
+            try
+            {
+                using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+                {
+                    var cus = await context.KhachHangs.Where(p => p.ID == newCus.ID).FirstOrDefaultAsync();
+                    if (cus == null) return false;
+                    cus.DiemTichLuy = newCus.DiemTichLuy;
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+
+
+        }
+
         public async Task<(bool, string)> DeleteCustomer(int ID)
         {
             try

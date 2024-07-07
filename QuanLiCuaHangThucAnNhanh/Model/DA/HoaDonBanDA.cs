@@ -93,64 +93,151 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
 
 
 
+        //public async Task<bool> AddNewBill(HoaDonBanDTO newBill)
+        //{
+        //    try
+        //    {
+        //        using (var context = new QuanLiCuaHangThucAnNhanhEntities())
+        //        {
+
+        //            int? maxID = await context.HoaDonBans.MaxAsync(b => (int?)b.ID);
+        //            int curID = 0;
+        //            if (maxID.HasValue)
+        //            {
+        //                curID = (int)maxID + 1;
+        //            }
+        //            else
+        //            {
+        //                curID = 1;
+        //            }
+
+        //            newBill.ID = curID;
+
+
+        //            HoaDonBan hoaDonBan = new HoaDonBan {
+        //                ID = newBill.ID,
+        //                NgayTao = newBill.NgayTao,
+        //                TongTienBan = newBill.TongTienBan,
+        //                NguoiDungID = newBill.NguoiDungID,
+        //                KhachHangID = newBill.KhachHangID,
+        //                IsDeleted = false
+        //            };
+
+
+        //            List<ChiTietHoaDonBan> listChiTiet = new List<ChiTietHoaDonBan>();
+        //            foreach (var item in newBill.ListChiTietHoaDonBanDTO)
+        //            {
+        //                ChiTietHoaDonBan chiTietHoaDonBan = new ChiTietHoaDonBan
+        //                {
+        //                    HoaDonBanID = curID,
+        //                    SanPhamID=item.SanPhamID,
+        //                    SoLuong=item.SoLuong,
+        //                    DonGia=item.DonGia,
+        //                    IsDeleted=false
+        //                };
+        //                listChiTiet.Add(chiTietHoaDonBan);
+        //            }
+
+
+
+        //            context.ChiTietHoaDonBans.AddRange(listChiTiet);
+        //            context.HoaDonBans.Add(hoaDonBan);
+        //            await context.SaveChangesAsync();
+        //            return true;
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        return false;
+        //    }
+
+        //}
+
         public async Task<bool> AddNewBill(HoaDonBanDTO newBill)
         {
             try
             {
                 using (var context = new QuanLiCuaHangThucAnNhanhEntities())
                 {
-
-                    int? maxID = await context.HoaDonBans.MaxAsync(b => (int?)b.ID);
-                    int curID = 0;
-                    if (maxID.HasValue)
+                    using (var transaction = context.Database.BeginTransaction())
                     {
-                        curID = (int)maxID + 1;
-                    }
-                    else
-                    {
-                        curID = 1;
-                    }
-
-                    newBill.ID = curID;
-
-
-                    HoaDonBan hoaDonBan = new HoaDonBan {
-                        ID = newBill.ID,
-                        NgayTao = newBill.NgayTao,
-                        TongTienBan = newBill.TongTienBan,
-                        NguoiDungID = newBill.NguoiDungID,
-                        KhachHangID = newBill.KhachHangID,
-                        IsDeleted = false
-                    };
-
-
-                    List<ChiTietHoaDonBan> listChiTiet = new List<ChiTietHoaDonBan>();
-                    foreach (var item in newBill.ListChiTietHoaDonBanDTO)
-                    {
-                        ChiTietHoaDonBan chiTietHoaDonBan = new ChiTietHoaDonBan
+                        try
                         {
-                            HoaDonBanID = curID,
-                            SanPhamID=item.SanPhamID,
-                            SoLuong=item.SoLuong,
-                            DonGia=item.DonGia,
-                            IsDeleted=false
-                        };
-                        listChiTiet.Add(chiTietHoaDonBan);
+                            int? maxID = await context.HoaDonBans.MaxAsync(b => (int?)b.ID);
+                            int curID = 0;
+                            if (maxID.HasValue)
+                            {
+                                curID = (int)maxID + 1;
+                            }
+                            else
+                            {
+                                curID = 1;
+                            }
+
+                            newBill.ID = curID;
+
+                            HoaDonBan hoaDonBan = new HoaDonBan
+                            {
+                                ID = newBill.ID,
+                                NgayTao = newBill.NgayTao,
+                                TongTienBan = newBill.TongTienBan,
+                                NguoiDungID = newBill.NguoiDungID,
+                                KhachHangID = newBill.KhachHangID,
+                                IsDeleted = false
+                            };
+
+                            List<ChiTietHoaDonBan> listChiTiet = new List<ChiTietHoaDonBan>();
+                            foreach (var item in newBill.ListChiTietHoaDonBanDTO)
+                            {
+                                var sanPham = await context.SanPhams.FindAsync(item.SanPhamID);
+                                if (sanPham == null)
+                                {
+                                    transaction.Rollback();
+                                    return false;
+                                }
+
+                                if (sanPham.SoLuongTon >= item.SoLuong)
+                                {
+                                    sanPham.SoLuongTon -= item.SoLuong;
+                                }
+                                else
+                                {
+                                    transaction.Rollback();
+                                    return false;
+                                }
+
+                                ChiTietHoaDonBan chiTietHoaDonBan = new ChiTietHoaDonBan
+                                {
+                                    HoaDonBanID = curID,
+                                    SanPhamID = item.SanPhamID,
+                                    SoLuong = item.SoLuong,
+                                    DonGia = item.DonGia,
+                                    IsDeleted = false
+                                };
+                                listChiTiet.Add(chiTietHoaDonBan);
+                            }
+
+                            context.ChiTietHoaDonBans.AddRange(listChiTiet);
+                            context.HoaDonBans.Add(hoaDonBan);
+                            await context.SaveChangesAsync();
+
+                            transaction.Commit();
+                            return true;
+                        }
+                        catch
+                        {
+                            transaction.Rollback();
+                            return false;
+                        }
                     }
-
-
-
-                    context.ChiTietHoaDonBans.AddRange(listChiTiet);
-                    context.HoaDonBans.Add(hoaDonBan);
-                    await context.SaveChangesAsync();
-                    return true;
                 }
             }
             catch
             {
                 return false;
             }
-
         }
+
+
     }
 }

@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Remoting.Messaging;
@@ -277,25 +279,47 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
                         MessageBoxCustom.Show(MessageBoxCustom.Error, "Đảm bảo nhân viên vào làm trên 16 tuổi");
                         return;
                     }
-                    string pass = MotSoPhuongThucBoTro.MD5Hash(this.PassWord);
+
+                    string passchuamahoa = MotSoPhuongThucBoTro.RandomPassword();
+                    string tentk = this.PhoneNumber; 
+                    string pass = MotSoPhuongThucBoTro.MD5Hash(passchuamahoa);
 
                     NguoiDung newStaff = new NguoiDung
                     {
                         HoTen = this.DisplayName,
-                        TenTaiKhoan = this.UserName,
+                        TenTaiKhoan = tentk,
                         MatKhau = pass,
                         SoDienThoai = this.PhoneNumber,
                         NgaySinh = this.BirthDay,
                         Email = this.Email,
-                        Loai = Int32.Parse( this.Role),
+                        Loai = 0,
+                        DiaChi = this.Address,
                         IsDeleted = false
                     };
                     (bool IsAdded, string messageAdd) = await NguoiDungDA.Ins.AddNewStaff(newStaff);
                     if (IsAdded)
                     {
-                        StaffObservation = new ObservableCollection<NguoiDungDTO>(await NguoiDungDA.Ins.GetAllUser());
+                        StaffList = new ObservableCollection<NguoiDungDTO>(await NguoiDungDA.Ins.GetAllUser());
                         MessageBoxCustom.Show(MessageBoxCustom.Success, "Bạn đã thêm thành công nhân viên");
                         p.Close();
+                        //Gửi mail tài khoản                      
+                            string email = "privateclinicse104@gmail.com";
+                            string frompass = "ibap lpjv sqrf vrsq";
+                            MailMessage mailMessage = new MailMessage();
+                            try
+                            {
+                                mailMessage.From = new MailAddress(email);
+                                mailMessage.Subject = "Tài khoản đăng nhập";
+                                mailMessage.To.Add(new MailAddress(this.Email));
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show("Lỗi khi tạo thông tin email: " + ex.Message, "Thông báo");
+                                return;
+                            }
+                            GuiTaiKhoan(tentk, passchuamahoa, mailMessage, email, frompass);
+                            
+                           
                     }
                     else
                     {
@@ -422,6 +446,47 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.StaffVM
                         MessageBoxCustom.Show(MessageBoxCustom.Error, messageDelete);
                 }
             });
+        }
+        //Hàm tự động gửi mật khẩu qua email
+        void GuiTaiKhoan(string tendangnhap, string matkhau,
+                        MailMessage mailMessage, string fromMail, string fromPassword)
+        {
+            string noidung =
+                            "Thông tin tài khoản đăng nhập của bạn là: " + "<br>"
+                            + "Tên đăng nhập: " + "<b>" + tendangnhap + "</b>" + "<br>"
+                            + "Mật khẩu: " + "<b>" + matkhau + "</b>" + "<br>"
+                            + "Thân mến!";
+
+            mailMessage.Body = "<html><body>" + noidung + "</body></html>";
+            mailMessage.IsBodyHtml = true;
+            //Gửi mail
+            try
+            {
+                var smtpClient = new SmtpClient("smtp.gmail.com")
+                {
+                    Port = 587,
+                    Credentials = new NetworkCredential(fromMail, fromPassword),
+                    EnableSsl = true
+                };
+                try
+                {
+                    smtpClient.Send(mailMessage);
+                }
+                catch
+                {
+                    // Xử lý lỗi khi gửi email
+                    MessageBox.Show("Lỗi khi gửi tài khoản qua mail\n" +
+                                  "Tên đăng nhập: " + tendangnhap + "\n"
+                                   + "Mật khẩu: " + matkhau, "Thông báo");
+                }
+            }
+            catch
+            {
+                // Xử lý lỗi khi khởi tạo SmtpClient
+                MessageBox.Show("Lỗi khi gửi tài khoản qua mail\n" +
+                                  "Tên đăng nhập: " + tendangnhap + "\n"
+                                   + "Mật khẩu: " + matkhau, "Thông báo");
+            }
         }
     }
 }

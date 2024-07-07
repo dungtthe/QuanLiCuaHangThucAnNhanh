@@ -51,5 +51,57 @@ namespace QuanLiCuaHangThucAnNhanh.View.NguoiDung.BanHang
         {
             
         }
+
+        private void NumericTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, e.Text.Length - 1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void NumericTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!int.TryParse(NumericTextBox.Text, out int result))
+            {
+
+            }
+           
+        }
+
+        private void NumericTextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
+
+        private static bool IsTextAllowed(string text)
+        {
+            foreach (char c in text)
+            {
+                if (!char.IsDigit(c))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+    
+
+        private void txtSl_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+            //TextBox textBox = sender as TextBox;
+
+            //if (string.IsNullOrEmpty(textBox.Text))
+            //{
+            //    Pay_btn.IsEnabled = false;
+            //}
+        }
     }
 }

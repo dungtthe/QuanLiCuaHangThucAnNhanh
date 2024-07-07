@@ -12,7 +12,6 @@
     d:DesignWidth="1536"
     Background="White"
     Closed="AdminWD_Closed"
-    DataContext="{StaticResource MainNguoiDungVM}"
     FontFamily="{DynamicResource MaterialDesignFont}"
     Icon="/Resources/Icon/icon_app.ico"
     TextElement.FontFamily="Roboto Condensed"
@@ -24,6 +23,7 @@
     WindowStartupLocation="CenterOwner"
     WindowState="Maximized"
     mc:Ignorable="d">
+
     <Window.Resources>
         <Storyboard x:Key="MenuOpen">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="MenuBar" Storyboard.TargetProperty="Width">
@@ -48,7 +48,7 @@
     </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding FirstLoadCM}" CommandParameter="{Binding ElementName=MainFrame}" />
+            <i:InvokeCommandAction Command="{Binding LoadSanPhamPage}" CommandParameter="{Binding ElementName=MainFrame}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Window.Triggers>
@@ -76,7 +76,12 @@
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="BanHangbtn">
             <BeginStoryboard Storyboard="{StaticResource MenuClose}" />
         </EventTrigger>
+
+
+
     </Window.Triggers>
+
+
     <Grid>
         <!--  Frame  -->
         <Grid>
@@ -296,7 +301,8 @@
                         Command="{Binding LoadSanPhamPage}"
                         CommandParameter="{Binding ElementName=MainFrame}"
                         Cursor="Hand"
-                        IsChecked="True">
+                        IsChecked="True"
+                        Visibility="{Binding IsNhanVien, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <RadioButton.Style>
                             <Style TargetType="RadioButton">
                                 <Setter Property="Height" Value="58" />
@@ -451,7 +457,7 @@
                         Command="{Binding LoadNhanVienPage}"
                         CommandParameter="{Binding ElementName=MainFrame}"
                         Cursor="Hand"
-                        Visibility="{Binding IsNhanVien, UpdateSourceTrigger=PropertyChanged}">
+                        Visibility="{Binding IsNhanVien, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <RadioButton.Style>
                             <Style TargetType="RadioButton">
                                 <Setter Property="Height" Value="58" />
@@ -554,7 +560,7 @@
                         Command="{Binding LoadHeThongPage}"
                         CommandParameter="{Binding ElementName=MainFrame}"
                         Cursor="Hand"
-                        Visibility="{Binding IsNhanVien, UpdateSourceTrigger=PropertyChanged}">
+                        Visibility="{Binding IsNhanVien, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <RadioButton.Style>
                             <Style TargetType="RadioButton">
                                 <Setter Property="Height" Value="58" />

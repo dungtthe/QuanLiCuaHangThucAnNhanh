@@ -99,7 +99,7 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.HeThongVM
         {
             FirstLoadCMD = new RelayCommand<object>(null, async (p) =>
             {
-                genreBookList = new List<string>(await DanhMucSanPhamDA.gI().GetAllGenreBook());
+               // genreBookList = new List<string>(await DanhMucSanPhamDA.gI().GetAllGenreBook());
                 ThamSoDTO = await ThamSoDA.gI().GetThamSoCur();
                 if (ThamSoDTO == null)
                 {
@@ -196,28 +196,32 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.HeThongVM
                         {
                             //genreBookObservation == "need to be modified with the info of newGenre"
                             MessageBoxCustom.Show(MessageBoxCustom.Success, "Bạn đã chỉnh sửa thành công");
-                            genreBookList = new List<string>(await DanhMucSanPhamDA.gI().GetAllGenreBook());
-                            // Create the observation collection of DTOs
-                            GenreBookObservation = new ObservableCollection<DanhMucSanPhamDTO>();
+                            //genreBookList = new List<string>(await DanhMucSanPhamDA.gI().GetAllGenreBook());
+                            //// Create the observation collection of DTOs
+                            //GenreBookObservation = new ObservableCollection<DanhMucSanPhamDTO>();
 
-                            var bookList = new List<SanPhamDTO>(await SanPhamDA.gI().GetAllSanPham());
+                            //var bookList = new List<SanPhamDTO>(await SanPhamDA.gI().GetAllSanPham());
 
-                            for (int i = 0; i < genreBookList.Count; i++)
-                            {
-                                // Create a new DTO instance
-                                (int _, DanhMucSanPham currentGenre) = await DanhMucSanPhamDA.gI().FindGenrePrD(genreBookList[i]);
+                            //for (int i = 0; i < genreBookList.Count; i++)
+                            //{
+                            //    // Create a new DTO instance
+                            //    (int _, DanhMucSanPham currentGenre) = await DanhMucSanPhamDA.gI().FindGenrePrD(genreBookList[i]);
 
-                                var genreDTO = new DanhMucSanPhamDTO
-                                {
+                            //    var genreDTO = new DanhMucSanPhamDTO
+                            //    {
 
-                                    ID = (int)currentGenre.ID,
-                                    TenDanhMuc = currentGenre.TenDanhMuc,
-                                    IsDeleted = false
-                                };
+                            //        ID = (int)currentGenre.ID,
+                            //        TenDanhMuc = currentGenre.TenDanhMuc,
+                            //        IsDeleted = false
+                            //    };
 
-                                // Add the DTO to the observation collection
-                                GenreBookObservation.Add(genreDTO);
-                            }
+                            //    // Add the DTO to the observation collection
+                            //    GenreBookObservation.Add(genreDTO);
+                            //}
+
+
+                            ComboList = new ObservableCollection<DanhMucSanPhamDTO>(await DanhMucSanPhamDA.gI().GetAllDanhMucSanPham());
+
                             p.Close();
                         }
                         else
@@ -287,11 +291,11 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.HeThongVM
                 {
                     if (wd.DialogResult == true)
                     {
-                        genreBookList.Remove(SelectedItem.TenDanhMuc);
-                        //if (SelectedItem.Quantity > 0)
-                        //{
-                        //    throw new Exception("Không thể xóa vì tồn tại sản phẩm thuộc danh mục");
-                        //}
+                        //genreBookList.Remove(SelectedItem.TenDanhMuc);
+                        ////if (SelectedItem.Quantity > 0)
+                        ////{
+                        ////    throw new Exception("Không thể xóa vì tồn tại sản phẩm thuộc danh mục");
+                        ////}
                         var newGenre = new DanhMucSanPham
                         {
                             ID = SelectedItem.ID,
@@ -302,26 +306,30 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.HeThongVM
                         if (success)
                         {
                             MessageBoxCustom.Show(MessageBoxCustom.Success, "Đã xóa thành công!");
-                            genreBookList = new List<string>(await DanhMucSanPhamDA.gI().GetAllGenreBook());
-                            // Create the observation collection of DTOs
-                            GenreBookObservation = new ObservableCollection<DanhMucSanPhamDTO>();
+                            //genreBookList = new List<string>(await DanhMucSanPhamDA.gI().GetAllGenreBook());
+                            //// Create the observation collection of DTOs
+                            //GenreBookObservation = new ObservableCollection<DanhMucSanPhamDTO>();
 
-                            var bookList = new List<SanPhamDTO>(await SanPhamDA.gI().GetAllSanPham());
+                            //var bookList = new List<SanPhamDTO>(await SanPhamDA.gI().GetAllSanPham());
 
-                            for (int i = 0; i < genreBookList.Count; i++)
-                            {
-                                // Create a new DTO instance
-                                (int _, DanhMucSanPham currentGenre) = await DanhMucSanPhamDA.gI().FindGenrePrD(genreBookList[i]);
+                            //for (int i = 0; i < genreBookList.Count; i++)
+                            //{
+                            //    // Create a new DTO instance
+                            //    (int _, DanhMucSanPham currentGenre) = await DanhMucSanPhamDA.gI().FindGenrePrD(genreBookList[i]);
 
-                                var genreDTO = new DanhMucSanPhamDTO
-                                {
-                                    ID = (int)currentGenre.ID,
-                                    TenDanhMuc = currentGenre.TenDanhMuc,
-                                };
+                            //    var genreDTO = new DanhMucSanPhamDTO
+                            //    {
+                            //        ID = (int)currentGenre.ID,
+                            //        TenDanhMuc = currentGenre.TenDanhMuc,
+                            //    };
 
-                                // Add the DTO to the observation collection
-                                GenreBookObservation.Add(genreDTO);
-                            }
+                            //    // Add the DTO to the observation collection
+                            //    GenreBookObservation.Add(genreDTO);
+                            //}
+
+                            ComboList = new ObservableCollection<DanhMucSanPhamDTO>(await DanhMucSanPhamDA.gI().GetAllDanhMucSanPham());
+
+
 
                         }
                         else

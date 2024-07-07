@@ -72,12 +72,14 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
                         if (staff.IsDeleted == true)
                         {
                             staff.HoTen = newStaff.HoTen;
+                            staff.NgaySinh = newStaff.NgaySinh;
+                            staff.SoDienThoai = newStaff.SoDienThoai;
+                            staff.Email = newStaff.Email;
+                            staff.DiaChi = newStaff.DiaChi;
                             staff.TenTaiKhoan = newStaff.TenTaiKhoan;
                             staff.MatKhau = newStaff.MatKhau;
-                            staff.SoDienThoai = newStaff.SoDienThoai;
-                            staff.NgaySinh = newStaff.NgaySinh;
-                            staff.Email = newStaff.Email;
                             staff.Loai = newStaff.Loai;
+                            staff.Image = null;
                             staff.IsDeleted = false;
                             await context.SaveChangesAsync();
                             return (true, "Them thanh cong");
@@ -153,8 +155,9 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
                     staff.NgaySinh = newStaff.NgaySinh;
                     staff.Email = newStaff.Email;
                     staff.DiaChi = newStaff.DiaChi;
+                    staff.Image= newStaff.Image;
                     await context.SaveChangesAsync();
-                    return (true, "Cap that thanh cong");
+                    return (true, "Cập nhật thành công!");
                 }
             }
             catch

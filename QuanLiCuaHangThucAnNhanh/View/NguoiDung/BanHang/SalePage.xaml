@@ -438,10 +438,12 @@
                         </StackPanel>
                     </StackPanel>
 
-                    <!--Hiển thị điểm tích lũy của khách hàng-->
-                    <StackPanel Orientation="Horizontal"
-                                Margin="30,0,0,0"
-                                Grid.Row="1">
+                    <!--  Hiển thị điểm tích lũy của khách hàng  -->
+                    <StackPanel
+                        Grid.Row="1"
+                        Margin="30,0,0,0"
+                        Orientation="Horizontal"
+                        Visibility="{Binding CanUsePoint, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <TextBlock
                             Margin="37,0,0,0"
                             HorizontalAlignment="Left"
@@ -452,14 +454,14 @@
                             Foreground="#E0AE8A"
                             Text="Điểm tích lũy của khách hàng: " />
 
-                        <!--Binding đtl-->
+                        <!--  Binding đtl  -->
                         <TextBlock
                             Margin="10,0,0,0"
                             VerticalAlignment="Center"
                             FontFamily="Roboto Condensed"
                             FontSize="17"
                             FontWeight="DemiBold"
-                            Text="100"
+                            Text="{Binding PointKhachHang, UpdateSourceTrigger=PropertyChanged}"
                             TextWrapping="NoWrap" />
 
                         <TextBlock
@@ -473,11 +475,13 @@
                             TextWrapping="NoWrap" />
                     </StackPanel>
 
-                    <!--Nhập điểm tích lũy để dùng-->
-                    <!--Hiển thị điểm tích lũy của khách hàng-->
-                    <StackPanel Orientation="Horizontal"
-                                Margin="30,0,0,0"
-                                Grid.Row="2">
+                    <!--  Nhập điểm tích lũy để dùng  -->
+                    <!--  Hiển thị điểm tích lũy của khách hàng  -->
+                    <StackPanel
+                        Grid.Row="2"
+                        Margin="30,0,0,0"
+                        Orientation="Horizontal"
+                        Visibility="{Binding CanUsePoint, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <TextBlock
                             Margin="37,0,0,0"
                             HorizontalAlignment="Left"
@@ -488,20 +492,24 @@
                             Foreground="#E0AE8A"
                             Text="Số điểm dùng " />
 
-                        <!--Binding đtl-->
+                        <!--  Binding đtl  -->
                         <TextBox
+                            Name="NumericTextBox"
+                            Width="100"
+                            Margin="10,0,0,0"
+                            VerticalAlignment="Center"
                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
                             materialDesign:TextFieldAssist.TextFieldCornerRadius="10"
                             Background="#D9D9D9"
                             BorderBrush="Transparent"
-                            Margin="10,0,0,0"
-                            VerticalAlignment="Center"
-                            TextAlignment="Right"
                             FontFamily="Roboto Condensed"
                             FontSize="17"
                             FontWeight="DemiBold"
-                            Text="100"
-                            Width="100"
+                            LostFocus="NumericTextBox_LostFocus"
+                            PreviewTextInput="NumericTextBox_PreviewTextInput"
+                            Text="{Binding PointUse, UpdateSourceTrigger=PropertyChanged}"
+                            TextAlignment="Right"
+                            TextChanged="NumericTextBox_TextChanged"
                             TextWrapping="NoWrap" />
 
                         <TextBlock
@@ -520,9 +528,9 @@
                             VerticalAlignment="Center"
                             FontFamily="Roboto Condensed"
                             FontSize="17"
-                            Foreground="Red"
                             FontWeight="DemiBold"
-                            Text="Complete"
+                            Foreground="Red"
+                            Text="{Binding MsgErrorUsePoint, UpdateSourceTrigger=PropertyChanged}"
                             TextWrapping="NoWrap" />
                     </StackPanel>
 
@@ -562,14 +570,14 @@
                                                 </GridViewColumn.HeaderContainerStyle>
                                                 <GridViewColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <Button
+                                                        <!--<Button
                                                             Width="18"
                                                             Height="18"
                                                             Margin="0,5,0,0"
                                                             Padding="0"
                                                             Background="{x:Null}"
                                                             BorderBrush="{x:Null}"
-                                                            Command="{Binding DataContext.DeleteBillInfoCM, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                                            Command="{Binding DataContext.RemoveSanPhamDTOCM, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
                                                             CommandParameter="{Binding}"
                                                             Foreground="{x:Null}">
                                                             <Image
@@ -578,7 +586,22 @@
                                                                 HorizontalAlignment="Center"
                                                                 VerticalAlignment="Center"
                                                                 Source="/QuanLiCuaHangThucAnNhanh;component/Resources/Icon/DeleteGray_Icon.png" />
-                                                        </Button>
+                                                        </Button>-->
+
+                                                        <Border
+                                                            Width="18"
+                                                            Height="18"
+                                                            Margin="0,5,0,0"
+                                                            Background="Transparent"
+                                                            BorderThickness="0"
+                                                            Cursor="Hand">
+                                                            <Image Source="/QuanLiCuaHangThucAnNhanh;component/Resources/Icon/DeleteGray_Icon.png" />
+                                                            <i:Interaction.Triggers>
+                                                                <i:EventTrigger EventName="MouseLeftButtonUp">
+                                                                    <i:InvokeCommandAction Command="{Binding ElementName=BillInfoList, Path=DataContext.RemoveSanPhamDTOCM}" />
+                                                                </i:EventTrigger>
+                                                            </i:Interaction.Triggers>
+                                                        </Border>
 
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
@@ -663,7 +686,7 @@
                                                             HorizontalAlignment="Center"
                                                             VerticalAlignment="Center"
                                                             Orientation="Horizontal">
-                                                            <Button
+                                                            <!--<Button
                                                                 Padding="0"
                                                                 Background="{x:Null}"
                                                                 BorderBrush="{x:Null}"
@@ -676,20 +699,23 @@
                                                                     HorizontalAlignment="Center"
                                                                     VerticalAlignment="Center"
                                                                     Source="/QuanLiCuaHangThucAnNhanh;component/Resources/Icon/SubtractBlack_Icon.png" />
-                                                            </Button>
+                                                            </Button>-->
                                                             <TextBox
+                                                                Name="txtSl"
                                                                 Width="32"
                                                                 MaxWidth="32"
                                                                 Margin="10,0,10,0"
                                                                 FontSize="17"
-                                                                Text="{Binding SoLuong, UpdateSourceTrigger=PropertyChanged}">
+                                                                PreviewTextInput="TextBox_PreviewTextInput"
+                                                                Text="{Binding SoLuong, UpdateSourceTrigger=PropertyChanged}"
+                                                                TextChanged="txtSl_TextChanged">
                                                                 <i:Interaction.Triggers>
                                                                     <i:EventTrigger EventName="TextChanged">
                                                                         <i:InvokeCommandAction Command="{Binding DataContext.ChangeCountCM, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" CommandParameter="{Binding}" />
                                                                     </i:EventTrigger>
                                                                 </i:Interaction.Triggers>
                                                             </TextBox>
-                                                            <Button
+                                                            <!--<Button
                                                                 Width="15"
                                                                 Height="15"
                                                                 Padding="0"
@@ -704,7 +730,7 @@
                                                                     HorizontalAlignment="Center"
                                                                     VerticalAlignment="Center"
                                                                     Source="/QuanLiCuaHangThucAnNhanh;component/Resources/Icon/AddBlack_Icon.png" />
-                                                            </Button>
+                                                            </Button>-->
                                                         </StackPanel>
                                                     </DataTemplate>
                                                 </GridViewColumn.CellTemplate>
@@ -758,7 +784,7 @@
 
                     </Grid>
 
-                    <!--Tồng tiền-->
+                    <!--  Tồng tiền  -->
                     <StackPanel
                         Grid.Row="4"
                         Height="26"
@@ -787,13 +813,13 @@
                     <TextBlock
                         Grid.Row="5"
                         Width="auto"
+                        Margin="5,0,0,40"
                         VerticalAlignment="Center"
                         FontFamily="Roboto Condensed"
                         FontSize="20"
-                        Foreground="Red"
-                        Margin="5,0,0,40"
                         FontWeight="DemiBold"
-                        Text="Complete"
+                        Foreground="Red"
+                        Text=""
                         TextWrapping="NoWrap" />
 
                     <StackPanel
@@ -817,7 +843,7 @@
                             Content="Kết thúc"
                             FontSize="24"
                             FontWeight="Bold"
-                            IsEnabled="{Binding PayEnabled}" />
+                            IsEnabled="{Binding PayEnabled, UpdateSourceTrigger=PropertyChanged}" />
                         <Button
                             x:Name="Pay_btn"
                             Width="175"
@@ -830,7 +856,7 @@
                             Content="Thanh toán"
                             FontSize="24"
                             FontWeight="Bold"
-                            IsEnabled="{Binding PayEnabled}" />
+                            IsEnabled="{Binding PayEnabled, UpdateSourceTrigger=PropertyChanged}" />
                     </StackPanel>
 
                 </Grid>

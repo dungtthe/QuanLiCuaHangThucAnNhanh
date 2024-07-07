@@ -147,3 +147,21 @@ GO
 
 GO
 
+
+--trigger khi xóa 1 danh mục sản phẩm
+CREATE TRIGGER trg_DanhMucSanPham_IsDeleted
+ON DanhMucSanPham
+AFTER UPDATE
+AS
+BEGIN
+    IF UPDATE(IsDeleted)
+    BEGIN
+        UPDATE SanPham
+        SET IsDeleted = 1
+        FROM SanPham sp
+        JOIN inserted i ON sp.DanhMucSanPhamID = i.ID
+        JOIN deleted d ON i.ID = d.ID
+        WHERE i.IsDeleted = 1 
+          AND sp.IsDeleted = 0; 
+    END
+END;

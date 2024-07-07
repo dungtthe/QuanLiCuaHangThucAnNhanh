@@ -12,21 +12,24 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace QuanLiCuaHangThucAnNhanh.View.NguoiDung
+namespace QuanLiCuaHangThucAnNhanh.View.NguoiDung.BanHang
 {
     /// <summary>
-    /// Interaction logic for InformationPersonalView.xaml
+    /// Interaction logic for InvoicePrint.xaml
     /// </summary>
-    public partial class InformationPersonalView : Window
+    public partial class InvoicePrint : Window
     {
-        public InformationPersonalView()
+        public InvoicePrint()
         {
             InitializeComponent();
-            DataContext = MainNguoiDungView.mainNguoiDungVM;
         }
-        private void HuyButton_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            PrintDialog printDlg = new PrintDialog();
+            if (printDlg.ShowDialog() == true)
+            {
+                printDlg.PrintVisual(this, "Bill");
+            }
         }
     }
 }
