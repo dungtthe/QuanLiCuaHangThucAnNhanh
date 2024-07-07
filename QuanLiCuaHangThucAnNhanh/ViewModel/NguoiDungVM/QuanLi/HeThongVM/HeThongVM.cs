@@ -106,7 +106,9 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.HeThongVM
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Có lỗi xảy ra!");
                     return;
                 }
-
+                EditHeSoBan = ThamSoDTO.HeSoBan.ToString();
+                EditOnePointToMoney = ThamSoDTO.OnePointToMoney.ToString();
+                EditMoneyOneToPoint = ThamSoDTO.MoneyToOnePoint.ToString();
                 ComboList = new ObservableCollection<DanhMucSanPhamDTO>(await DanhMucSanPhamDA.gI().GetAllDanhMucSanPham());
 
             });
@@ -118,19 +120,26 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.HeThongVM
                 addDanhMuc.ShowDialog();
             });
             SaveCMD = new RelayCommand<Page>((p) => { return true; }, (p) =>
-            {
-                EditHeSoBan = ThamSoDTO.HeSoBan.ToString();
-                EditOnePointToMoney = ThamSoDTO.OnePointToMoney.ToString();
-                EditMoneyOneToPoint = ThamSoDTO.MoneyToOnePoint.ToString();
-
+            {   
+                
                 if (EditHeSoBan == null || EditOnePointToMoney == null
-                || EditMoneyOneToPoint == null || EditHeSoBan == null || EditOnePointToMoney == null
+                || EditMoneyOneToPoint == null || EditHeSoBan == "" || EditOnePointToMoney == ""
                 || EditMoneyOneToPoint == "")
                 {
                     MessageBoxCustom.Show(MessageBoxCustom.Error, "Bạn đang nhập thiếu hoặc sai thông tin");
                 }
                 else
                 {
+                    if(Double.Parse(EditHeSoBan) == thamSoDTO.HeSoBan && decimal.Parse(EditOnePointToMoney) == thamSoDTO.OnePointToMoney && Int32.Parse(EditMoneyOneToPoint) == thamSoDTO.MoneyToOnePoint)
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Success, "Không có gì mới để chỉnh sửa");
+                        return;
+                    }
+                    if(CheckValidation(EditHeSoBan)==false|| CheckValidation(EditOnePointToMoney) == false || CheckValidation(EditMoneyOneToPoint) == false)
+                    {
+                        MessageBoxCustom.Show(MessageBoxCustom.Error, "Hệ số bán,điểm quy đổi sang tiền và ngược lại không được là chuỗi");
+                        return;
+                    }
                     if (Double.Parse(EditHeSoBan) < 1)
                     {
                         MessageBoxCustom.Show(MessageBoxCustom.Error, "Hệ số bán không được bé hơn 1");
@@ -143,8 +152,8 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.HeThongVM
                     }
                     THAMSO tHAMSO = new THAMSO
                     (Double.Parse(EditHeSoBan), decimal.Parse(EditOnePointToMoney), Int32.Parse(EditMoneyOneToPoint));
-                   /* ThamSoDA.gI().EditThamSo(tHAMSO);
-                    MessageBoxCustom.Show(MessageBoxCustom.Success, "Đã lưu thành công!");*/
+                    ThamSoDA.gI().EditThamSo(tHAMSO);
+                    MessageBoxCustom.Show(MessageBoxCustom.Success, "Đã cập nhật thành công!");
 
                 }
             });
@@ -330,5 +339,16 @@ namespace QuanLiCuaHangThucAnNhanh.ViewModel.NguoiDungVM.QuanLi.HeThongVM
 
         }
 
+        public static bool CheckValidation(string s)
+        {
+            for (int i = 0; i < s.Length; i++)
+            {
+                if ((s[i] < '0' || s[i] > '9') && s[i]!= '.')
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

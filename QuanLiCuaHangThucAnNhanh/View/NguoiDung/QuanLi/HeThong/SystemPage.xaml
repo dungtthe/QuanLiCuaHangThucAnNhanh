@@ -85,7 +85,7 @@
                     BorderThickness="0.5"
                     FontFamily="Inter"
                     FontSize="14"
-                    Text="{Binding ThamSoDTO.HeSoBan, UpdateSourceTrigger=PropertyChanged}" />
+                    Text="{Binding EditHeSoBan, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
 
 
@@ -96,7 +96,7 @@
                     Margin="20,0,0,0"
                     VerticalAlignment="Center"
                     FontSize="30"
-                    Text="100đ tích lũy = " />
+                    Text="1đ tích lũy = " />
                 <TextBox
                     Width="250"
                     Height="53.6"
@@ -111,7 +111,7 @@
                     BorderThickness="0.5"
                     FontFamily="Inter"
                     FontSize="14"
-                    Text="{Binding ThamSoDTO.OnePointToMoney, UpdateSourceTrigger=PropertyChanged}" />
+                    Text="{Binding EditOnePointToMoney, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock
                     Height="35"
                     Margin="20,0,0,0"
@@ -142,7 +142,7 @@
                     BorderThickness="0.5"
                     FontFamily="Inter"
                     FontSize="14"
-                    Text="{Binding ThamSoDTO.MoneyToOnePoint, UpdateSourceTrigger=PropertyChanged}" />
+                    Text="{Binding EditMoneyOneToPoint, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBlock
                     Height="35"
                     Margin="20,0,0,0"
@@ -162,7 +162,7 @@
                     materialDesign:ButtonAssist.CornerRadius="24"
                     Background="#FFE0AE8A"
                     BorderThickness="0"
-                    Command="{Binding SavingCMD}"
+                    Command="{Binding SaveCMD}"
                     Content="Lưu thiết lập"
                     FontSize="25"
                     Foreground="Black" />

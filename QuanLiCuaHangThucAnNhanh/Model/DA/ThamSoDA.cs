@@ -41,7 +41,7 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
                 return null;
             }
         }
-       /* public async Task<(bool, string)> EditThamSo(THAMSO newTHAMSO)
+        public async Task<(bool, string)> EditThamSo(THAMSO newTHAMSO)
         {
             try
             {
@@ -61,7 +61,7 @@ namespace QuanLiCuaHangThucAnNhanh.Model.DA
                 return (false, null);
             }
 
-        }*/
+        }
 
     }
 }
